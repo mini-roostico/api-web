@@ -4,7 +4,7 @@
   "description": "Common components shared between services of the organization",
   "license": "ISC",
   "author": "Francesco Magnani, Luca Rubboli",
-  "type": "commonjs",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
