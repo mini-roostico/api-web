@@ -119,3 +119,12 @@ fabric.properties
 **/node_modules/
 **/.DS_Store
 **/dist
+
+# Verdaccio ignores
+
+**/htpasswd
+verdaccio/storage/socks/package.json
+verdaccio/storage/smart-buffer/package.json
+verdaccio/storage/ip-address/package.json
+verdaccio/storage/extrareqp2/package.json
+verdaccio/storage/.verdaccio-db.json
