@@ -51,7 +51,8 @@ jobs:
 #          cache: npm
 #          node-version: lts/*
       - run: cd ${{ matrix.submodule }}
-      - run: npm clean-install
+      - run: npm i
+      - run: npm ci
       - run: npm run lint:check
       - run: npm run format:check
 
@@ -113,7 +114,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd ${{ matrix.submodule }}
-          npm install
+          npm i
           npm ci
           npx semantic-release
 
