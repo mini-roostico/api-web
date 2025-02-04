@@ -36,17 +36,15 @@ jobs:
         with:
           fetch-depth: 0
       - name: Compute next release version
-        working-directory: common # ${{ matrix.submodule }}
         id: compute-next-version
         uses: nicolasfara/precompute-semantic-release-version-action@2.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: common # ${{ matrix.submodule }}
+        with:
+          github-token: ${{ github.token }}
       - name: Use the next version
         run: |
           echo "Will release: ${{ steps.compute-next-version.outputs.will-release }}"
           echo "The next version is ${{ steps.compute-next-version.outputs.next-version }}"
-#        with:
-#          github-token: ${{ github.token }}
 
   check:
     strategy:
