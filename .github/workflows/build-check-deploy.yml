@@ -75,7 +75,7 @@ jobs:
         with:
           cache: npm
           node-version: lts/*
-          node-version-file: 'common'
+          node-version-file: '/${{ matrix.os }}'
 #      - uses: actions/setup-node@v4.1.0
 #        with:
 #      - name: Publish with Verdaccio
