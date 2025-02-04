@@ -82,7 +82,7 @@ jobs:
 #        working-directory: common
       - name: Install dependencies and run tests
         run: |
-          cd api && npm install -g typescript && npm i --global jest-cli && npm install --save-dev @types/jest @types/node && npm run build && npm run test --passWithNoTests
+          cd api && npm run build && npm run test --passWithNoTests
           cd ../auth && npm run build && npm run test --passWithNoTests
           cd ..
 
