@@ -52,7 +52,7 @@ jobs:
 #          node-version: lts/*
       - run: |
           cd ${{ matrix.submodule }}
-          echo "actual dir ${{ ls }}" >> $GITHUB_OUTPUT
+          echo "actual dir $ls" >> $GITHUB_OUTPUT
           npm ci
           npm run lint:check
           npm run format:check
