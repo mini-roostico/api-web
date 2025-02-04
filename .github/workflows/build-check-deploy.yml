@@ -73,9 +73,8 @@ jobs:
         uses: DanySK/action-checkout@0.2.22
       - uses: actions/setup-node@v4.1.0
         with:
-          cache: npm
-          node-version: lts/*
-          node-version-file: '/${{ matrix.os }}'
+          node-version: '22'
+          node-version-file: './common/package.json'
 #      - uses: actions/setup-node@v4.1.0
 #        with:
 #      - name: Publish with Verdaccio
