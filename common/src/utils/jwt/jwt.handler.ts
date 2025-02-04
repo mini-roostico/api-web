@@ -10,12 +10,12 @@ export type ConfigurationObject = {
 
 export interface IJwtHandler {
     config(config: ConfigurationObject): void
-    setConfig(key: string, value: any): void
-    getConfig(key: string): any
+    setConfig(key: string, value: unknown): void
+    getConfig(key: string): unknown
 }
 
 export interface IJwtHandlerInternal extends IJwtHandler {
-    getInstance(config: ConfigurationObject | {}): IJwtHandlerInternal
+    getInstance(config: ConfigurationObject | object): IJwtHandlerInternal
     verifyAccessToken<T>(token: string): T | undefined
     verifyRefreshToken<T>(token: string): T | undefined
     signAccessToken(user, expiration: string | undefined): string
@@ -46,19 +46,19 @@ export class JwtHandler {
         this.INSTANCE = new JwtHandler(config);
     }
 
-    public static getInstance(config: ConfigurationObject | {}  = {}): JwtHandler {
+    public static getInstance(config: ConfigurationObject | object = {}): JwtHandler {
         if (!this.INSTANCE) {
             this.INSTANCE = new JwtHandler(config);
         }
         return this.INSTANCE;
     }
 
-    public setConfig(key: string, path: any): void {
+    public setConfig(key: string, path: string): void {
         this.checkPath(path);
         this.internalConfiguration[key] = path;
     }
 
-    public getConfig(key: string): any {
+    public getConfig(key: string): unknown {
         return this.internalConfiguration[key];
     }
 
@@ -70,8 +70,11 @@ export class JwtHandler {
     public verifyRefreshToken<T>(token: string): T | undefined {
         const privateKey = this.getKey("PR", "RT");
         const verifiedResponse = this.verifyJwt(token, privateKey) as T
-        // @ts-ignore
-        const subscriber = verifiedResponse.sub;
+
+        // @@ts-expect-error Property 'sub' does not exist on type 'T'.
+        // const subscriber = verifiedResponse.sub;
+        const subscriber = (verifiedResponse as { sub: string }).sub;
+
         if (!subscriber) {
             throw new Error("Unable to verify the identity of the subscriber");
         }
@@ -113,12 +116,12 @@ export class JwtHandler {
     private checkPath(path: string) {
         try {
             fs.accessSync(path);
-        } catch (error) {
+        } catch (_error) {
             throw new Error("The path " + path + " doesn't exists");
         }
     }
 
-    private signJwt(payload: Object, pKey: string, options: SignOptions) {
+    private signJwt(payload: object, pKey: string, options: SignOptions) {
         if (!("sub" in payload)) {
             throw new Error("sub property should be present in the payload, assign the User class that is making the request");
         }

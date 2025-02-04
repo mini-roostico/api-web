@@ -18,7 +18,7 @@ interface IJsonWebTokenMethods {
     validateAccessToken();
 }
 
-interface IJsonWebTokenModel extends Model<IJsonWebToken, {}, IJsonWebTokenMethods> {
+interface IJsonWebTokenModel extends Model<IJsonWebToken, object, IJsonWebTokenMethods> {
     createTokenPair(user, expirations?:{accessToken?: string, refreshToken?:string}): Promise<HydratedDocument<IJsonWebToken, IJsonWebTokenMethods>>;
 }
 

@@ -6,9 +6,9 @@ import {HttpBaseError} from "../errors/errors";
 
 export async function defaultErrorHandler(
     error: Error,
-    req: Request,
+    _req: Request,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
 ) {
     const response: ErrorResponse = {
         success: false,

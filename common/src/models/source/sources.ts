@@ -1,11 +1,11 @@
 import mongoose, {Model, Schema, Types} from "mongoose"
 
-type Func = (...args: any[]) => any
+type Func = (...args: unknown[]) => unknown
 
 export interface ISource {
-    parameters?: Map<string, any>,
+    parameters?: Map<string, string | number | boolean>, // TODO check if is okay like this
     macros?: Map<string, Func>,
-    configurations?: Map<string, any[]>,
+    configurations?: Map<string, unknown[]>,
     user: Types.ObjectId,
 }
 
@@ -15,7 +15,7 @@ interface SourceDocumentType extends Model<ISource> {
 
 const Source = new Schema<ISource, SourceDocumentType>({
     parameters: {
-        type: Map<string, any>,
+        type: Map<string, string | number | boolean>,
         required: false,
     },
     macros: {
@@ -23,7 +23,7 @@ const Source = new Schema<ISource, SourceDocumentType>({
         required: false,
     },
     configurations: {
-        type: Map<string, any[]>,
+        type: Map<string, unknown[]>,
         required: false,
     },
     user: {

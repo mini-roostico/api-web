@@ -24,6 +24,9 @@ jobs:
           echo "run-with-secrets=${{ steps.detect-secrets.outputs.has-secrets == 'true' && !github.event.repository.fork }}" >> $GITHUB_OUTPUT
 
   precompute-next-version:
+    strategy:
+      matrix:
+        submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
     outputs:
       will-release: ${{ steps.compute-next-version.outputs.will-release }}
@@ -32,6 +35,8 @@ jobs:
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
+      - name: Move to ${{ matrix.os }} directory
+        working-directory: ${{ matrix.os }}
       - name: Compute next release version
         id: compute-next-version
         uses: nicolasfara/precompute-semantic-release-version-action@2.0.2

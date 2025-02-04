@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { ErrorTypes } from "../../errors/error.types";
 
 export interface DefaultResponse {
-    success: Boolean,
+    success: boolean,
     // date: Date,
     code: StatusCodes
 }
