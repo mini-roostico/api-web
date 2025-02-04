@@ -41,15 +41,15 @@ jobs:
   check:
     strategy:
       matrix:
-        submodule: [ api, auth, common ]
+        submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
-      - uses: actions/setup-node@v4.1.0
-        with:
-          cache: npm
-          node-version: lts/*
+#      - uses: actions/setup-node@v4.1.0
+#        with:
+#          cache: npm
+#          node-version: lts/*
       - run: cd ${{ matrix.submodule }}
       - run: npm clean-install
       - run: npm run lint:check
@@ -81,6 +81,9 @@ jobs:
           cd ..
 
   release:
+    strategy:
+      matrix:
+        submodule: [ common, auth, api ]
     concurrency:
       # Only one release job at a time per branch, as only master releases.
       # Strictly sequential.
@@ -100,15 +103,16 @@ jobs:
         uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.DEPLOYMENT_TOKEN }}
-      - uses: actions/setup-node@v4.1.0
-        with:
-          cache: npm
-          node-version: lts/*
+#      - uses: actions/setup-node@v4.1.0
+#        with:
+#          cache: npm
+#          node-version: lts/*
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd ${{ matrix.submodule }}
           npm install
           npm ci
           npx semantic-release
