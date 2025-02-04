@@ -50,11 +50,12 @@ jobs:
 #        with:
 #          cache: npm
 #          node-version: lts/*
-      - run: cd ${{ matrix.submodule }}
-      - run: npm i
-      - run: npm ci
-      - run: npm run lint:check
-      - run: npm run format:check
+      - run: |
+          cd ${{ matrix.submodule }}
+          echo "actual dir ${{ ls }}" >> $GITHUB_OUTPUT
+          npm ci
+          npm run lint:check
+          npm run format:check
 
   build:
     strategy:
@@ -114,7 +115,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd ${{ matrix.submodule }}
-          npm i
+          npm install
           npm ci
           npx semantic-release
 
