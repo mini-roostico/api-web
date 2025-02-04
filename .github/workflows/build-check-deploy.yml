@@ -39,8 +39,10 @@ jobs:
         working-directory: common # ${{ matrix.submodule }}
         id: compute-next-version
         uses: nicolasfara/precompute-semantic-release-version-action@2.0.2
-        with:
-          github-token: ${{ github.token }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          github-token: ${{ github.token }}
 
   check:
     strategy:
