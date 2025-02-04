@@ -67,10 +67,10 @@ jobs:
     steps:
       - name: Checkout
         uses: DanySK/action-checkout@0.2.22
-      - uses: actions/setup-node@v4.1.0
-        with:
-          cache: npm
-          node-version: lts/*
+#      - uses: actions/setup-node@v4.1.0
+#        with:
+#          cache: npm
+#          node-version: lts/*
 #      - name: Publish with Verdaccio
 #        uses: verdaccio/github-actions/publish@master
 #        working-directory: common
