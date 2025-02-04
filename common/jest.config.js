@@ -1,13 +1,26 @@
-export default {
-    roots: [
+module.exports = {
+    "roots": [
         "<rootDir>"
     ],
-    testMatch: [
+    "testMatch": [
         "**/__tests__/**/*.+(ts|tsx|js)",
         "**/?(*.)+(spec|test).+(ts|tsx|js)"
     ],
-    transform: {
+    "transform": {
         "^.+\\.(ts|tsx)$": "ts-jest"
     },
     passWithNoTests: true,
 }
+// export default {
+//     roots: [
+//         "<rootDir>"
+//     ],
+//     testMatch: [
+//         "**/__tests__/**/*.+(ts|tsx|js)",
+//         "**/?(*.)+(spec|test).+(ts|tsx|js)"
+//     ],
+//     transform: {
+//         "^.+\\.(ts|tsx)$": "ts-jest"
+//     },
+//     passWithNoTests: true,
+// }
