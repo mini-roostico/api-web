@@ -81,7 +81,7 @@ User.pre("save", async function (next) {
 User.pre("updateOne", async function(next) {
     // TODO check if okay
     try {
-        const update = this.getUpdate() as Record<string, any>;
+        const update = this.getUpdate() as Record<string, unknown>;
 
         if (update?.password) {
             const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);

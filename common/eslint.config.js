@@ -20,7 +20,7 @@ export default typescriptEslint.config(
         },
         rules: {
             "@typescript-eslint/no-unused-vars": [
-                "warn",
+                "warning",
                 { "argsIgnorePattern": "^_" } // Ignore variables prefixed with "_"
             ]
         }

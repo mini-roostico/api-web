@@ -8,7 +8,7 @@ export interface DefaultResponse {
 }
 
 export interface Response extends DefaultResponse {
-    data: any
+    data: unknown
 }
 
 export interface ErrorResponse extends DefaultResponse {
