@@ -28,8 +28,6 @@
     /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,
     "types": [
-      "jest",
-      "node"
     ],
     "typeRoots": [
       "./src/@types",
