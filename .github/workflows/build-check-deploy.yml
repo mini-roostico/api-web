@@ -75,8 +75,6 @@ jobs:
         with:
           node-version: '22'
           node-version-file: './common/package.json'
-#      - uses: actions/setup-node@v4.1.0
-#        with:
 #      - name: Publish with Verdaccio
 #        uses: verdaccio/github-actions/publish@master
 #        working-directory: common
