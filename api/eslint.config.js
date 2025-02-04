@@ -18,6 +18,12 @@ export default typescriptEslint.config(
                 parser: typescriptEslint.parser,
             },
         },
+        rules: {
+            "@typescript-eslint/no-unused-vars": [
+                "warn",
+                { "argsIgnorePattern": "^_" } // Ignore variables prefixed with "_"
+            ]
+        }
     },
     eslintConfigPrettier
 );
