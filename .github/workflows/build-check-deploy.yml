@@ -82,7 +82,7 @@ jobs:
 #        working-directory: common
       - name: Install dependencies and run tests
         run: |
-          cd api && npm run build && npm run test --passWithNoTests
+          cd api && npm install -g typescript && npm run build && npm run test --passWithNoTests
           cd ../auth && npm run build && npm run test --passWithNoTests
           cd ..
 
