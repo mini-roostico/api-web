@@ -1,6 +1,6 @@
 {
   "name": "common",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Common components shared between services of the organization",
   "license": "ISC",
   "author": "Francesco Magnani, Luca Rubboli",

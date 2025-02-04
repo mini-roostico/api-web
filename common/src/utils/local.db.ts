@@ -1,6 +1,6 @@
 /**
  * This files contains all the utils functions to create a local database for
- * testing all the models logic of the organization
+ * testing all the models logic
  */
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";

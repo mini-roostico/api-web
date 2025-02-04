@@ -1,8 +1,8 @@
-import { HydratedDocument, Model, model, Schema, Types } from "mongoose";
-import { User } from "../users/users";
-import { isEmail } from "validator";
-import { JwtHandler } from "../../utils/jwt/jwt.handler";
-import { UnauthorizedError } from "../../errors/errors";
+import {HydratedDocument, Model, model, Schema, Types} from "mongoose";
+import {User} from "../users/users";
+import {isEmail} from "validator";
+import {JwtHandler} from "../../utils/jwt/jwt.handler";
+import {UnauthorizedError} from "../../errors/errors";
 
 interface IJsonWebToken {
     _id: Types.ObjectId;

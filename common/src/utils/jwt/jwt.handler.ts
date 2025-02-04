@@ -47,7 +47,7 @@ export class JwtHandler {
     }
 
     public static getInstance(config: ConfigurationObject | {}  = {}): JwtHandler {
-        if(!this.INSTANCE) {
+        if (!this.INSTANCE) {
             this.INSTANCE = new JwtHandler(config);
         }
         return this.INSTANCE;
@@ -87,12 +87,12 @@ export class JwtHandler {
     }
 
     public signRefreshToken(user, expiration: string | undefined = undefined): string {
-            const privateKey = this.getKey("PR", "RT");
-            if(!expiration) {
-                expiration = "30m";
-            }
-            return this.signJwt({sub: user}, privateKey, {expiresIn: expiration});
+        const privateKey = this.getKey("PR", "RT");
+        if (!expiration) {
+            expiration = "30m";
         }
+        return this.signJwt({sub: user}, privateKey, {expiresIn: expiration});
+    }
 
     private getKey(keyType: "PU" | "PR", tokenType: "AT" | "RT") : string {
         let keyPath: string | undefined;
