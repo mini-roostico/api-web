@@ -91,17 +91,11 @@ jobs:
           cd api
           npm install --registry http://localhost:4873/
 
-      - name: Run tests inside projects
-        strategy:
-          matrix:
-            module: [auth, api]
-        run: |
-          cd ${{ matrix.module }}
-          npm run lint:check
-          npm run format:check
-          npm test 
-          npm run build
-      
+      - name: Run auth test
+        run: cd auth && npm check
+
+      - name: Run api test
+        run: cd api && npm check
 
   release:
     concurrency:
