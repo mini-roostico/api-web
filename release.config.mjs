@@ -1,5 +1,5 @@
 const publishCmd = `
-cd common && npm publish --access public
+cd common && npm version $SEMANTIC_RELEASE_NEXT_VERSION && npm publish --access public
 `
 
 import config from 'semantic-release-preconfigured-conventional-commits' with { type: "json" };
