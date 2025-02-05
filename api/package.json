@@ -16,6 +16,9 @@
     "format:write": "prettier --write src/",
     "format:check": "prettier --check src/"
   },
+  "engines" : {
+    "node" : "22.13"
+  },
   "dependencies": {
     "accesscontrol": "^2.2.1",
     "common": "^1.0.5",
