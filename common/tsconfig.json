@@ -27,8 +27,8 @@
     /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,
     "types": [
-      "jest",
-      "node"
+      "node",
+      "jest"
     ],
     "typeRoots": [
       "./src/@types",
@@ -39,6 +39,8 @@
     "src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts"
   ]
 }

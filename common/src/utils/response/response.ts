@@ -2,19 +2,19 @@ import { StatusCodes } from "http-status-codes";
 import { ErrorTypes } from "../../errors/error.types";
 
 export interface DefaultResponse {
-    success: Boolean,
-    // date: Date,
-    code: StatusCodes
+  success: boolean;
+  // date: Date,
+  code: StatusCodes;
 }
 
 export interface Response extends DefaultResponse {
-    data: any
+  data: unknown;
 }
 
 export interface ErrorResponse extends DefaultResponse {
-    error: {
-        name: string,
-        type: ErrorTypes,
-        message: string,
-    }
+  error: {
+    name: string;
+    type: ErrorTypes;
+    message: string;
+  };
 }

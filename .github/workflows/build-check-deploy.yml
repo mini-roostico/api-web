@@ -24,6 +24,9 @@ jobs:
           echo "run-with-secrets=${{ steps.detect-secrets.outputs.has-secrets == 'true' && !github.event.repository.fork }}" >> $GITHUB_OUTPUT
 
   precompute-next-version:
+    strategy:
+      matrix:
+        submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
     outputs:
       will-release: ${{ steps.compute-next-version.outputs.will-release }}
@@ -41,21 +44,16 @@ jobs:
   check:
     strategy:
       matrix:
-        submodule: [ api, auth, common ]
+        submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
-    needs:
-      - build
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
-      - uses: actions/setup-node@v4.1.0
-        with:
-          cache: npm
-          node-version: lts/*
-      - run: cd ${{ matrix.submodule }}
-      - run: npm clean-install
-      - run: npm run lint:check
-      - run: npm run format:check
+      - run: |
+          cd ${{ matrix.submodule }}
+          npm ci
+          npm run lint:check
+          npm run format:check
 
   build:
     strategy:
@@ -70,19 +68,19 @@ jobs:
       - name: Checkout
         uses: DanySK/action-checkout@0.2.22
       - uses: actions/setup-node@v4.1.0
-        with:
-          cache: npm
-          node-version: lts/*
 #      - name: Publish with Verdaccio
 #        uses: verdaccio/github-actions/publish@master
 #        working-directory: common
       - name: Install dependencies and run tests
         run: |
-          cd api && npm build && npm test --passWithNoTests
-          cd ../auth && npm build && npm test --passWithNoTests
+          cd api && npm ci && npm run build && npm run test --passWithNoTests
+          cd ../auth && npm ci && npm run build && npm run test --passWithNoTests
           cd ..
 
   release:
+    strategy:
+      matrix:
+        submodule: [ common, auth, api ]
     concurrency:
       # Only one release job at a time per branch, as only master releases.
       # Strictly sequential.
@@ -102,15 +100,12 @@ jobs:
         uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.DEPLOYMENT_TOKEN }}
-      - uses: actions/setup-node@v4.1.0
-        with:
-          cache: npm
-          node-version: lts/*
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd ${{ matrix.submodule }}
           npm install
           npm ci
           npx semantic-release
