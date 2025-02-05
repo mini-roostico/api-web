@@ -147,12 +147,12 @@ jobs:
     needs:
       - check-secrets
       - test-and-check
-      #      - precompute-next-version
-      #- release
-    #    if: |
-    #      !cancelled() &&
-    #      !contains(needs.precompute-next-version.result, 'failure') &&
-    #      needs.precompute-next-version.outputs.will-release == 'true'
+      - precompute-next-version
+      - release
+    if: |
+      !cancelled() &&
+      !contains(needs.precompute-next-version.result, 'failure') &&
+      needs.precompute-next-version.outputs.will-release == 'true'
     strategy:
       matrix:
         service: [ api, auth ]
