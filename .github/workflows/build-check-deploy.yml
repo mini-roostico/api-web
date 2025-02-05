@@ -24,9 +24,6 @@ jobs:
           echo "run-with-secrets=${{ steps.detect-secrets.outputs.has-secrets == 'true' && !github.event.repository.fork }}" >> $GITHUB_OUTPUT
 
   precompute-next-version:
-    strategy:
-      matrix:
-        submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
     outputs:
       will-release: ${{ steps.compute-next-version.outputs.will-release }}
