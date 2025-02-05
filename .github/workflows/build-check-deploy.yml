@@ -83,16 +83,22 @@ jobs:
           cd common
           npm publish --registry http://localhost:4873/
 
-      - name: Install dependencies for API project
+      - name: Install dependencies for api project
         run: |
           cd api
+          npm install --registry http://localhost:4873/
+
+      - name: Run api test
+        run: cd api && npm run check
+
+      - name: Install dependencies for auth project
+        run: |
+          cd auth
           npm install --registry http://localhost:4873/
 
       - name: Run auth test
         run: cd auth && npm run check
 
-      - name: Run api test
-        run: cd api && npm run check
 
   release:
     concurrency:
