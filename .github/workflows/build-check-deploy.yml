@@ -72,9 +72,9 @@ jobs:
       - name: Checkout
         uses: DanySK/action-checkout@0.2.22
       - uses: actions/setup-node@v4.1.0
-        with:
-          node-version: '22'
-          node-version-file: './common/package.json'
+#        with:
+#          node-version: '22'
+#          node-version-file: './common/package.json'
 #      - name: Publish with Verdaccio
 #        uses: verdaccio/github-actions/publish@master
 #        working-directory: common
