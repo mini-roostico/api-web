@@ -89,10 +89,10 @@ jobs:
           npm install --registry http://localhost:4873/
 
       - name: Run auth test
-        run: cd auth && npm check
+        run: cd auth && npm run check
 
       - name: Run api test
-        run: cd api && npm check
+        run: cd api && npm run check
 
   release:
     concurrency:
