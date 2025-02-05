@@ -4,7 +4,7 @@ RUN mkdir -p /verdaccio/plugins \
   && cd /verdaccio/plugins \
   && npm install --global-style --no-bin-links --omit=optional verdaccio-auth-memory@latest
 
-FROM verdaccio/verdaccio:5
+FROM verdaccio/verdaccio:6
 
 ADD conf/config.yaml /verdaccio/conf/config.yaml
 
