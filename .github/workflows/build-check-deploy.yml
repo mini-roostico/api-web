@@ -41,18 +41,50 @@ jobs:
         with:
           github-token: ${{ github.token }}
 
+  verdaccio-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Verdaccio Docker Image
+        run: |
+          cd common
+          touch conf/htpasswd
+          echo ${{ secrets.HTPASSWD }} >> conf/htpasswd
+          docker build -t c-verdaccio .
+          docker run -d --name verdaccio -p 4873:4873 c-verdaccio
+      - name: Wait for Verdaccio to be ready
+        run: |
+          for i in {1..30}; do
+            if curl --silent --fail http://localhost:4873/-/ping; then
+              echo "Verdaccio is ready!"
+              exit 0
+            fi
+            echo "Waiting for Verdaccio..."
+            sleep 2
+          done
+          echo "Verdaccio did not start in time" >&2
+          exit 1
+      - name: Configure npm to use Verdaccio
+        run: |
+          echo "//localhost:4873/:_authToken=\"${{ secrets.VERDACCIO_PASSWD }}\"" > ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+      - name: Publish local package
+        run: |
+          cd common
+          npm ci
+          npm publish --registry http://localhost:4873/
+
   check:
     strategy:
       matrix:
         submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
+    needs:
+      - verdaccio-build
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
-      - name: Start Verdaccio
-        run: npx verdaccio & # Runs it in the background
-      - name: Configure npm
-        run: npm config set registry http://localhost:4873
       - run: |
           cd ${{ matrix.submodule }}
           npm ci
