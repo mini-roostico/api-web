@@ -40,17 +40,26 @@ jobs:
 
   test-and-check:
     runs-on: ubuntu-latest
+    concurrency:
+      # Only one release job at a time per branch, as only master releases.
+      # Strictly sequential.
+      group: test-and-check
     strategy:
       matrix:
         module: [ api, auth ]
 
     services:
       verdaccio:
-        image: verdaccio/verdaccio:4
+        image: verdaccio/verdaccio:6
         ports:
         - 4873:4873
         volumes:
           - ${{ github.workspace }}/common/conf:/verdaccio/conf
+        options: >-
+          --health-cmd "curl --silent --fail http://localhost:4873/-/ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     needs:
       - check-secrets
