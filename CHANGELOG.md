@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/mini-roostico/api-web/compare/1.1.0...1.2.0) (2025-02-06)
+
+### Features
+
+* add user controller and route, redis configs and accesscontrol rules ([139d61c](https://github.com/mini-roostico/api-web/commit/139d61c9c9921e48f607ef204c84f85187d74c33))
+
+### Refactoring
+
+* refactor according to linter rules ([21a3315](https://github.com/mini-roostico/api-web/commit/21a3315e5cd2cdb5e35819e65980cbbc9e0238df))
+
 ## [1.1.0](https://github.com/mini-roostico/api-web/compare/1.0.0...1.1.0) (2025-02-06)
 
 ### Features
