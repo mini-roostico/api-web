@@ -24,9 +24,6 @@ jobs:
           echo "run-with-secrets=${{ steps.detect-secrets.outputs.has-secrets == 'true' && !github.event.repository.fork }}" >> $GITHUB_OUTPUT
 
   precompute-next-version:
-    strategy:
-      matrix:
-        submodule: [ common, auth, api ]
     runs-on: ubuntu-24.04
     outputs:
       will-release: ${{ steps.compute-next-version.outputs.will-release }}
@@ -97,52 +94,98 @@ jobs:
       matrix:
         os: [ windows-2022, macos-14, ubuntu-24.04 ]
     runs-on: ${{ matrix.os }}
+
+  test-and-check:
+    runs-on: ubuntu-latest
     needs:
       - check-secrets
-      - check
     steps:
-      - name: Checkout
-        uses: DanySK/action-checkout@0.2.22
-      - uses: actions/setup-node@v4.1.0
-#      - name: Publish with Verdaccio
-#        uses: verdaccio/github-actions/publish@master
-#        working-directory: common
-      - name: Install dependencies and run tests
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run tests on the common project
         run: |
-          cd api && npm ci && npm run build && npm run test --passWithNoTests
-          cd ../auth && npm ci && npm run build && npm run test --passWithNoTests
-          cd ..
+          cd common
+          npm install
+          npm run lint:check
+          npm run format:check
+          npm test
+
+      - name: Build Verdaccio Docker Image
+        run: |
+          cd common
+          docker build -t c-verdaccio .
+          docker run -d --name verdaccio -p 4873:4873 c-verdaccio
+
+      - name: Wait for Verdaccio to be ready
+        run: |
+          for i in {1..30}; do
+            if curl --silent --fail http://localhost:4873/-/ping; then
+              echo "Verdaccio is ready!"
+              exit 0
+            fi
+            echo "Waiting for Verdaccio..."
+            sleep 2
+          done
+          echo "Verdaccio did not start in time" >&2
+          exit 1
+
+      - name: Configure npm to use Verdaccio
+        run: |
+          echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+
+      - name: Publish local package
+        run: |
+          cd common
+          npm publish --registry http://localhost:4873/
+
+      - name: Install dependencies for api project
+        run: |
+          cd api
+          npm install --registry http://localhost:4873/
+
+      - name: Run api test
+        run: cd api && npm run check
+
+      - name: Install dependencies for auth project
+        run: |
+          cd auth
+          npm install --registry http://localhost:4873/
+
+      - name: Run auth test
+        run: cd auth && npm run check
+
 
   release:
-    strategy:
-      matrix:
-        submodule: [ common, auth, api ]
     concurrency:
       # Only one release job at a time per branch, as only master releases.
       # Strictly sequential.
       group: release-${{ github.event.number || github.ref }}
-    permissions: write-all
+    permissions:
+      contents: write
     runs-on: ubuntu-24.04
     needs:
       - check-secrets
-      - check
-      - build
+      - test-and-check
     if: |
       always() &&
-      needs.check-secrets.outputs.run-with-secrets == 'true' &&
-      needs.check.result == 'success'
+      needs.check-secrets.outputs.run-with-secrets == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.DEPLOYMENT_TOKEN }}
+      - uses: actions/setup-node@v4.2.0
+        with:
+          cache: npm
+          node-version: lts/*
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd ${{ matrix.submodule }}
-          npm install
           npm ci
           npx semantic-release
 
@@ -156,46 +199,50 @@ jobs:
       group: deploy-to-registry-${{ github.event.number || github.ref }}
     runs-on: ubuntu-24.04
     needs:
+      - check-secrets
+      - test-and-check
       - precompute-next-version
       - release
     if: |
       !cancelled() &&
       !contains(needs.precompute-next-version.result, 'failure') &&
       needs.precompute-next-version.outputs.will-release == 'true'
+    strategy:
+      matrix:
+        service: [ api, auth ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        uses: docker/login-action@327cd5a69de6c009b9ce71bce8395f28e651bf99
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        uses: docker/metadata-action@8e1d5461f02b7886d3c1a774bfbd873650445aa2
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.service }}
       - name: Build and push Docker image
         id: push
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
         with:
-          context: .
+          context: ${{ matrix.service }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}-${{ matrix.service }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
   success:
     runs-on: ubuntu-latest
     needs:
-      - build
-      - check
+      - test-and-check
       - release
       - deploy-to-registry
     if: >-

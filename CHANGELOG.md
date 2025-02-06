@@ -1,0 +1,68 @@
+## 1.0.0 (2025-02-05)
+
+### Features
+
+* implemented errors, handler for auth, error, limiter, response and validation. Models implementation for jwt tokens, sources and users. Generic utils for jwt handler, limiter and response, and utils for local testing db ([70ac419](https://github.com/mini-roostico/api-web/commit/70ac4199a1bf594d2012a60b34f32c20b864c3cb))
+
+### Build and continuous integration
+
+* add jest and node install for windows not working ([1dcc8b0](https://github.com/mini-roostico/api-web/commit/1dcc8b00538dd3fde1f678845676f33ed1be9faa))
+* add linter configs and an empty file in packages ([17e503b](https://github.com/mini-roostico/api-web/commit/17e503b17c560f3f47a42699bcd9be7e7769c8b5))
+* add package.json to main package ([3fb39cf](https://github.com/mini-roostico/api-web/commit/3fb39cfd3e15adcb448f983fdce0a298d04203c1))
+* add release config ([b5d6bfc](https://github.com/mini-roostico/api-web/commit/b5d6bfc82ec539a12f7b1e10117891ea4be436fc))
+* add ts install for windows not working ([33f5d95](https://github.com/mini-roostico/api-web/commit/33f5d95bc84049b24228cbd5cddc12e7d0303dee))
+* added config for verdaccio in CI ([810c33d](https://github.com/mini-roostico/api-web/commit/810c33d409d7bb72ac9e0e47dd524b4d50594d27))
+* added dependencies install for auth project ([fa85d9a](https://github.com/mini-roostico/api-web/commit/fa85d9a294c83f33d8e33b2b73cf545d1b4f3b8e))
+* added Dockerfiles ([3ed21d4](https://github.com/mini-roostico/api-web/commit/3ed21d4580faba0c9b489221351993c46c495e1d))
+* added publish command inside release.config.mjs ([278a54c](https://github.com/mini-roostico/api-web/commit/278a54cd423698d37c3d21aa0218c067d52db5e9))
+* added release command with new version ([c916aa8](https://github.com/mini-roostico/api-web/commit/c916aa88c163b60a435524d7c57c36d43b21d8ad))
+* applied restyle for linter ([0205b87](https://github.com/mini-roostico/api-web/commit/0205b876b856792881908aca3a1f3f471b336af2))
+* attempt to modify warning for unused vars ([3f01330](https://github.com/mini-roostico/api-web/commit/3f01330c1809be81baa7d1f4ddf7ed2f9872d1f3))
+* changed common to module ([6e327b2](https://github.com/mini-roostico/api-web/commit/6e327b2c688d775d8613bc30dd4025d10271476b))
+* changed name of the common package ([443715c](https://github.com/mini-roostico/api-web/commit/443715c99cec407785cfe7feefc1e1b5eebfe59e))
+* collapsed commands in same run ([46b9172](https://github.com/mini-roostico/api-web/commit/46b9172b462b7f3f1745c217d5e24bac829403a7))
+* de-commented needs for deploy job ([5a0b70a](https://github.com/mini-roostico/api-web/commit/5a0b70a3d66a6dc41eba31357b883483bd431bba))
+* fix cyclic dependency ([966402e](https://github.com/mini-roostico/api-web/commit/966402e3b3a0220247781ee48cc91c1cc2ae999b))
+* fix install rather than clean-install ([4d9fcff](https://github.com/mini-roostico/api-web/commit/4d9fcffef139bc867e1a4be51ce259a8652af15e))
+* fix node version for semantic-release action ([940ffd1](https://github.com/mini-roostico/api-web/commit/940ffd15acb2b08d0b3111fb30d71a96997ec3da))
+* fix to install jest and node in windows env ([2871577](https://github.com/mini-roostico/api-web/commit/2871577ddaa41b9699a675703906358c3fe7463b))
+* fix to install jest and node in windows env ([879face](https://github.com/mini-roostico/api-web/commit/879face6b450c4931f706560c29e0863847e5aad))
+* fix to install jest and node in windows env ([753193d](https://github.com/mini-roostico/api-web/commit/753193dfff55646b94e7c3d9800d112143758a0f))
+* fix to install jest and node in windows env ([0eab538](https://github.com/mini-roostico/api-web/commit/0eab5380c2b95997c507ec087de98b5dde313153))
+* fixed npm script call ([62721f0](https://github.com/mini-roostico/api-web/commit/62721f01e5e1dd25a9c7bc85a58b44cbcb2b51cd))
+* linter modified for unused variables convention, set up working directory ([0d6b90d](https://github.com/mini-roostico/api-web/commit/0d6b90d96d3f7847844771edad30f250ef439850))
+* minor ([52a260a](https://github.com/mini-roostico/api-web/commit/52a260ad5b3e5ca3d149b110f880c849c265f747))
+* minor ([e06b28a](https://github.com/mini-roostico/api-web/commit/e06b28ad0b8f0851a003bd141b8cb4a8992b3caf))
+* minor ([04ab2c0](https://github.com/mini-roostico/api-web/commit/04ab2c08a76cbd11fe816f93a6c464e79da8b1b2))
+* minor ([f41261f](https://github.com/mini-roostico/api-web/commit/f41261f183ad15ed79949ddd43dd5e3472f37a01))
+* minor ([9b74831](https://github.com/mini-roostico/api-web/commit/9b74831eb9ac897d2ac3631816900c55947d5c14))
+* minor ([90b3cbf](https://github.com/mini-roostico/api-web/commit/90b3cbfed9ba63f28b79b8ccc37b317246b4604a))
+* minor ([9efe0ca](https://github.com/mini-roostico/api-web/commit/9efe0ca1eb60851274490ddba383473fdd03ddcf))
+* minor ([097e6da](https://github.com/mini-roostico/api-web/commit/097e6dac4b8a3ecd2024be6043ea787c2d16e361))
+* minor ([9b5cfb7](https://github.com/mini-roostico/api-web/commit/9b5cfb7e67016b5e7863e2df2f9e99bf36896a90))
+* minor ([c5caa4b](https://github.com/mini-roostico/api-web/commit/c5caa4b8a12837c0c4e4b95968e2e6ad9682c052))
+* minor ([0425bf6](https://github.com/mini-roostico/api-web/commit/0425bf69123de05c4c03cd5840c209189be71212))
+* minor ([4bea8bd](https://github.com/mini-roostico/api-web/commit/4bea8bd8b0ac9d5f57edbb5dc95d70b4b70293fd))
+* minor ([de3297b](https://github.com/mini-roostico/api-web/commit/de3297bce86c949a258fd127e3dac24d6763c467))
+* minor ([9851fb3](https://github.com/mini-roostico/api-web/commit/9851fb3acc16bb831016731dac6db75f34723136))
+* minor ([acf559a](https://github.com/mini-roostico/api-web/commit/acf559a3fedfb330678b9879d1b85242d606d3f5))
+* minor ([221d800](https://github.com/mini-roostico/api-web/commit/221d800178192899972f24f18848a5c1f9a6f12b))
+* minor ([c946d23](https://github.com/mini-roostico/api-web/commit/c946d231c3fce476425f086d5cd3cb8fe6c6a8e6))
+* removed illegal ci workflow. Added utility script to package.json ([2059ef1](https://github.com/mini-roostico/api-web/commit/2059ef13202c8230dd0e0863148586bd1073ca3f))
+* removed matrix on precompute-next-version job ([86dc23e](https://github.com/mini-roostico/api-web/commit/86dc23e80c5b360ae4ee276b8f88c4a97c6848e6))
+* removed node setup for the whole project ([c0e9e84](https://github.com/mini-roostico/api-web/commit/c0e9e84f2edfa7c14ab85cf8109cd55d521ad4ff))
+* removed node setup for the whole project ([f739626](https://github.com/mini-roostico/api-web/commit/f7396265aeab6a810893dd827a8f17119bbcab50))
+* removed node version file specification ([cb653eb](https://github.com/mini-roostico/api-web/commit/cb653eb9b949c1272871c88cc8f38a1d53e66a01))
+* removed output from precompute job ([680559b](https://github.com/mini-roostico/api-web/commit/680559b78b82adbe2548557d27661a9add814b79))
+* setup of test-and-check, release and deploy-to-registry jobs ([d904d40](https://github.com/mini-roostico/api-web/commit/d904d40efe663b38a190c60494a23c589971f13c))
+
+### General maintenance
+
+* changed jest config to ES module syntax ([6453a07](https://github.com/mini-roostico/api-web/commit/6453a07b9a7e5b1aa414ba38479fb5a10e42bc00))
+* fix typo in github workflows ([b0279c5](https://github.com/mini-roostico/api-web/commit/b0279c5950b53066888f6b3833ba35a4f4c804b2))
+* proveded verdaccio configs ([285791c](https://github.com/mini-roostico/api-web/commit/285791c18d35d3dda82cf6c218980aa999d2cca9))
+* provided starting setup for modules api, auth and common, as well as starting github actions ([6278492](https://github.com/mini-roostico/api-web/commit/6278492debbb0000fb1fbc2005edcbe4c40db284))
+
+### Style improvements
+
+* applied formatter ([f5ef46f](https://github.com/mini-roostico/api-web/commit/f5ef46f10211df40f3d544de39f4b6384873c8f0))
