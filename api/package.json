@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API Server for subjekt project",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "author": "Francesco Magnani, Luca Rubboli",
   "type": "module",
   "main": "dist/app.js",
@@ -21,7 +21,7 @@
     "node": "22.13"
   },
   "dependencies": {
-    "@mini-roostico/api-common": "^1.1.1",
+    "@mini-roostico/api-common": "^1.0.0",
     "accesscontrol": "^2.2.1",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",

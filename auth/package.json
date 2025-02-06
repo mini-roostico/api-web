@@ -2,7 +2,7 @@
   "name": "auth",
   "version": "1.0.0",
   "description": "JWT-based authentication module for handling user sessions, access control, and token verification.",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "author": "Francesco Magnagni, Luca Rubboli",
   "type": "module",
   "main": "dist/app.js",
@@ -18,7 +18,7 @@
     "check": "npm run lint:check && npm run format:check && npm test && npm run build"
   },
   "dependencies": {
-    "@mini-roostico/api-common": "^1.0.5"
+    "@mini-roostico/api-common": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
