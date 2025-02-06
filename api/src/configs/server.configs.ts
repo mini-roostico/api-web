@@ -1,6 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
-import {defaultErrorHandler, defaultResponseHandler, JwtHandler} from "@mini-roostico/api-common";
+import {
+  defaultErrorHandler,
+  defaultResponseHandler,
+  JwtHandler,
+} from "@mini-roostico/api-common";
 import { resolve } from "path";
 import { createServer, Server } from "node:http";
 import MongooseConfig from "./mongoose.config";

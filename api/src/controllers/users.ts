@@ -1,7 +1,13 @@
-import {Request, Response, NextFunction} from "express";
-import {StatusCodes} from "http-status-codes";
-import {BadRequestError, ErrorTypes, NotFoundError, UnauthorizedError, User} from "@mini-roostico/api-common";
-import {ac} from "../configs/accesscontrol.config";
+import { Request, Response, NextFunction } from "express";
+import { StatusCodes } from "http-status-codes";
+import {
+  BadRequestError,
+  ErrorTypes,
+  NotFoundError,
+  UnauthorizedError,
+  User,
+} from "@mini-roostico/api-common";
+import { ac } from "../configs/accesscontrol.config";
 
 /**
  * Set the user identity to work with. This function should be used when, in an API control method, an admin entity
@@ -12,33 +18,40 @@ import {ac} from "../configs/accesscontrol.config";
  * @param next
  * @param isAllowed
  */
-async function setWorkData(req: Request, res: Response, next: NextFunction, isAllowed: boolean) {
-    let user = res.locals.user;
-    const email = req.body.email;
-    if (email && email !== user.email) {
-        try {
-            if (!isAllowed) {
-                next(
-                    new UnauthorizedError(
-                        "Can't access to the resource",
-                        undefined,
-                        ErrorTypes.AUTHENTICATION_ERROR
-                    )
-                );
-            }
-            user = await User.findOne({email: email});
-            if (user == undefined) {
-                next(new NotFoundError(
-                    "Can't find the user",
-                    undefined,
-                    ErrorTypes.AUTHENTICATION_ERROR
-                ));
-            }
-        } catch(error) {
-            throw error;
-        }
+async function setWorkData(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+  isAllowed: boolean,
+) {
+  let user = res.locals.user;
+  const email = req.body.email;
+  if (email && email !== user.email) {
+    try {
+      if (!isAllowed) {
+        next(
+          new UnauthorizedError(
+            "Can't access to the resource",
+            undefined,
+            ErrorTypes.AUTHENTICATION_ERROR,
+          ),
+        );
+      }
+      user = await User.findOne({ email: email });
+      if (user == undefined) {
+        next(
+          new NotFoundError(
+            "Can't find the user",
+            undefined,
+            ErrorTypes.AUTHENTICATION_ERROR,
+          ),
+        );
+      }
+    } catch (error) {
+      throw new Error("An error occurred: " + error.message);
     }
-    return user;
+  }
+  return user;
 }
 
 /**
@@ -47,32 +60,32 @@ async function setWorkData(req: Request, res: Response, next: NextFunction, isAl
  * @param res
  * @param next
  */
-export async function createUser(req: Request, res: Response, next: NextFunction) {
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        firstName: req.body.firstName,
-        secondName: req.body.secondName,
-        role: req.body.role
-    });
-    try {
-        await user.save();
-        res.locals.code = StatusCodes.CREATED;
-        res.locals.data = {
-            email: user.email,
-            firstName: user.firstName,
-            secondName: user.secondName
-        };
-    } catch(error) {
-        return next(
-            new BadRequestError(
-                error.message,
-                undefined,
-                ErrorTypes.REGISTER_ERROR
-            )
-        );
-    }
-    return next();
+export async function createUser(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password,
+    firstName: req.body.firstName,
+    secondName: req.body.secondName,
+    role: req.body.role,
+  });
+  try {
+    await user.save();
+    res.locals.code = StatusCodes.CREATED;
+    res.locals.data = {
+      email: user.email,
+      firstName: user.firstName,
+      secondName: user.secondName,
+    };
+  } catch (error) {
+    return next(
+      new BadRequestError(error.message, undefined, ErrorTypes.REGISTER_ERROR),
+    );
+  }
+  return next();
 }
 
 /**
@@ -81,23 +94,27 @@ export async function createUser(req: Request, res: Response, next: NextFunction
  * @param res
  * @param next
  */
-export async function getProfile(req: Request, res: Response, next: NextFunction) {
-    let user;
-    const isAllowed = ac.can(res.locals.user.role).readAny('users').granted;
-    try {
-        user = await setWorkData(req, res, next, isAllowed);
-        res.locals.code = StatusCodes.OK;
-        res.locals.data = {
-            id: user._id.toString(),
-            email: user.email,
-            firstName: user.firstName,
-            secondName: user.secondName,
-            role: user.role
-        };
-    } catch (error) {
-        return next(error);
-    }
-    return next();
+export async function getProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  let user;
+  const isAllowed = ac.can(res.locals.user.role).readAny("users").granted;
+  try {
+    user = await setWorkData(req, res, next, isAllowed);
+    res.locals.code = StatusCodes.OK;
+    res.locals.data = {
+      id: user._id.toString(),
+      email: user.email,
+      firstName: user.firstName,
+      secondName: user.secondName,
+      role: user.role,
+    };
+  } catch (error) {
+    return next(error);
+  }
+  return next();
 }
 
 /**
@@ -106,32 +123,36 @@ export async function getProfile(req: Request, res: Response, next: NextFunction
  * @param res
  * @param next
  */
-export async function editProfile(req: Request, res: Response, next: NextFunction) {
-    let user;
-    const isAllowed = ac.can(res.locals.user.role).updateAny('users').granted;
-    try {
-        user = await setWorkData(req, res, next, isAllowed);
-    } catch (error) {
-        return next(error);
-    }
-    const data = req.body.data;
-    if (data === null || data === undefined) {
-        return next(
-            new BadRequestError(
-                "Request need to have a \"data\" field",
-                undefined,
-                ErrorTypes.VALIDATION_ERROR
-            )
-        );
-    }
-    try {
-        await User.updateOne({ email: user.email }, data);
-        res.locals.code = StatusCodes.OK;
-        res.locals.data = true;
-    } catch(error) {
-        return next(error);
-    }
-    return next();
+export async function editProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  let user;
+  const isAllowed = ac.can(res.locals.user.role).updateAny("users").granted;
+  try {
+    user = await setWorkData(req, res, next, isAllowed);
+  } catch (error) {
+    return next(error);
+  }
+  const data = req.body.data;
+  if (data === null || data === undefined) {
+    return next(
+      new BadRequestError(
+        'Request need to have a "data" field',
+        undefined,
+        ErrorTypes.VALIDATION_ERROR,
+      ),
+    );
+  }
+  try {
+    await User.updateOne({ email: user.email }, data);
+    res.locals.code = StatusCodes.OK;
+    res.locals.data = true;
+  } catch (error) {
+    return next(error);
+  }
+  return next();
 }
 
 /**
@@ -140,32 +161,39 @@ export async function editProfile(req: Request, res: Response, next: NextFunctio
  * @param res
  * @param next
  */
-export async function deleteProfile(req: Request, res: Response, next: NextFunction) {
-    let user;
-    const isAllowed = ac.can(res.locals.user.role).deleteAny('users').granted;
-    try {
-        user = await setWorkData(req, res, next, isAllowed);
-        await User.deleteOne({ email: user.email });
-        res.locals.code = StatusCodes.OK;
-        res.locals.data = true;
-    } catch (error) {
-        return next(error);
-    }
-    return next();
+export async function deleteProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  let user;
+  const isAllowed = ac.can(res.locals.user.role).deleteAny("users").granted;
+  try {
+    user = await setWorkData(req, res, next, isAllowed);
+    await User.deleteOne({ email: user.email });
+    res.locals.code = StatusCodes.OK;
+    res.locals.data = true;
+  } catch (error) {
+    return next(error);
+  }
+  return next();
 }
 
 function generateRandomPassword(length: number): string {
-    const validChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
-    let password = '';
-    for (let i = 0; i < length; i++) {
-        let randomChar = validChars.charAt(Math.floor(Math.random() * validChars.length));
-        password += randomChar;
-    }
-    return password;
+  const validChars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomChar = validChars.charAt(
+      Math.floor(Math.random() * validChars.length),
+    );
+    password += randomChar;
+  }
+  return password;
 }
 
 function getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
@@ -174,27 +202,31 @@ function getRandomNumber(min: number, max: number): number {
  * @param res
  * @param next
  */
-export async function passwordForgotten(req: Request, res: Response, next: NextFunction) {
-    const regexPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/;
-    const passwordLength = getRandomNumber(10, 16);
-    let password = '';
-    while (!regexPattern.test(password)) {
-        password = generateRandomPassword(passwordLength);
-    }
-    const data = {'password': password}
-    try {
-        await User.updateOne({ email: req.body.email }, data);
-    } catch(error) {
-        return next(error);
-    }
-    const message = {
-        html: `
+export async function passwordForgotten(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const regexPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/;
+  const passwordLength = getRandomNumber(10, 16);
+  let password = "";
+  while (!regexPattern.test(password)) {
+    password = generateRandomPassword(passwordLength);
+  }
+  const data = { password: password };
+  try {
+    await User.updateOne({ email: req.body.email }, data);
+  } catch (error) {
+    return next(error);
+  }
+  const message = {
+    html: `
             This is the new password: <b>${password}</b>
-        `
-    };
-    res.locals.code = StatusCodes.CREATED;
-    res.locals.data = {
-        msg: message,
-    }
-    return next();
+        `,
+  };
+  res.locals.code = StatusCodes.CREATED;
+  res.locals.data = {
+    msg: message,
+  };
+  return next();
 }
