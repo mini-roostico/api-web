@@ -97,7 +97,6 @@ jobs:
   release:
     concurrency:
       # Only one release job at a time per branch, as only master releases.
-      # Strictly sequential.
       group: release-${{ github.event.number || github.ref }}
     permissions:
       contents: write
