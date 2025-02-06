@@ -40,6 +40,10 @@ jobs:
 
   test-and-check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [ api, auth ]
+
     needs:
       - check-secrets
     steps:
@@ -50,15 +54,12 @@ jobs:
         run: |
           cd common
           npm install
-          npm run lint:check
-          npm run format:check
-          npm test
+          npm run check
 
-      - name: Build Verdaccio Docker Image
+      - name: Set up Verdaccio
         run: |
-          cd common
-          docker build -t c-verdaccio .
-          docker run -d --name verdaccio -p 4873:4873 c-verdaccio
+          npm install -g verdaccio
+          nohup verdaccio --config common/conf/config.yaml > verdaccio.log 2>&1 &
 
       - name: Wait for Verdaccio to be ready
         run: |
@@ -78,26 +79,18 @@ jobs:
           echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
           echo "always-auth=true" >> ~/.npmrc
 
-      - name: Publish local package
+      - name: Publish common package
         run: |
           cd common
           npm publish --registry http://localhost:4873/
 
-      - name: Install dependencies for api project
+      - name: Install dependencies
         run: |
-          cd api
+          cd ${{ matrix.module }}
           npm install --registry http://localhost:4873/
 
-      - name: Run api test
-        run: cd api && npm run check
-
-      - name: Install dependencies for auth project
-        run: |
-          cd auth
-          npm install --registry http://localhost:4873/
-
-      - name: Run auth test
-        run: cd auth && npm run check
+      - name: Run checks
+        run: cd ${{ matrix.module }} && npm run check
 
 
   release:
