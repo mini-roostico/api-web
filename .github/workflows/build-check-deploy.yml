@@ -33,8 +33,7 @@ jobs:
           cd verdaccio
           touch conf/htpasswd
           echo ${{ secrets.HTPASSWD }} >> conf/htpasswd
-          cd ../common
-          docker build -t c-verdaccio .
+          docker build -t c-verdaccio -f ../common/Dockerfile ..
           docker run -d --name verdaccio -p 4873:4873 c-verdaccio
       - name: Wait for Verdaccio to be ready
         run: |
