@@ -128,3 +128,6 @@ verdaccio/storage/smart-buffer/package.json
 verdaccio/storage/ip-address/package.json
 verdaccio/storage/extrareqp2/package.json
 verdaccio/storage/.verdaccio-db.json
+
+.test_secrets/at_private.pem
+.test_secrets/rt_private.pem

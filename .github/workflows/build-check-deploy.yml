@@ -87,6 +87,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd ${{ matrix.module }}
+          rm package-lock.json
           npm install --registry http://localhost:4873/
 
       - name: Run checks
