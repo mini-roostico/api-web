@@ -57,6 +57,7 @@ jobs:
       - name: Run tests on the common project
         run: |
           cd common
+          npm install
           npm run check
 
       - name: Set up Verdaccio
