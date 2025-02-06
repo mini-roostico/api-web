@@ -88,17 +88,11 @@ jobs:
           npm run lint:check
           npm run format:check
 
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ windows-2022, macos-14, ubuntu-24.04 ]
-    runs-on: ${{ matrix.os }}
-
   test-and-check:
     runs-on: ubuntu-latest
     needs:
       - check-secrets
+      - verdaccio-build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -111,34 +105,34 @@ jobs:
           npm run format:check
           npm test
 
-      - name: Build Verdaccio Docker Image
-        run: |
-          cd common
-          docker build -t c-verdaccio .
-          docker run -d --name verdaccio -p 4873:4873 c-verdaccio
-
-      - name: Wait for Verdaccio to be ready
-        run: |
-          for i in {1..30}; do
-            if curl --silent --fail http://localhost:4873/-/ping; then
-              echo "Verdaccio is ready!"
-              exit 0
-            fi
-            echo "Waiting for Verdaccio..."
-            sleep 2
-          done
-          echo "Verdaccio did not start in time" >&2
-          exit 1
-
-      - name: Configure npm to use Verdaccio
-        run: |
-          echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
-
-      - name: Publish local package
-        run: |
-          cd common
-          npm publish --registry http://localhost:4873/
+#      - name: Build Verdaccio Docker Image
+#        run: |
+#          cd common
+#          docker build -t c-verdaccio .
+#          docker run -d --name verdaccio -p 4873:4873 c-verdaccio
+#
+#      - name: Wait for Verdaccio to be ready
+#        run: |
+#          for i in {1..30}; do
+#            if curl --silent --fail http://localhost:4873/-/ping; then
+#              echo "Verdaccio is ready!"
+#              exit 0
+#            fi
+#            echo "Waiting for Verdaccio..."
+#            sleep 2
+#          done
+#          echo "Verdaccio did not start in time" >&2
+#          exit 1
+#
+#      - name: Configure npm to use Verdaccio
+#        run: |
+#          echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
+#          echo "always-auth=true" >> ~/.npmrc
+#
+#      - name: Publish local package
+#        run: |
+#          cd common
+#          npm publish --registry http://localhost:4873/
 
       - name: Install dependencies for api project
         run: |
