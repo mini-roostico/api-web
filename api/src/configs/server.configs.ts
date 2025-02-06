@@ -4,7 +4,7 @@ import {
   defaultErrorHandler,
   defaultResponseHandler,
   JwtHandler,
-} from "common";
+} from "@mini-roostico/api-common";
 import { resolve } from "path";
 import { createServer, Server } from "node:http";
 import MongooseConfig from "./mongoose.config";
