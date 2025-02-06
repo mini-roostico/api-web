@@ -14,7 +14,8 @@
     "lint:fix": "eslint src/ --fix",
     "lint:check": "eslint src/",
     "format:write": "prettier --write src/",
-    "format:check": "prettier --check src/"
+    "format:check": "prettier --check src/",
+    "check": "npm run lint:check && npm run format:check && npm test && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

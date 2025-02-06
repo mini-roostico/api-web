@@ -40,6 +40,23 @@ jobs:
 
   test-and-check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [ api, auth ]
+
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:6
+        ports:
+        - 4873:4873
+        volumes:
+          - ${{ github.workspace }}/common/conf:/verdaccio/conf
+        options: >-
+          --health-cmd "curl --silent --fail http://localhost:4873/-/ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     needs:
       - check-secrets
     steps:
@@ -49,55 +66,25 @@ jobs:
       - name: Run tests on the common project
         run: |
           cd common
-          npm install
-          npm run lint:check
-          npm run format:check
-          npm test
-
-      - name: Build Verdaccio Docker Image
-        run: |
-          cd common
-          docker build -t c-verdaccio .
-          docker run -d --name verdaccio -p 4873:4873 c-verdaccio
-
-      - name: Wait for Verdaccio to be ready
-        run: |
-          for i in {1..30}; do
-            if curl --silent --fail http://localhost:4873/-/ping; then
-              echo "Verdaccio is ready!"
-              exit 0
-            fi
-            echo "Waiting for Verdaccio..."
-            sleep 2
-          done
-          echo "Verdaccio did not start in time" >&2
-          exit 1
+          npm run check
 
       - name: Configure npm to use Verdaccio
         run: |
           echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
           echo "always-auth=true" >> ~/.npmrc
 
-      - name: Publish local package
+      - name: Publish common package
         run: |
           cd common
           npm publish --registry http://localhost:4873/
 
-      - name: Install dependencies for api project
+      - name: Install dependencies
         run: |
-          cd api
+          cd ${{ matrix.module }}
           npm install --registry http://localhost:4873/
 
-      - name: Run api test
-        run: cd api && npm run check
-
-      - name: Install dependencies for auth project
-        run: |
-          cd auth
-          npm install --registry http://localhost:4873/
-
-      - name: Run auth test
-        run: cd auth && npm run check
+      - name: Run checks
+        run: cd ${{ matrix.module }} && npm run check
 
 
   release:
