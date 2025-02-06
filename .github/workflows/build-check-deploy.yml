@@ -83,16 +83,16 @@ jobs:
           echo "Verdaccio did not start in time" >&2
           exit 1
 
-      - name: Configure npm to use Verdaccio
-        run: |
-          echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
-
       - name: Publish common package
         run: |
           cd common
           npm install
           npm publish --registry http://localhost:4873/
+
+      - name: Configure npm to use Verdaccio
+        run: |
+          echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
 
       - name: Install dependencies
         run: |
