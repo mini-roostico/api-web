@@ -1,3 +1,16 @@
+## [1.1.1](https://github.com/mini-roostico/api-web/compare/1.1.0...1.1.1) (2025-02-06)
+
+### Bug Fixes
+
+* removed comment ([b685bef](https://github.com/mini-roostico/api-web/commit/b685bef97e166f1fe0c8addf008f5ae858f97ed1))
+
+### Build and continuous integration
+
+* added auth token setup for npmjs publishing ([965493c](https://github.com/mini-roostico/api-web/commit/965493c4846168c9c565e64d7e98506b9dfc310b))
+* added job to test common project ([fea3c45](https://github.com/mini-roostico/api-web/commit/fea3c451ec460215c38f69d6178427faeb5e1d40))
+* deleted test-common job due to failing dependency resolution in later steps ([2aad259](https://github.com/mini-roostico/api-web/commit/2aad259401c3a5486341106ef32b162e4836cad6))
+* switched job order ([84afe6e](https://github.com/mini-roostico/api-web/commit/84afe6ef884253723f07af91ddf0011c0fac38d6))
+
 ## [1.1.0](https://github.com/mini-roostico/api-web/compare/1.0.0...1.1.0) (2025-02-06)
 
 ### Features
