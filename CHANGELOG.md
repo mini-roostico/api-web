@@ -1,3 +1,72 @@
+## [1.1.0](https://github.com/mini-roostico/api-web/compare/1.0.0...1.1.0) (2025-02-06)
+
+### Features
+
+* provided a simple api app with mongo configs, provided jwt key configs ([3e6a8c5](https://github.com/mini-roostico/api-web/commit/3e6a8c5c242cb730e46037093cd8dc52b2132550))
+
+### Dependency updates
+
+* **deps:** update actions/setup-node action to v4.2.0 ([cf50127](https://github.com/mini-roostico/api-web/commit/cf50127abdb57fee2aefe162593dc66af01ab431))
+* **deps:** update docker/build-push-action digest to ca877d9 ([a7e46b4](https://github.com/mini-roostico/api-web/commit/a7e46b4a0902702889935450050e5bc3139432b7))
+* **deps:** update docker/login-action digest to 327cd5a ([6ee1525](https://github.com/mini-roostico/api-web/commit/6ee152530cadcf468e24c2ae6f9d1835208eea6d))
+* **deps:** update docker/metadata-action digest to 8e1d546 ([7784c96](https://github.com/mini-roostico/api-web/commit/7784c96c7b3532723168444d291e428c78d6875b))
+* **deps:** update verdaccio/verdaccio docker tag to v6 ([96099f3](https://github.com/mini-roostico/api-web/commit/96099f30d757c9e5591da303620af5e17ab01c4d))
+
+### Bug Fixes
+
+* changed dependencies inside api and auth ([11608bd](https://github.com/mini-roostico/api-web/commit/11608bdfaddcc39f1b1e56813481ee85902f8cbe))
+* fixed api-common version ([b3598db](https://github.com/mini-roostico/api-web/commit/b3598dbec223dd1fccd939c3d2517f55cc1f4d24))
+* fixed next version release.config.mjs ([a9fbf13](https://github.com/mini-roostico/api-web/commit/a9fbf136abe6d922f1fe4a8d14b4e9fb95122e86))
+* removed comment ([b685bef](https://github.com/mini-roostico/api-web/commit/b685bef97e166f1fe0c8addf008f5ae858f97ed1))
+* removed verdaccio folder and updated to last ci configs ([84d0389](https://github.com/mini-roostico/api-web/commit/84d03895ec416fbe7d369838f6ef0f48c115c6e9))
+* updated to master, fixed conflicts ([7003991](https://github.com/mini-roostico/api-web/commit/70039919b1bb791d8c50a7f0dc648f2b3fec425a))
+
+### Build and continuous integration
+
+* add .npmrc for verdaccio config ([b4f3204](https://github.com/mini-roostico/api-web/commit/b4f3204445133b6cba9d5a743dd7b90161e89716))
+* add job to run verdaccio ([8ad2933](https://github.com/mini-roostico/api-web/commit/8ad2933433e49672dc6e711f43a947cedce40bb9))
+* add listen config and registry config in ci ([074cff3](https://github.com/mini-roostico/api-web/commit/074cff35758cc0d7ecf7e0d72e9682d431ce11f9))
+* add package-lock overriding ([6fc51dc](https://github.com/mini-roostico/api-web/commit/6fc51dcb5b388850321fcc684a3897cf8e321a38))
+* add required node version ([f2250b7](https://github.com/mini-roostico/api-web/commit/f2250b72b392bcad1fadfdabffcabd6c916e6ebe))
+* add verdaccio config in common package ([ee96dfc](https://github.com/mini-roostico/api-web/commit/ee96dfcefc14da09fe653a45e74f6139c373f6f1))
+* add verdaccio job in ci ([de88ab7](https://github.com/mini-roostico/api-web/commit/de88ab7886102f4eb9e848af95f7c19e186c1e1f))
+* add verdaccio service ([5aa34a2](https://github.com/mini-roostico/api-web/commit/5aa34a2e56a981adc17c1d03c40ca3fb623c0416))
+* added `npm run build` to api and auth dockerfiles ([52e2731](https://github.com/mini-roostico/api-web/commit/52e2731a599cc14ca9a9e68d88f22a56adc6526d))
+* added auth token setup for npmjs publishing ([965493c](https://github.com/mini-roostico/api-web/commit/965493c4846168c9c565e64d7e98506b9dfc310b))
+* added debug step to look at github workspace ([214edbd](https://github.com/mini-roostico/api-web/commit/214edbd79d0a89832e7a7db44271294f420f09d7))
+* added job to test common project ([fea3c45](https://github.com/mini-roostico/api-web/commit/fea3c451ec460215c38f69d6178427faeb5e1d40))
+* added npm install ([3479ec4](https://github.com/mini-roostico/api-web/commit/3479ec450c55f4d5b227e306814c2800565c258a))
+* change dockerfile conf file indexing ([db5c15d](https://github.com/mini-roostico/api-web/commit/db5c15d25aae9fc57760c3c05eac0259f26a0109))
+* changed publishCmd in release.config.mjs ([d75b400](https://github.com/mini-roostico/api-web/commit/d75b4002c828a6161d39b56c92e1ba43b0610a4e))
+* debugging verdaccio service with version 4 ([ba75b5c](https://github.com/mini-roostico/api-web/commit/ba75b5c354bf037b7bb3be66eb897bdac5549c85))
+* deleted test-common job due to failing dependency resolution in later steps ([2aad259](https://github.com/mini-roostico/api-web/commit/2aad259401c3a5486341106ef32b162e4836cad6))
+* fix dockerfile indexing ([f193e27](https://github.com/mini-roostico/api-web/commit/f193e2734f1a293f6cd5acf939c4fe3d093feb93))
+* fix typo in dir ([f464335](https://github.com/mini-roostico/api-web/commit/f4643356c310a1c2a3074949070a9d83f5b667a1))
+* fix typo in dockerfile conf file indexing ([a79be66](https://github.com/mini-roostico/api-web/commit/a79be667362cc0ba0ca56a1d51714a5d7d144084))
+* fixed semantic release not running due to incorrect configuration and permissions ([171f9ed](https://github.com/mini-roostico/api-web/commit/171f9edb035d26535cf4591cb8bed8b02ee6cdf7))
+* indexed dockerfile in common ([ebfe60c](https://github.com/mini-roostico/api-web/commit/ebfe60c73c2bd0d0970e3e56b77d8837fbd4525b))
+* re-deleted health checks ([fbe4dbf](https://github.com/mini-roostico/api-web/commit/fbe4dbf4f5607f66dd729b1e6a5cb84f45df8e7b))
+* removed job ([456c57d](https://github.com/mini-roostico/api-web/commit/456c57d2fcaee1f78f9fa773b605a45e88bdceb7))
+* removed jobs for verdaccio standalone, integrated config in test and check ([e805e3e](https://github.com/mini-roostico/api-web/commit/e805e3e1950901732f097c9b279adf21e7ebe24d))
+* removed unused verdaccio folder ([ff1c6ef](https://github.com/mini-roostico/api-web/commit/ff1c6efc6958bb73eb93617a344c6c80c3c903bf))
+* removed useless concurrency for test-and-check job ([ccddc26](https://github.com/mini-roostico/api-web/commit/ccddc269395def2002202064545d1780cf420171))
+* removed verdaccio 'auth' in config.yaml ([6548703](https://github.com/mini-roostico/api-web/commit/65487032b7af2225c1542cb4cdf9e4c6a0c59589))
+* removed verdaccio start up job ([664e842](https://github.com/mini-roostico/api-web/commit/664e842ba93f142927d3a1000fdbb9ed55e11a3f))
+* replaced DEPLOYMENT_TOKEN ([7fac49c](https://github.com/mini-roostico/api-web/commit/7fac49c2ff1b38454b947d2c9defd8e41c18a2e9))
+* switched job order ([84afe6e](https://github.com/mini-roostico/api-web/commit/84afe6ef884253723f07af91ddf0011c0fac38d6))
+* switched to 'moduleResolution' = 'bundler' inside tsconfig.json ([16dcddb](https://github.com/mini-roostico/api-web/commit/16dcddb0e2126f6941e01d6aaedbad28f058bb1e))
+* switched to npm for running verdaccio ([d8e68db](https://github.com/mini-roostico/api-web/commit/d8e68dbcbf5c6741d7e53b54de40996b2896154f))
+* switched to service containers using standard verdaccio image ([539463c](https://github.com/mini-roostico/api-web/commit/539463c412e1097ca19049bd29298d2ced2f638d))
+* switched to verdaccio:6, added health checks and debugging concurrency ([259457c](https://github.com/mini-roostico/api-web/commit/259457c6941cfec41c5d4e29d0493b73adcdbdf3))
+* troubleshooting dockerfile ([85966ba](https://github.com/mini-roostico/api-web/commit/85966ba1b645eac8933dd23312b0937307af9664))
+* updated dependencies and removed .npmrc ([dc6f678](https://github.com/mini-roostico/api-web/commit/dc6f678487a029ef059329b35ff97326e108b866))
+
+### General maintenance
+
+* changed licenses inside package.json ([f35b405](https://github.com/mini-roostico/api-web/commit/f35b4050faa1e4d021ee3ebe24bd52f0f0a7085d))
+* **release:** 1.1.0 [skip ci] ([14074bd](https://github.com/mini-roostico/api-web/commit/14074bd1d6106e7df65e4a26a0c6098ec98dba85))
+* **release:** 1.1.1 [skip ci] ([055105a](https://github.com/mini-roostico/api-web/commit/055105a3bbeb30521e1b0c7a609ea41da6c825a4))
+
 ## [1.1.1](https://github.com/mini-roostico/api-web/compare/1.1.0...1.1.1) (2025-02-06)
 
 ### Bug Fixes
