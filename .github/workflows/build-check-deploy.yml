@@ -55,11 +55,6 @@ jobs:
         - 4873:4873
         volumes:
           - ${{ github.workspace }}/common/conf:/verdaccio/conf
-        options: >-
-          --health-cmd "curl --silent --fail http://localhost:4873/-/ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     needs:
       - check-secrets
