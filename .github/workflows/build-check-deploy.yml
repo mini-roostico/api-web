@@ -38,8 +38,12 @@ jobs:
         with:
           github-token: ${{ github.token }}
 
-  test-common:
+  test-and-check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [ api, auth ]
+
     needs:
       - check-secrets
     steps:
@@ -51,19 +55,6 @@ jobs:
           cd common
           npm install
           npm run check
-
-  test-and-check:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module: [ api, auth ]
-
-    needs:
-      - check-secrets
-      - test-common
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Set up Verdaccio
         run: |
@@ -83,16 +74,15 @@ jobs:
           echo "Verdaccio did not start in time" >&2
           exit 1
 
-      - name: Publish common package
-        run: |
-          cd common
-          npm install
-          npm publish --registry http://localhost:4873/
-
       - name: Configure npm to use Verdaccio
         run: |
           echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
           echo "always-auth=true" >> ~/.npmrc
+
+      - name: Publish common package
+        run: |
+          cd common
+          npm publish --registry http://localhost:4873/
 
       - name: Install dependencies
         run: |
@@ -129,10 +119,6 @@ jobs:
         with:
           cache: npm
           node-version: lts/*
-
-      - name: Set NPM Registry
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
