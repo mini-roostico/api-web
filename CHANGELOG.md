@@ -1,3 +1,17 @@
+## [1.3.0](https://github.com/mini-roostico/api-web/compare/1.2.0...1.3.0) (2025-02-06)
+
+### Features
+
+* add source controller and route ([f193784](https://github.com/mini-roostico/api-web/commit/f193784a6bcc1f1a47ac5c91867b604d3a250ea0))
+
+### Build and continuous integration
+
+* re-run ci ([5d9a06e](https://github.com/mini-roostico/api-web/commit/5d9a06edb6a556ab605fc6e0cdbec7af4cb6f12a))
+
+### Refactoring
+
+* applied formatter ([44f87f6](https://github.com/mini-roostico/api-web/commit/44f87f64ba41b64abb511fd37aa5dd629f1a0ec3))
+
 ## [1.2.0](https://github.com/mini-roostico/api-web/compare/1.1.0...1.2.0) (2025-02-06)
 
 ### Features
