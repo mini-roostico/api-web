@@ -129,6 +129,10 @@ jobs:
         with:
           cache: npm
           node-version: lts/*
+
+      - name: Set NPM Registry
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
