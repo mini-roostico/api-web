@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Build Verdaccio Docker Image
         run: |
+          cat common/Dockerfile
           cd verdaccio
           touch conf/htpasswd
           echo ${{ secrets.HTPASSWD }} >> conf/htpasswd
