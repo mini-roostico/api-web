@@ -48,14 +48,6 @@ jobs:
       matrix:
         module: [ api, auth ]
 
-    services:
-      verdaccio:
-        image: verdaccio/verdaccio:6
-        ports:
-        - 4873:4873
-        volumes:
-          - ${{ github.workspace }}/common/conf:/verdaccio/conf
-
     needs:
       - check-secrets
     steps:
@@ -66,6 +58,24 @@ jobs:
         run: |
           cd common
           npm run check
+
+      - name: Set up Verdaccio
+        run: |
+          npm install -g verdaccio
+          nohup verdaccio --config common/conf/config.yaml > verdaccio.log 2>&1 &
+
+      - name: Wait for Verdaccio to be ready
+        run: |
+          for i in {1..30}; do
+            if curl --silent --fail http://localhost:4873/-/ping; then
+              echo "Verdaccio is ready!"
+              exit 0
+            fi
+            echo "Waiting for Verdaccio..."
+            sleep 2
+          done
+          echo "Verdaccio did not start in time" >&2
+          exit 1
 
       - name: Configure npm to use Verdaccio
         run: |
