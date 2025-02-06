@@ -47,7 +47,8 @@ export async function submitSource(
     );
   }
 
-  const parameters: Map<string, string | number | boolean> = req.body.parameters ?? new Map();
+  const parameters: Map<string, string | number | boolean> =
+    req.body.parameters ?? new Map();
   type Func = (...args: unknown[]) => unknown;
   const macros: Map<string, Func> = req.body.macros ?? new Map();
   const configurations: Map<string, unknown[]> =
