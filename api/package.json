@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API Server for subjekt project",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "author": "Francesco Magnani, Luca Rubboli",
   "type": "module",
   "main": "dist/app.js",
