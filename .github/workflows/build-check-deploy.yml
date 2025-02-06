@@ -39,30 +39,33 @@ jobs:
         with:
           github-token: ${{ github.token }}
 
+  test-common:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run tests on the common project
+        run: |
+          cd common
+          npm ci
+          npm run check
+
   test-and-check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         module: [ api, auth ]
-
     needs:
       - check-secrets
+      - test-common
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run tests on the common project
-        run: |
-          cd common
-          npm install
-          npm run check
-          
-
       - name: Install dependencies
         run: |
           cd ${{ matrix.module }}
-          rm package-lock.json
-          npm install
+          npm ci
 
       - name: Run checks
         run: cd ${{ matrix.module }} && npm run check
