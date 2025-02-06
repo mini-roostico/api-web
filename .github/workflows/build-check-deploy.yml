@@ -107,6 +107,8 @@ jobs:
       group: release-${{ github.event.number || github.ref }}
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-24.04
     needs:
       - check-secrets
