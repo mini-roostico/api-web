@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       will-release: ${{ steps.compute-next-version.outputs.will-release }}
+      next-version: ${{ steps.compute-next-version.outputs.next-version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -105,6 +106,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs:
       - check-secrets
+      - precompute-next-version
       - test-and-check
     if: |
       always() &&
@@ -113,16 +115,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.2
         with:
-          token: ${{ secrets.DEPLOYMENT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4.2.0
         with:
           cache: npm
           node-version: lts/*
+          registry-url: 'https://registry.npmjs.org'
+      - name: Set NPM Registry
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NEXT_VERSION: ${{ needs.precompute-next-version.outputs.next-version }}
         run: |
           npm ci
           npx semantic-release
@@ -144,6 +150,7 @@ jobs:
     if: |
       !cancelled() &&
       !contains(needs.precompute-next-version.result, 'failure') &&
+      !contains(needs.release.result, 'failure') &&
       needs.precompute-next-version.outputs.will-release == 'true'
     strategy:
       matrix:
