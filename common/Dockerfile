@@ -6,7 +6,7 @@ RUN mkdir -p /verdaccio/plugins \
 
 FROM verdaccio/verdaccio:6
 
-COPY verdaccio/conf/config.yml /verdaccio/conf/config.yml
+ADD conf/config.yaml /verdaccio/conf/config.yaml
 
 USER root
 RUN npm install --global verdaccio-static-token \
