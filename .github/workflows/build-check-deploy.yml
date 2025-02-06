@@ -40,10 +40,6 @@ jobs:
 
   test-and-check:
     runs-on: ubuntu-latest
-    concurrency:
-      # Only one release job at a time per branch, as only master releases.
-      # Strictly sequential.
-      group: test-and-check
     strategy:
       matrix:
         module: [ api, auth ]
