@@ -1,2 +1,2 @@
 # api-web
-Web API for Subjekt
+Web API services for Subjekt project.
