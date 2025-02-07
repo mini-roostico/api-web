@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { ErrorTypes } from "./error.types";
+import { ErrorTypes } from "./error.types.js";
 
 export class HttpBaseError implements Error {
   code: StatusCodes | number;

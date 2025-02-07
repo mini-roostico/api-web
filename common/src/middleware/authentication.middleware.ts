@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { BadRequestError, NotFoundError } from "../errors/errors";
-import { ErrorTypes } from "../errors/error.types";
-import { Jwt } from "../models/jwt/jwt";
-import { User } from "../models/users/users";
+import { BadRequestError, NotFoundError } from "../errors/errors.js";
+import { ErrorTypes } from "../errors/error.types.js";
+import { Jwt } from "../models/jwt/jwt.js";
+import { User } from "../models/users/users.js";
 
 export async function authenticationHandler(
   req: Request,

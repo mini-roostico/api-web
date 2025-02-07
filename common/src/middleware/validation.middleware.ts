@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ValidationChain, validationResult } from "express-validator";
-import { BadRequestError } from "../errors/errors";
-import { ErrorTypes } from "../errors/error.types";
+import { BadRequestError } from "../errors/errors.js";
+import { ErrorTypes } from "../errors/error.types.js";
 
 export function validationHandler(validations: ValidationChain[]) {
   return async (req: Request, res: Response, next: NextFunction) => {

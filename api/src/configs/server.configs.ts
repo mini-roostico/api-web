@@ -7,9 +7,9 @@ import {
 } from "@mini-roostico/api-common";
 import { resolve } from "path";
 import { createServer, Server } from "node:http";
-import MongooseConfig from "./mongoose.config";
-import userRouter from "../routes/user.route";
-import sourceRoute from "../routes/source.route";
+import MongooseConfig from "./mongoose.config.js";
+import userRouter from "../routes/user.route.js";
+import sourceRoute from "../routes/source.route.js";
 
 const ServerConfig = (): Server => {
   JwtHandler.config({

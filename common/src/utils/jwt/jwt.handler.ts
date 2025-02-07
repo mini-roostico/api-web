@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import jwt, { SignOptions } from "jsonwebtoken";
-import { BadRequestError } from "../../errors/errors";
-import * as fs from "fs";
+import { BadRequestError } from "../../errors/errors.js";
+// import * as fs from "fs";
 
 export type ConfigurationObject = {
   ATPrivateKeyPath?: string;
@@ -131,8 +131,8 @@ export class JwtHandler {
 
   private checkPath(path: string) {
     try {
-      fs.accessSync(path);
-    } catch (_error) {
+      //fs.accessSync(path);
+    } catch {
       throw new Error("The path " + path + " doesn't exists");
     }
   }

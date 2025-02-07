@@ -1,11 +1,11 @@
 import { Router } from "express";
-import RedisLimiterStorage from "../configs/redis.config";
+import RedisLimiterStorage from "../configs/redis.config.js";
 import {
   apiLimiter,
   ApiLimiterEntry,
   authenticationHandler,
 } from "@mini-roostico/api-common";
-import { getSources, submitSource } from "../controllers/sources";
+import { getSources, submitSource } from "../controllers/sources.js";
 
 const sourceRoute = Router();
 
