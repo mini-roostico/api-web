@@ -132,7 +132,7 @@ export class JwtHandler {
   private checkPath(path: string) {
     try {
       //fs.accessSync(path);
-    } catch (_error) {
+    } catch {
       throw new Error("The path " + path + " doesn't exists");
     }
   }

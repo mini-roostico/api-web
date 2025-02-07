@@ -44,7 +44,10 @@ export type {
 
 export type { ApiLimiterStorage } from "./utils/limiter_storage/limiter.storage.js";
 
-export type { IJwtHandler, ConfigurationObject } from "./utils/jwt/jwt.handler.js";
+export type {
+  IJwtHandler,
+  ConfigurationObject,
+} from "./utils/jwt/jwt.handler.js";
 
 /**
  * Exporting JWT handlers

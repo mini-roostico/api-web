@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { MongoError } from "mongodb";
 import bcrypt from "bcryptjs";
-import validator from "validator"
+import validator from "validator";
 const { isEmail, isStrongPassword, isAlpha } = validator;
 import { BadRequestError } from "../../errors/errors.js";
 
