@@ -7,6 +7,7 @@ import { resolve } from "path";
 import express, { Application } from "express";
 import MongooseConfig from "./mongoose.config.js";
 import bodyParser from "body-parser";
+import authRouter from "../routes/auth.route.js";
 
 const ExpressConfig = (): Application => {
   JwtHandler.config({
@@ -32,6 +33,8 @@ const ExpressConfig = (): Application => {
     );
     next();
   });
+
+  app.use('/auth', authRouter);
 
   app.use(defaultResponseHandler);
   app.use(defaultErrorHandler);
