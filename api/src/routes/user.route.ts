@@ -5,7 +5,7 @@ import {
   editProfile,
   deleteProfile,
   passwordForgotten,
-} from "../controllers/users";
+} from "../controllers/users.js";
 import {
   authenticationHandler,
   validationHandler,
@@ -13,7 +13,7 @@ import {
   apiLimiter,
 } from "@mini-roostico/api-common";
 import { body } from "express-validator";
-import RedisLimiterStorage from "../configs/redis.config";
+import RedisLimiterStorage from "../configs/redis.config.js";
 
 const userRouter = Router();
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ac } from "../configs/accesscontrol.config";
+import { ac } from "../configs/accesscontrol.config.js";
 import {
   ErrorTypes,
   Source,

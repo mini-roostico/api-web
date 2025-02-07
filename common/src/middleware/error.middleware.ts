@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { ErrorResponse } from "../utils/response/response";
+import { ErrorResponse } from "../utils/response/response.js";
 import { StatusCodes } from "http-status-codes";
-import { ErrorTypes } from "../errors/error.types";
-import { HttpBaseError } from "../errors/errors";
+import { ErrorTypes } from "../errors/error.types.js";
+import { HttpBaseError } from "../errors/errors.js";
 
 export async function defaultErrorHandler(
   error: Error,

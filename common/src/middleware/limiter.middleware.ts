@@ -1,6 +1,6 @@
-import { ApiLimiterStorage } from "../utils/limiter_storage/limiter.storage";
+import { ApiLimiterStorage } from "../utils/limiter_storage/limiter.storage.js";
 import { NextFunction, Request, Response } from "express";
-import { TooManyRequests } from "../errors/errors";
+import { TooManyRequests } from "../errors/errors.js";
 
 export interface ApiLimiterRule {
   [method: string]: {

@@ -18,7 +18,7 @@
     "check": "npm run lint:check && npm run format:check && npm test && npm run build"
   },
   "dependencies": {
-    "@mini-roostico/api-common": "^1.0.0"
+    "@mini-roostico/api-common": "file:../common"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",

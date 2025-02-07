@@ -39,57 +39,39 @@ jobs:
         with:
           github-token: ${{ github.token }}
 
+  test-common:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run tests on the common project
+        run: |
+          cd common
+          npm ci
+          npm run check
+
   test-and-check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         module: [ api, auth ]
-
     needs:
       - check-secrets
+      - test-common
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run tests on the common project
-        run: |
-          cd common
-          npm install
-          npm run check
+      - name: Install dependencies for common
+        run: cd common && npm install
 
-      - name: Set up Verdaccio
-        run: |
-          npm install -g verdaccio
-          nohup verdaccio --config common/conf/config.yaml > verdaccio.log 2>&1 &
-
-      - name: Wait for Verdaccio to be ready
-        run: |
-          for i in {1..30}; do
-            if curl --silent --fail http://localhost:4873/-/ping; then
-              echo "Verdaccio is ready!"
-              exit 0
-            fi
-            echo "Waiting for Verdaccio..."
-            sleep 2
-          done
-          echo "Verdaccio did not start in time" >&2
-          exit 1
-
-      - name: Configure npm to use Verdaccio
-        run: |
-          echo "//localhost:4873/:_authToken=\"fake-token\"" > ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
-
-      - name: Publish common package
-        run: |
-          cd common
-          npm publish --registry http://localhost:4873/
+      - name: Build common
+        run: cd common && npm run build
 
       - name: Install dependencies
         run: |
           cd ${{ matrix.module }}
-          rm package-lock.json
-          npm install --registry http://localhost:4873/
+          npm ci
 
       - name: Run checks
         run: cd ${{ matrix.module }} && npm run check
@@ -173,7 +155,8 @@ jobs:
         id: push
         uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
         with:
-          context: ${{ matrix.service }}
+          context: .
+          file: ${{ matrix.service }}/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
