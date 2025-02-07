@@ -24,6 +24,8 @@
     "@mini-roostico/api-common": "file:../common",
     "body-parser": "^1.20.3",
     "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "http-status-codes": "^2.3.0",
     "mongoose": "^8.9.6",
     "path": "^0.12.7",
     "redis": "^4.7.0"
