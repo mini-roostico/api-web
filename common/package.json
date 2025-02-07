@@ -1,6 +1,6 @@
 {
   "name": "@mini-roostico/api-common",
-  "version": "1.0.0",
+  "version": "1.3.2",
   "description": "Common components shared between services of the organization",
   "license": "Apache-2.0",
   "author": "Francesco Magnani, Luca Rubboli",
