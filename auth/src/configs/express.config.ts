@@ -34,7 +34,7 @@ const ExpressConfig = (): Application => {
     next();
   });
 
-  app.use('/auth', authRouter);
+  app.use("/auth", authRouter);
 
   app.use(defaultResponseHandler);
   app.use(defaultErrorHandler);
