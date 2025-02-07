@@ -13,7 +13,6 @@ const port = parseInt(process.env.REDIS_PORT as string) || 6379;
       port: port,
     },
   });
-
   await redisClient.connect();
 })();
 

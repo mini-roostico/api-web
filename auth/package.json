@@ -17,6 +17,9 @@
     "format:check": "prettier --check src/",
     "check": "npm run lint:check && npm run format:check && npm test && npm run build"
   },
+  "engines": {
+    "node": "22.13"
+  },
   "dependencies": {
     "@mini-roostico/api-common": "file:../common",
     "body-parser": "^1.20.3",
