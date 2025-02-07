@@ -1,3 +1,13 @@
+## [1.5.0](https://github.com/mini-roostico/api-web/compare/1.4.0...1.5.0) (2025-02-07)
+
+### Features
+
+* add auth controller and route ([cbe12df](https://github.com/mini-roostico/api-web/commit/cbe12df36ddfb0f7499431b7ddfbf4ed52153316))
+
+### Refactoring
+
+* applied formatter ([81c6c98](https://github.com/mini-roostico/api-web/commit/81c6c986117bfa0be8f94d718d7d91bd04761c3e))
+
 ## [1.4.0](https://github.com/mini-roostico/api-web/compare/1.3.1...1.4.0) (2025-02-07)
 
 ### Features
