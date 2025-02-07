@@ -1,11 +1,11 @@
 /**
  * Exporting models
  */
-export { User } from "./models/users/users";
+export { User } from "./models/users/users.js";
 
-export { Jwt } from "./models/jwt/jwt";
+export { Jwt } from "./models/jwt/jwt.js";
 
-export { Source } from "./models/source/sources";
+export { Source } from "./models/source/sources.js";
 
 /**
  * Exporting errors
@@ -17,22 +17,22 @@ export {
   NotFoundError,
   UnauthorizedError,
   TooManyRequests,
-} from "./errors/errors";
+} from "./errors/errors.js";
 
-export { ErrorTypes } from "./errors/error.types";
+export { ErrorTypes } from "./errors/error.types.js";
 
 /**
  * Exporting middlewares
  */
-export { defaultErrorHandler } from "./middleware/error.middleware";
+export { defaultErrorHandler } from "./middleware/error.middleware.js";
 
-export { apiLimiter } from "./middleware/limiter.middleware";
+export { apiLimiter } from "./middleware/limiter.middleware.js";
 
-export { defaultResponseHandler } from "./middleware/response.middleware";
+export { defaultResponseHandler } from "./middleware/response.middleware.js";
 
-export { validationHandler } from "./middleware/validation.middleware";
+export { validationHandler } from "./middleware/validation.middleware.js";
 
-export { authenticationHandler } from "./middleware/authentication.middleware";
+export { authenticationHandler } from "./middleware/authentication.middleware.js";
 
 /**
  * Exporting interfaces
@@ -40,15 +40,15 @@ export { authenticationHandler } from "./middleware/authentication.middleware";
 export type {
   ApiLimiterRule,
   ApiLimiterEntry,
-} from "./middleware/limiter.middleware";
+} from "./middleware/limiter.middleware.js";
 
-export type { ApiLimiterStorage } from "./utils/limiter_storage/limiter.storage";
+export type { ApiLimiterStorage } from "./utils/limiter_storage/limiter.storage.js";
 
-export type { IJwtHandler, ConfigurationObject } from "./utils/jwt/jwt.handler";
+export type { IJwtHandler, ConfigurationObject } from "./utils/jwt/jwt.handler.js";
 
 /**
  * Exporting JWT handlers
  */
-import { JwtHandler as h, IJwtHandler } from "./utils/jwt/jwt.handler";
+import { JwtHandler as h, IJwtHandler } from "./utils/jwt/jwt.handler.js";
 const JwtHandler = h as unknown as IJwtHandler;
 export { JwtHandler };

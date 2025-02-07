@@ -7,7 +7,7 @@ import {
 } from "@mini-roostico/api-common";
 import { resolve } from "path";
 import { createServer, Server } from "node:http";
-import MongooseConfig from "./mongoose.config";
+import MongooseConfig from "./mongoose.config.js";
 
 const ServerConfig = (): Server => {
   JwtHandler.config({

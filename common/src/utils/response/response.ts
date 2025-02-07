@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { ErrorTypes } from "../../errors/error.types";
+import { ErrorTypes } from "../../errors/error.types.js";
 
 export interface DefaultResponse {
   success: boolean;

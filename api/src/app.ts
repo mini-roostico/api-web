@@ -1,4 +1,4 @@
-import ServerConfig from "./configs/server.configs";
+import ServerConfig from "./configs/server.configs.js";
 
 const app = ServerConfig();
 

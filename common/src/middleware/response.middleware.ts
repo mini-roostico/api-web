@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { BadRequestError } from "../errors/errors";
-import { Response as Resp } from "../utils/response/response";
+import { BadRequestError } from "../errors/errors.js";
+import { Response as Resp } from "../utils/response/response.js";
 
 export async function defaultResponseHandler(
   req: Request,

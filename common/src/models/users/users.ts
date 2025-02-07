@@ -1,8 +1,9 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { MongoError } from "mongodb";
 import bcrypt from "bcryptjs";
-import { isEmail, isStrongPassword, isAlpha } from "validator";
-import { BadRequestError } from "../../errors/errors";
+import validator from "validator"
+const { isEmail, isStrongPassword, isAlpha } = validator;
+import { BadRequestError } from "../../errors/errors.js";
 
 const SALT_WORK_FACTOR: number = 10;
 
