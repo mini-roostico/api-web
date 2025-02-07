@@ -36,7 +36,7 @@ services:
 
   # Mongodb service
   mongodb:
-    image: mongodb/mongodb-community-server:4.4.12-ubi8
+    image: mongodb/mongodb-community-server:8.0.4-ubi8
     environment:
       - MONGODB_INITDB_ROOT_USERNAME=user
       - MONGODB_INITDB_ROOT_PASSWORD=pass
