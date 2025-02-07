@@ -1,3 +1,26 @@
+## [1.3.1](https://github.com/mini-roostico/api-web/compare/1.3.0...1.3.1) (2025-02-07)
+
+### Bug Fixes
+
+* switched to local module, not found during docker build ([2183df2](https://github.com/mini-roostico/api-web/commit/2183df2cb6db2464ba3f16bb0ea2a2d5d53b520d))
+
+### Build and continuous integration
+
+* added correct configuration inside Dockerfile of auth and api ([73ddaaf](https://github.com/mini-roostico/api-web/commit/73ddaaf1a23126a72f3eccc0206e399c98782eb2))
+* extracted common tests in another job ([98f3f37](https://github.com/mini-roostico/api-web/commit/98f3f37ae0ffda0a5f6723e0ea740c43244bb92e))
+* merged features from master ([79f9eee](https://github.com/mini-roostico/api-web/commit/79f9eeebe110fc32a2dda83676b8ff170835851e))
+* modified context for docker-push-action ([f9d474c](https://github.com/mini-roostico/api-web/commit/f9d474c3014db45fd5d4dcb71be2d327f040e47d))
+* tried removing verdaccio publish ([963fe9b](https://github.com/mini-roostico/api-web/commit/963fe9be9784f64c33973910029982331a76d792))
+* updated all tsconfig.json to support correct relative imports ([aa6ca25](https://github.com/mini-roostico/api-web/commit/aa6ca25921d139f59ab8f9a9eb9fe9684d051de5))
+
+### Style improvements
+
+* fixed style issues ([d3e9304](https://github.com/mini-roostico/api-web/commit/d3e93048be9f04a9145dee7ec151c104e761117a))
+
+### Refactoring
+
+* modified relative imports to support NodeNext module resolution ([9ee3cfc](https://github.com/mini-roostico/api-web/commit/9ee3cfcd72d457d089c587b4aa72a7bb06ef3a45))
+
 ## [1.3.0](https://github.com/mini-roostico/api-web/compare/1.2.0...1.3.0) (2025-02-06)
 
 ### Features
