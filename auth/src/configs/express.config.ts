@@ -5,7 +5,7 @@ import {
 } from "@mini-roostico/api-common";
 import { resolve } from "path";
 import express, { Application } from "express";
-import MongooseConfig from "./mongoose.config";
+import MongooseConfig from "./mongoose.config.js";
 import bodyParser from "body-parser";
 
 const ExpressConfig = (): Application => {
