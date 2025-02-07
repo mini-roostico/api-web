@@ -11,10 +11,17 @@ import MongooseConfig from "./mongoose.config.js";
 import userRouter from "../routes/user.route.js";
 import sourceRoute from "../routes/source.route.js";
 
+const ATPrivateKeyPath =
+    (process.env.AT_PRIVATE_KEY as string) ||
+    "./secrets/at_private.pem";
+const RTPrivateKeyPath =
+    (process.env.RT_PRIVATE_KEY as string) ||
+    "./secrets/Rt_private.pem";
+
 const ServerConfig = (): Server => {
   JwtHandler.config({
-    ATPrivateKeyPath: resolve("./secrets/at_private.pem"), // TODO Adjust to test secret path
-    RTPrivateKeyPath: resolve("./secrets/rt_private.pem"), // Adjust to test secret path
+    ATPrivateKeyPath: resolve(ATPrivateKeyPath),
+    RTPrivateKeyPath: resolve(RTPrivateKeyPath),
   });
 
   MongooseConfig();

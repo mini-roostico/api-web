@@ -131,3 +131,7 @@ verdaccio/storage/.verdaccio-db.json
 
 .test_secrets/at_private.pem
 .test_secrets/rt_private.pem
+
+dump.rdb
+secrets/
+dbdata/
