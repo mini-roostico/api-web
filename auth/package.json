@@ -17,8 +17,16 @@
     "format:check": "prettier --check src/",
     "check": "npm run lint:check && npm run format:check && npm test && npm run build"
   },
+  "engines": {
+    "node": "22.13"
+  },
   "dependencies": {
-    "@mini-roostico/api-common": "file:../common"
+    "@mini-roostico/api-common": "file:../common",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.6",
+    "path": "^0.12.7",
+    "redis": "^4.7.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
