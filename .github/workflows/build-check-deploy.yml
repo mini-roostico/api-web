@@ -155,7 +155,8 @@ jobs:
         id: push
         uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
         with:
-          context: ${{ matrix.service }}
+          context: .
+          file: ${{ matrix.service }}/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
