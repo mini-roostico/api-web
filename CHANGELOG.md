@@ -1,3 +1,23 @@
+## [1.4.0](https://github.com/mini-roostico/api-web/compare/1.3.1...1.4.0) (2025-02-07)
+
+### Features
+
+* add auth app and configs ([2bb58c5](https://github.com/mini-roostico/api-web/commit/2bb58c56f05988c94d9e21cb6f19f6fd9c47e78e))
+
+### Bug Fixes
+
+* adapted to module import ([e1ca48d](https://github.com/mini-roostico/api-web/commit/e1ca48d558d99ee011131963d4fd2c01e7259019))
+* fix import for auth common package ([4b4d4dd](https://github.com/mini-roostico/api-web/commit/4b4d4ddb4ba99c933243715a8b59f89db6097576))
+
+### Build and continuous integration
+
+* adjust tsconfig for common package import ([78ccdb4](https://github.com/mini-roostico/api-web/commit/78ccdb4b1ab5664ab106afc3a95b5a3f8cb77f1c))
+* rename .dockerignore and update patterns for ignored files ([f7cdc63](https://github.com/mini-roostico/api-web/commit/f7cdc63af6a09d54be4154b506a911e838770185))
+
+### General maintenance
+
+* deleted unused config.yaml ([6723315](https://github.com/mini-roostico/api-web/commit/67233152a3728d72f0fe69956af0903f325ee507))
+
 ## [1.3.1](https://github.com/mini-roostico/api-web/compare/1.3.0...1.3.1) (2025-02-07)
 
 ### Bug Fixes
