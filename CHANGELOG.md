@@ -1,3 +1,13 @@
+## [1.6.0](https://github.com/mini-roostico/api-web/compare/1.5.0...1.6.0) (2025-02-07)
+
+### Features
+
+* provided docker-compose and startup script, bounded at & rt key path as env ([8427627](https://github.com/mini-roostico/api-web/commit/84276274d53946f6d8de533c7af9341aafcf27b2))
+
+### Style improvements
+
+* applied formatter ([ef0bc53](https://github.com/mini-roostico/api-web/commit/ef0bc53045b9f38b439407e234ec09ec6994e20f))
+
 ## [1.5.0](https://github.com/mini-roostico/api-web/compare/1.4.0...1.5.0) (2025-02-07)
 
 ### Features
