@@ -1,14 +1,12 @@
-FROM node:lts-alpine
+FROM node:lts-alpine AS builder
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY api api
+COPY common common
+RUN cd common && npm install && npm run build && npm prune --production
+RUN cd api && npm install && npm run build && npm prune --production
 
-RUN npm install --only=production
-RUN npm run build
-
-COPY dist ./dist
-
+# Expose and run the app
 EXPOSE 3000
-
-CMD ["node", "dist/app.js"]
+CMD ["node", "/usr/src/app/api/dist/app.js"]
