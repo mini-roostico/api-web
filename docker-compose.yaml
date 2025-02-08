@@ -1,12 +1,9 @@
 services:
   # Rest api service
   api-server:
-    build:
-      context: ./api
-      args:
-        - INTERNAL_GATEWAY=${INTERNAL_GATEWAY}
+    image: api-server
     ports:
-      - "8080:8080"
+      - "3000:3000"
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://user:pass@mongodb:27017/?authMechanism=DEFAULT&directConnection=true
       - API_PASSWORD=pass
@@ -19,10 +16,7 @@ services:
 
   # Authentication service
   auth-server:
-    build:
-      context: ./auth
-      args:
-        - INTERNAL_GATEWAY=${INTERNAL_GATEWAY}
+    image: auth-server
     ports:
       - "8180:8180"
     environment:

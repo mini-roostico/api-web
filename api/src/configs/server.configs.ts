@@ -12,9 +12,9 @@ import userRouter from "../routes/user.route.js";
 import sourceRoute from "../routes/source.route.js";
 
 const ATPrivateKeyPath =
-  (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
+  (process.env.AT_PRIVATE_KEY as string) || "./api/secrets/at_private.pem";
 const RTPrivateKeyPath =
-  (process.env.RT_PRIVATE_KEY as string) || "./secrets/Rt_private.pem";
+  (process.env.RT_PRIVATE_KEY as string) || "./api/secrets/Rt_private.pem";
 
 const ServerConfig = (): Server => {
   JwtHandler.config({
