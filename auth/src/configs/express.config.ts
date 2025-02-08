@@ -12,7 +12,7 @@ import authRouter from "../routes/auth.route.js";
 const ATPrivateKeyPath =
   (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
-  (process.env.RT_PRIVATE_KEY as string) || "./secrets/Rt_private.pem";
+  (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
 
 const ExpressConfig = (): Application => {
   JwtHandler.config({
@@ -20,7 +20,10 @@ const ExpressConfig = (): Application => {
     RTPrivateKeyPath: resolve(RTPrivateKeyPath),
   });
 
-  MongooseConfig();
+  MongooseConfig().then(() => {
+    console.log("Connected to MongoDB");
+  });
+
   const app = express();
 
   // Express configurations
