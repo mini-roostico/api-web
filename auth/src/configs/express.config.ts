@@ -8,21 +8,27 @@ import express, { Application } from "express";
 import MongooseConfig from "./mongoose.config.js";
 import bodyParser from "body-parser";
 import authRouter from "../routes/auth.route.js";
+import { RedisConfig } from "./redis.config.js";
 
 const ATPrivateKeyPath =
   (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
   (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
 
-const ExpressConfig = (): Application => {
+const ExpressConfig = (externalServices: boolean = true): Application => {
   JwtHandler.config({
     ATPrivateKeyPath: resolve(ATPrivateKeyPath),
     RTPrivateKeyPath: resolve(RTPrivateKeyPath),
   });
 
-  MongooseConfig().then(() => {
-    console.log("Connected to MongoDB");
-  });
+  if (externalServices) {
+    MongooseConfig().then(() => {
+      console.log("Connected to MongoDB");
+    });
+    RedisConfig().then(() => {
+      console.log("Connected to Redis");
+    });
+  }
 
   const app = express();
 
