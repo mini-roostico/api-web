@@ -5,9 +5,9 @@ import {
   ErrorTypes,
   NotFoundError,
   UnauthorizedError,
-  User,
 } from "@mini-roostico/api-common";
 import { ac } from "../configs/accesscontrol.config.js";
+import { UserModel as User } from "../models/models.js";
 
 /**
  * Set the user identity to work with. This function should be used when, in an API control method, an admin entity
