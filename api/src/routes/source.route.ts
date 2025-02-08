@@ -12,7 +12,6 @@ import {
   saveSource,
   submitSource,
 } from "../controllers/sources.js";
-import { getSources, submitSource } from "../controllers/sources.js";
 import { UserModel } from "../models/models.js";
 
 const sourceRoute = Router();
