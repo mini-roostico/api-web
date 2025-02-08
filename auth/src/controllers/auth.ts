@@ -3,10 +3,9 @@ import {
   UnauthorizedError,
   NotFoundError,
   ErrorTypes,
-  Jwt,
 } from "@mini-roostico/api-common";
 import { StatusCodes } from "http-status-codes";
-import {UserModel as User} from "../models/models.js";
+import {UserModel as User, JwtModel as Jwt} from "../models/models.js";
 
 /**
  * Login a user and return a token pair
