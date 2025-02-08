@@ -1,7 +1,7 @@
 /**
  * Exporting models
  */
-export { User } from "./models/users/users.js";
+export { User, IUser, UserDocumentType } from "./models/users/users.js";
 
 export { Jwt } from "./models/jwt/jwt.js";
 
@@ -32,7 +32,7 @@ export { defaultResponseHandler } from "./middleware/response.middleware.js";
 
 export { validationHandler } from "./middleware/validation.middleware.js";
 
-export { authenticationHandler } from "./middleware/authentication.middleware.js";
+export { makeAuthenticationHandlerWithModel } from "./middleware/authentication.middleware.js";
 
 /**
  * Exporting interfaces
