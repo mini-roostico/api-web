@@ -5,7 +5,7 @@ type Func = (...args: unknown[]) => unknown;
 interface ISource {
   name: string;
   subjects: Map<string, string>;
-  parameters?: Map<string, string | number | boolean>; // TODO check if is okay like this
+  parameters?: Map<string, string | number | boolean>;
   macros?: Map<string, Func>;
   configurations?: Map<string, unknown[]>;
   user: Types.ObjectId;
