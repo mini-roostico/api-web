@@ -27,8 +27,12 @@
     "node": "22.13"
   },
   "devDependencies": {
+    "eslint": "^9.20.0",
+    "eslint-config-prettier": "^10.0.1",
+    "pre-commit": "^1.0.10",
+    "prettier": "^3.4.2",
     "semantic-release-preconfigured-conventional-commits": "^1.1.118",
-    "pre-commit": "^1.0.10"
+    "typescript-eslint": "^8.23.0"
   },
   "pre-commit": {
     "run": [
