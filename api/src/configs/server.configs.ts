@@ -10,11 +10,10 @@ import { createServer, Server } from "node:http";
 import MongooseConfig from "./mongoose.config.js";
 import userRouter from "../routes/user.route.js";
 import sourceRoute from "../routes/source.route.js";
-
 const ATPrivateKeyPath =
-  (process.env.AT_PRIVATE_KEY as string) || "./api/secrets/at_private.pem";
+  (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
-  (process.env.RT_PRIVATE_KEY as string) || "./api/secrets/Rt_private.pem";
+  (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
 
 const ServerConfig = (): Server => {
   JwtHandler.config({
@@ -22,7 +21,9 @@ const ServerConfig = (): Server => {
     RTPrivateKeyPath: resolve(RTPrivateKeyPath),
   });
 
-  MongooseConfig();
+  MongooseConfig().then(() => {
+    console.log("Connected to MongoDB");
+  });
 
   const app = express();
   const httpServer = createServer(app);
