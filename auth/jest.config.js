@@ -1,13 +1,7 @@
 export default {
-    roots: [
-        "<rootDir>"
-    ],
-    testMatch: [
-        "**/__tests__/**/*.+(ts|tsx|js)",
-        "**/?(*.)+(spec|test).+(ts|tsx|js)"
-    ],
     transform: {
-        "^.+\\.(ts|tsx)$": "ts-jest"
+        "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
     },
-    passWithNoTests: true,
-}
+    moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
+    transformIgnorePatterns: ["/node_modules/"],
+};
