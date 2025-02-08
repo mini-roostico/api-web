@@ -4,12 +4,19 @@ services:
     image: api-server
     ports:
       - "3000:3000"
+    depends_on:
+      - mongodb
+      - redis
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb://user:pass@mongodb:27017/?authMechanism=DEFAULT&directConnection=true
       - API_PASSWORD=pass
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - PRODUCTION=true
+      - AT_PRIVATE_KEY=/run/secrets/at_private.pem
+      - RT_PRIVATE_KEY=/run/secrets/rt_private.pem
+
+    volumes:
+    - "./secrets:/run/secrets:ro"
     links:
       - mongodb
       - redis
@@ -20,26 +27,27 @@ services:
     ports:
       - "8180:8180"
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb://user:pass@mongodb:27017/?authMechanism=DEFAULT&directConnection=true
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - PRODUCTION=true
+      - AT_PRIVATE_KEY=/run/secrets/at_private.pem
+      - RT_PRIVATE_KEY=/run/secrets/rt_private.pem
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - "./secrets:/run/secrets:ro"
     links:
       - mongodb
       - redis
 
   # Mongodb service
   mongodb:
-    image: mongodb/mongodb-community-server:4.4.12-ubi8
-    environment:
-      - MONGODB_INITDB_ROOT_USERNAME=user
-      - MONGODB_INITDB_ROOT_PASSWORD=pass
+    image: mongo
     ports:
       - "27017:27017"
-    volumes:
-      - type: bind
-        source: ./dbdata
-        target: /data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
 
   # Redis service, used for api rate limiting
   redis:
@@ -52,3 +60,5 @@ services:
       - type: bind
         source: ./cache
         target: /data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
