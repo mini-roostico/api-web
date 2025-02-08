@@ -5,6 +5,13 @@ import {
   ApiLimiterEntry,
   makeAuthenticationHandlerWithModel,
 } from "@mini-roostico/api-common";
+import {
+  deleteSource,
+  editSource,
+  getSources,
+  saveSource,
+  submitSource,
+} from "../controllers/sources.js";
 import { getSources, submitSource } from "../controllers/sources.js";
 import { UserModel } from "../models/models.js";
 
@@ -27,14 +34,14 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
     DELETE: {
       time: 10,
       limit: 100,
-    }
+    },
   },
   "/submit": {
     POST: {
       time: 10,
       limit: 100,
     },
-  }
+  },
 };
 
 const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
@@ -43,10 +50,10 @@ const limitStorage = new RedisLimiterStorage();
 sourceRoute.use(apiLimiter(API_LIMITER_RULES, limitStorage));
 
 sourceRoute.get("/", authenticationHandler, getSources);
+sourceRoute.post("/", authenticationHandler, saveSource);
+sourceRoute.put("/", authenticationHandler, editSource);
+sourceRoute.delete("/", authenticationHandler, deleteSource);
 
-//sourceRoute.post("/", authenticationHandler, saveSource);
-//sourceRoute.put("/", authenticationHandler, putSource);
-//sourceRoute.delete("/", authenticationHandler, deleteSource);
 sourceRoute.post("/submit", authenticationHandler, submitSource);
 
 export default sourceRoute;
