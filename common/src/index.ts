@@ -3,7 +3,7 @@
  */
 export { User, IUser, UserDocumentType } from "./models/users/users.js";
 
-export { Jwt } from "./models/jwt/jwt.js";
+export { IJsonWebToken, IJsonWebTokenModel, createJwtSchema } from "./models/jwt/jwt.js";
 
 export { ISource, SourceDocumentType, Source } from "./models/source/sources.js";
 
