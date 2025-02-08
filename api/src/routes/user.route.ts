@@ -13,7 +13,7 @@ import {
 } from "@mini-roostico/api-common";
 import { body } from "express-validator";
 import RedisLimiterStorage from "../configs/redis.config.js";
-import {UserModel} from "../models/models.js";
+import { UserModel } from "../models/models.js";
 
 const userRouter = Router();
 
