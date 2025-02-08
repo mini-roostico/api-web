@@ -20,7 +20,21 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
       time: 10,
       limit: 100,
     },
+    PUT: {
+      time: 10,
+      limit: 100,
+    },
+    DELETE: {
+      time: 10,
+      limit: 100,
+    }
   },
+  "/submit": {
+    POST: {
+      time: 10,
+      limit: 100,
+    },
+  }
 };
 
 const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
@@ -30,6 +44,9 @@ sourceRoute.use(apiLimiter(API_LIMITER_RULES, limitStorage));
 
 sourceRoute.get("/", authenticationHandler, getSources);
 
-sourceRoute.post("/", authenticationHandler, submitSource);
+//sourceRoute.post("/", authenticationHandler, saveSource);
+//sourceRoute.put("/", authenticationHandler, putSource);
+//sourceRoute.delete("/", authenticationHandler, deleteSource);
+sourceRoute.post("/submit", authenticationHandler, submitSource);
 
 export default sourceRoute;
