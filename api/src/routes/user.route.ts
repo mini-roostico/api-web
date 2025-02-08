@@ -4,7 +4,6 @@ import {
   getProfile,
   editProfile,
   deleteProfile,
-  passwordForgotten,
 } from "../controllers/users.js";
 import {
   authenticationHandler,
@@ -74,12 +73,6 @@ userRouter.post(
     body("secondName").exists().isAlpha(),
   ]),
   createUser,
-);
-
-userRouter.put(
-  "/password-forgotten",
-  validationHandler([body("email").exists().isEmail()]),
-  passwordForgotten,
 );
 
 export default userRouter;
