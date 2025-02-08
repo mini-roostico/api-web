@@ -27,59 +27,69 @@ const User = new Schema<IUser, UserDocumentType>({
   email: {
     type: String,
     required: true,
-    index: {
-      unique: true,
-    },
-    validate: isEmail,
+    unique: true,
+      validate: {
+          validator: (value: string) => isEmail(value),
+          message: "Invalid email format",
+      },
   },
   password: {
     type: String,
     required: true,
-    validate: isStrongPassword,
+      validate: {
+          validator: (value: string) => isStrongPassword(value),
+          message: "Password is not strong enough",
+      },
   },
   firstName: {
     type: String,
-    validate: isAlpha,
+      validate: {
+          validator: (value: string) => isAlpha(value, "en-US"),
+          message: "First name must contain only letters",
+      },
   },
   secondName: {
     type: String,
-    validate: isAlpha,
+      validate: {
+          validator: (value: string) => isAlpha(value, "en-US"),
+          message: "Second name must contain only letters",
+      },
   },
 });
 
 User.pre("save", async function (next) {
   // TODO check if okay
-  if (this.isModified("password") || this.isNew) {
-    try {
-      const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-      this.password = await bcrypt.hash(this.password, salt);
-      next();
-    } catch (error) {
-      return next(error);
-    }
-  } else {
-    return next();
-  }
-  // const user = this;
-  // if (user.isModified("password") || user.isNew) {
-  //     bcrypt.genSalt(SALT_WORK_FACTOR, function (error, salt) {
-  //         if (error) {
-  //             return next(error);
-  //         } else {
-  //
-  //             bcrypt.hash(user.password, salt, function(error, hash) {
-  //                 if (error) {
-  //                     return next(error);
-  //                 }
-  //
-  //                 user.password = hash;
-  //                 next();
-  //             })
-  //         }
-  //     })
+  // if (this.isModified("password") || this.isNew) {
+  //   try {
+  //     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+  //     this.password = await bcrypt.hash(this.password, salt);
+  //     next();
+  //   } catch (error) {
+  //     return next(error);
+  //   }
   // } else {
-  //     return next();
+  //   return next();
   // }
+  const user = this;
+  if (user.isModified("password") || user.isNew) {
+      bcrypt.genSalt(SALT_WORK_FACTOR, function (error, salt) {
+          if (error) {
+              return next(error);
+          } else {
+
+              bcrypt.hash(user.password, salt, function(error, hash) {
+                  if (error) {
+                      return next(error);
+                  }
+
+                  user.password = hash;
+                  next();
+              })
+          }
+      })
+  } else {
+      return next();
+  }
 });
 
 User.pre("updateOne", async function (next) {
