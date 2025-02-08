@@ -1,3 +1,18 @@
+## [1.7.0](https://github.com/mini-roostico/api-web/compare/1.6.3...1.7.0) (2025-02-08)
+
+### Features
+
+* add new routes for sources yet to be implemented ([81a6863](https://github.com/mini-roostico/api-web/commit/81a6863dc3ae9c8d6ade29528ee9efc7ef2a48d0))
+* add put, delete and save source routes ([7647423](https://github.com/mini-roostico/api-web/commit/7647423f8923cd2ace46d21b03c19f15090cf94e))
+
+### Build and continuous integration
+
+* modified renovate.json to check subdirectories ([a4f7be4](https://github.com/mini-roostico/api-web/commit/a4f7be4c1152a8cc1657fac7246ec23c7769881d))
+
+### Style improvements
+
+* fix import ([e32cde6](https://github.com/mini-roostico/api-web/commit/e32cde6d87f5e869ee8b614a099b11d4b6b347e6))
+
 ## [1.6.3](https://github.com/mini-roostico/api-web/compare/1.6.2...1.6.3) (2025-02-08)
 
 ### Bug Fixes
