@@ -2,12 +2,13 @@ import { Router } from "express";
 import { login, logout, refreshToken } from "../controllers/auth.js";
 import {
   apiLimiter,
-  authenticationHandler,
+  makeAuthenticationHandlerWithModel,
   validationHandler,
   ApiLimiterEntry,
 } from "@mini-roostico/api-common";
 import RedisLimiterStorage from "../configs/redis.config.js";
 import { body } from "express-validator";
+import {UserModel} from "../models/models.js";
 
 const API_LIMITER_RULES: ApiLimiterEntry = {
   "/login": {
@@ -45,6 +46,7 @@ authRouter.post(
   login,
 );
 
+const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
 authRouter.post("/logout", authenticationHandler, logout);
 
 authRouter.post(
