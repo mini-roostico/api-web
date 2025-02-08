@@ -1,3 +1,35 @@
+## [1.6.3](https://github.com/mini-roostico/api-web/compare/1.6.2...1.6.3) (2025-02-08)
+
+### Bug Fixes
+
+* changed connection url for mongodb ([e2c7812](https://github.com/mini-roostico/api-web/commit/e2c7812ffd2e85a6c2f486605b3c5be1cd396cad))
+* fixed broken reference to authenticationHandler ([8a6779f](https://github.com/mini-roostico/api-web/commit/8a6779f8dd057df44293515867107a52c6f25468))
+* fixed old mongodb connect url ([ed33371](https://github.com/mini-roostico/api-web/commit/ed3337144032689319f1032a88e1d55c8c41d165))
+
+### Build and continuous integration
+
+* added `npm run build` to release.config.mjs ([767c9c3](https://github.com/mini-roostico/api-web/commit/767c9c3f13027f4c2c8b49ad04fea2da4511c030))
+* added utility scripts to fix all formatting and linting ([85ec007](https://github.com/mini-roostico/api-web/commit/85ec00754f5fefa04a3235933ac6522d78adcbb3))
+* fixed pre-commit failing during semantic-release ([5cbcba0](https://github.com/mini-roostico/api-web/commit/5cbcba008d21d7c5bc9145954d74e430b1573838))
+* moved api and auth pre-commit checks into outer package.json ([7a150af](https://github.com/mini-roostico/api-web/commit/7a150afb7ebfb10b8fe341783c21fbafb284208b))
+* moved pre-commit checks in the global package.json ([37b6413](https://github.com/mini-roostico/api-web/commit/37b64132e30bd3d12dfce15f1a7034486f875263))
+* refactored docker-compose.yaml to handle keys with volumes, added healthchecks and switched to basic mongo image ([ed61238](https://github.com/mini-roostico/api-web/commit/ed612380d289a61d54eade131ea69c349e532f58))
+
+### Style improvements
+
+* fixed formatting and linting ([e02d5bc](https://github.com/mini-roostico/api-web/commit/e02d5bcf53b9257e11716382d02550e33735c43e))
+* fixed style in common package ([ad66f77](https://github.com/mini-roostico/api-web/commit/ad66f77bda559de083c5d48c050ccdabc1aa8074))
+
+### Refactoring
+
+* added log on mongo connect, changed path of keys ([8454c6f](https://github.com/mini-roostico/api-web/commit/8454c6f5d7771aeb5a6ea7d26489a7d22dcd78c4))
+* added log on mongo connect, changed path of keys for auth project ([ce567ce](https://github.com/mini-roostico/api-web/commit/ce567ce2ba0a8834257d29e776327fe716a749c9))
+* added models.ts inside auth project ([eb3a66a](https://github.com/mini-roostico/api-web/commit/eb3a66a5898f0404aa481e66a57209493bb21497))
+* changed authenticationHandler, using makeAuthenticationHandlerWithModel wrapper ([56fcd3b](https://github.com/mini-roostico/api-web/commit/56fcd3bb23453464805832717d5569e12785e724))
+* moved jwt model out of common project ([da8db32](https://github.com/mini-roostico/api-web/commit/da8db322f76d7995a038e656a070448079024335))
+* moved source model into the api project ([5fe440a](https://github.com/mini-roostico/api-web/commit/5fe440af5c9a8c65f4f07d1bba8441d364513a45))
+* removed mongoose model for users from the common project ([3fc49b0](https://github.com/mini-roostico/api-web/commit/3fc49b0912fc11c960bf77f97b652c4a4a12be3c))
+
 ## [1.6.2](https://github.com/mini-roostico/api-web/compare/1.6.1...1.6.2) (2025-02-08)
 
 ### Bug Fixes
