@@ -6,13 +6,14 @@ import {
   deleteProfile,
 } from "../controllers/users.js";
 import {
-  authenticationHandler,
+  makeAuthenticationHandlerWithModel,
   validationHandler,
   ApiLimiterEntry,
   apiLimiter,
 } from "@mini-roostico/api-common";
 import { body } from "express-validator";
 import RedisLimiterStorage from "../configs/redis.config.js";
+import {UserModel} from "../models/models.js";
 
 const userRouter = Router();
 
@@ -38,6 +39,7 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
 };
 
 const limitStorage = new RedisLimiterStorage();
+const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
 
 userRouter.use(apiLimiter(API_LIMITER_RULES, limitStorage));
 

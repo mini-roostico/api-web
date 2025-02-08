@@ -3,9 +3,10 @@ import RedisLimiterStorage from "../configs/redis.config.js";
 import {
   apiLimiter,
   ApiLimiterEntry,
-  authenticationHandler,
+  makeAuthenticationHandlerWithModel,
 } from "@mini-roostico/api-common";
 import { getSources, submitSource } from "../controllers/sources.js";
+import { UserModel } from "../models/models.js";
 
 const sourceRoute = Router();
 
@@ -22,6 +23,8 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
   },
 };
 
+
+const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
 const limitStorage = new RedisLimiterStorage();
 
 sourceRoute.use(apiLimiter(API_LIMITER_RULES, limitStorage));
