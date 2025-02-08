@@ -1,6 +1,7 @@
 const publishCmd = `
 cd common
 npm install
+npm run build
 npm version ${process.env.NEXT_VERSION}
 npm publish --access public
 `;
