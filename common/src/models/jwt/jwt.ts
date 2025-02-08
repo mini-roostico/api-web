@@ -1,5 +1,4 @@
 import { HydratedDocument, Model, model, Schema, Types } from "mongoose";
-import { User } from "../users/users.js";
 import validator from "validator";
 const { isEmail } = validator;
 import { JwtHandler } from "../../utils/jwt/jwt.handler.js";
@@ -48,7 +47,8 @@ const jwtSchema = new Schema<
         validator: async function (value): Promise<boolean> {
           const isValidMail = isEmail(value);
           if (isValidMail) {
-            return !!(await User.exists({ email: value })); // TODO: check if works
+            return false
+            //return !!(await User.exists({ email: value })); // TODO: check if works
           }
           return false;
         },

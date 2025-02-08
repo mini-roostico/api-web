@@ -1,4 +1,4 @@
-import mongoose, { Model, Schema } from "mongoose";
+import { Model, Schema } from "mongoose";
 import { MongoError } from "mongodb";
 import bcrypt from "bcryptjs";
 import validator from "validator";
@@ -7,7 +7,7 @@ import { BadRequestError } from "../../errors/errors.js";
 
 const SALT_WORK_FACTOR: number = 10;
 
-export interface IUser {
+interface IUser {
   email: string;
   password: string;
   firstName: string;
@@ -153,6 +153,4 @@ User.methods.comparePassword = function (
   });
 };
 
-const UserModel = mongoose.model<IUser, UserDocumentType>("Users", User);
-
-export { UserModel as User };
+export { User, IUser, UserDocumentType };
