@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  User,
   UnauthorizedError,
   NotFoundError,
   ErrorTypes,
   Jwt,
 } from "@mini-roostico/api-common";
 import { StatusCodes } from "http-status-codes";
+import {UserModel as User} from "../models/models.js";
 
 /**
  * Login a user and return a token pair
