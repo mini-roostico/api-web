@@ -1,3 +1,13 @@
+## [1.6.1](https://github.com/mini-roostico/api-web/compare/1.6.0...1.6.1) (2025-02-08)
+
+### Bug Fixes
+
+* removed pw forgot route ([22b34fc](https://github.com/mini-roostico/api-web/commit/22b34fc514e80c4219667e879f484c43558bd8fc))
+
+### Style improvements
+
+* applied formatter ([74e5680](https://github.com/mini-roostico/api-web/commit/74e56803d718a590a089063611d3a9d067b13ffc))
+
 ## [1.6.0](https://github.com/mini-roostico/api-web/compare/1.5.0...1.6.0) (2025-02-07)
 
 ### Features
