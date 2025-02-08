@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/mini-roostico/api-web/compare/1.6.1...1.6.2) (2025-02-08)
+
+### Bug Fixes
+
+* fix linter error ([6e63242](https://github.com/mini-roostico/api-web/commit/6e63242ad8d6afbd798ac26c74b1c8fdbfb2e502))
+* jwt path indexing and auth port ([8191ebc](https://github.com/mini-roostico/api-web/commit/8191ebcc2ffc293b81784e1820b6e79b1bdd63e4))
+
 ## [1.6.1](https://github.com/mini-roostico/api-web/compare/1.6.0...1.6.1) (2025-02-08)
 
 ### Bug Fixes
