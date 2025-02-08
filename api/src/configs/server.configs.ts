@@ -10,20 +10,26 @@ import { createServer, Server } from "node:http";
 import MongooseConfig from "./mongoose.config.js";
 import userRouter from "../routes/user.route.js";
 import sourceRoute from "../routes/source.route.js";
+import { RedisConfig } from "./redis.config.js";
 const ATPrivateKeyPath =
   (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
   (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
 
-const ServerConfig = (): Server => {
+const ServerConfig = (externalServices: boolean = true): Server => {
   JwtHandler.config({
     ATPrivateKeyPath: resolve(ATPrivateKeyPath),
     RTPrivateKeyPath: resolve(RTPrivateKeyPath),
   });
 
-  MongooseConfig().then(() => {
-    console.log("Connected to MongoDB");
-  });
+  if (externalServices) {
+    MongooseConfig().then(() => {
+      console.log("Connected to MongoDB");
+    });
+    RedisConfig().then(() => {
+      console.log("Connected to Redis");
+    });
+  }
 
   const app = express();
   const httpServer = createServer(app);
