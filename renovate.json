@@ -2,5 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "matchPaths": ["common/package.json", "api/package.json", "auth/package.json"]
+    }
   ]
 }
