@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectionString =
   (process.env.MONGODB_CONNECTION_STRING as string) ||
-  "mongodb://user:pass@localhost:27017/?authMechanism=DEFAULT";
+  "mongodb://localhost:27017";
 
 async function MongooseConfig() {
   try {
