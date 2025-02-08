@@ -5,7 +5,7 @@ export { User, IUser, UserDocumentType } from "./models/users/users.js";
 
 export { Jwt } from "./models/jwt/jwt.js";
 
-export { Source } from "./models/source/sources.js";
+export { ISource, SourceDocumentType, Source } from "./models/source/sources.js";
 
 /**
  * Exporting errors
