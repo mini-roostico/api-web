@@ -29,6 +29,51 @@ export async function getSources(
   next();
 }
 
+export async function saveSource(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) {
+
+    if (!ac.can(res.locals.user.role).createAny("sources").granted) {
+        next(
+            new UnauthorizedError(
+                "Can't create the resource",
+                undefined,
+                ErrorTypes.AUTHENTICATION_ERROR,
+            ),
+        );
+    }
+
+    const name: string = req.body.name;
+    const subjects: Map<string, string> = req.body.subjects;
+    const parameters: Map<string, string | number | boolean> =
+        req.body.parameters ?? new Map();
+    type Func = (...args: unknown[]) => unknown;
+    const macros: Map<string, Func> = req.body.macros ?? new Map();
+    const configurations: Map<string, unknown[]> =
+        req.body.configurations ?? new Map();
+    const last_update: Date = new Date(Date.now());
+
+    const source = new Source({
+        name,
+        subjects,
+        parameters,
+        macros,
+        configurations,
+        user: res.locals.user._id,
+        last_update,
+    });
+
+    try {
+        await source.save();
+        res.locals.code = StatusCodes.CREATED;
+        res.locals.data = source;
+    } catch (err) {
+        next(err);
+    }
+}
+
 export async function submitSource(
   req: Request,
   res: Response,
@@ -59,7 +104,6 @@ export async function submitSource(
   });
 
   try {
-    await source.save();
     // TODO add subjekt call and get result
     res.locals.code = StatusCodes.CREATED;
     res.locals.data = source;

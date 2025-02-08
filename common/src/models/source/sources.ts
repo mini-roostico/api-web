@@ -3,10 +3,13 @@ import { Model, Schema, Types } from "mongoose";
 type Func = (...args: unknown[]) => unknown;
 
 interface ISource {
+  name: string;
+  subjects: Map<string, string>;
   parameters?: Map<string, string | number | boolean>; // TODO check if is okay like this
   macros?: Map<string, Func>;
   configurations?: Map<string, unknown[]>;
   user: Types.ObjectId;
+  last_update?: Date;
 }
 
 interface SourceDocumentType extends Model<ISource> {
@@ -14,6 +17,14 @@ interface SourceDocumentType extends Model<ISource> {
 }
 
 const Source = new Schema<ISource, SourceDocumentType>({
+  name: {
+    type: String,
+    required: true,
+  },
+  subjects: {
+    type: Map<string, string>,
+    required: true,
+  },
   parameters: {
     type: Map<string, string | number | boolean>,
     required: false,
@@ -30,6 +41,10 @@ const Source = new Schema<ISource, SourceDocumentType>({
     type: Schema.Types.ObjectId,
     ref: "Users",
     required: true,
+  },
+  last_update: {
+    type: Date,
+    default: Date.now,
   },
 });
 
