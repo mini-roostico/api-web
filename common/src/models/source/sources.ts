@@ -1,8 +1,8 @@
-import mongoose, { Model, Schema, Types } from "mongoose";
+import { Model, Schema, Types } from "mongoose";
 
 type Func = (...args: unknown[]) => unknown;
 
-export interface ISource {
+interface ISource {
   parameters?: Map<string, string | number | boolean>; // TODO check if is okay like this
   macros?: Map<string, Func>;
   configurations?: Map<string, unknown[]>;
@@ -40,8 +40,4 @@ Source.static(
   },
 );
 
-const SourceModel = mongoose.model<ISource, SourceDocumentType>(
-  "Source",
-  Source,
-);
-export { SourceModel as Source };
+export { ISource, SourceDocumentType, Source };

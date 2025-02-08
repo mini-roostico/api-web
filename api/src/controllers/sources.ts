@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { ac } from "../configs/accesscontrol.config.js";
 import {
   ErrorTypes,
-  Source,
   UnauthorizedError,
 } from "@mini-roostico/api-common";
+import { SourceModel as Source } from "../models/models.js";
 import { StatusCodes } from "http-status-codes";
 
 export async function getSources(
