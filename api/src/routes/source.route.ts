@@ -23,7 +23,6 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
   },
 };
 
-
 const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
 const limitStorage = new RedisLimiterStorage();
 
