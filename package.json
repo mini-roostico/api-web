@@ -22,5 +22,12 @@
   },
   "devDependencies": {
     "semantic-release-preconfigured-conventional-commits": "^1.1.118"
+  },
+  "pre-commit": {
+    "run": [
+      "cd common && npm run check",
+      "cd ../api && npm run check",
+      "cd ../auth && npm run check"
+    ]
   }
 }
