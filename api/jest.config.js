@@ -4,4 +4,8 @@ export default {
     },
     moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
     transformIgnorePatterns: ["/node_modules/"],
+    moduleNameMapper: {
+        "^(\\..*)\\.js$": "$1", // Only applies to relative imports
+    },
+    setupFilesAfterEnv: ['./test/jest.setup.ts'],
 };
