@@ -9,7 +9,7 @@ interface ISource {
   subjects: Array<Subject>;
   parameters?: Array<Parameter>;
   macros?: Array<Macro>;
-  configurations?: Map<string, string>;
+  configuration?: Map<string, string>;
   user: Types.ObjectId;
   last_update?: Date;
 }
@@ -35,7 +35,7 @@ const Source = new Schema<ISource, SourceDocumentType>({
     type: [Map],
     required: false,
   },
-  configurations: {
+  configuration: {
     type: Map,
     required: false,
   },
