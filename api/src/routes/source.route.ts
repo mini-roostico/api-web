@@ -12,7 +12,7 @@ import {
   saveSource,
   submitSource,
 } from "../controllers/sources.js";
-import { UserModel } from "../models/models.js";
+import { JwtModel, UserModel } from "../models/models.js";
 
 const sourceRoute = Router();
 
@@ -43,7 +43,10 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
   },
 };
 
-const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
+const authenticationHandler = makeAuthenticationHandlerWithModel(
+  UserModel,
+  JwtModel,
+);
 const limitStorage = new RedisLimiterStorage();
 
 sourceRoute.use(apiLimiter(API_LIMITER_RULES, limitStorage));
