@@ -81,7 +81,6 @@ jobs:
           echo "${{ secrets.AT_PUBLIC_KEY }}" > secrets/at_public.pem
           echo "${{ secrets.RT_PRIVATE_KEY }}" > secrets/rt_private.pem
           echo "${{ secrets.RT_PUBLIC_KEY }}" > secrets/rt_public.pem
-          ls secrets
 
       - name: Run checks
         run: cd ${{ matrix.module }} && npm run check
