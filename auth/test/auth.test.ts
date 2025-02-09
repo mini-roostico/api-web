@@ -9,10 +9,17 @@ import {app} from "./jest.setup";
 let user;
 let userPassword;
 let jwtDefault;
+
+const ATPrivateKeyPath =
+    (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
+const RTPrivateKeyPath =
+    (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
+
 JwtHandler.config({
-    ATPrivateKeyPath: resolve("./secrets/at_private.pem"),
-    RTPrivateKeyPath: resolve("./secrets/rt_private.pem")
+    ATPrivateKeyPath: resolve(ATPrivateKeyPath),
+    RTPrivateKeyPath: resolve(RTPrivateKeyPath)
 });
+
 describe("POST /auth/login", () => {
     beforeAll(async () => {
         userPassword = "Password1!";
