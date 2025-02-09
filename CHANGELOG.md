@@ -1,3 +1,17 @@
+## [1.9.0](https://github.com/mini-roostico/api-web/compare/1.8.1...1.9.0) (2025-02-09)
+
+### Features
+
+* added health check route to both api and auth services ([c173a6f](https://github.com/mini-roostico/api-web/commit/c173a6f4ca38eaab637299d42c690b25d2def794))
+
+### Style improvements
+
+* fixed style in healthcheck.ts and index.ts ([588f005](https://github.com/mini-roostico/api-web/commit/588f005857e947b264af3b3ac85019c3f4dfeba7))
+
+### Refactoring
+
+* added firstName to login return ([883d10e](https://github.com/mini-roostico/api-web/commit/883d10eae9a736407b081f95f97b65e1973a796f))
+
 ## [1.8.1](https://github.com/mini-roostico/api-web/compare/1.8.0...1.8.1) (2025-02-09)
 
 ### Bug Fixes

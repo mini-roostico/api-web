@@ -39,6 +39,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       res.locals.data = {
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
+        firstName: user.firstName,
       };
       return next();
     });
