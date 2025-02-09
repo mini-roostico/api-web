@@ -13,6 +13,9 @@ export {
   ISource,
   SourceDocumentType,
   Source,
+  Subject,
+  Macro,
+  Parameter,
 } from "./models/source/sources.js";
 
 /**

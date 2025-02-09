@@ -1,13 +1,15 @@
 import { Model, Schema, Types } from "mongoose";
 
-type Func = (...args: unknown[]) => unknown;
+type Subject = Map<string, string>;
+type Parameter = Map<string, Array<string>>;
+type Macro = Map<string, Array<string>>;
 
 interface ISource {
   name: string;
-  subjects: Map<string, string>;
-  parameters?: Map<string, string | number | boolean>;
-  macros?: Map<string, Func>;
-  configurations?: Map<string, unknown[]>;
+  subjects: Array<Subject>;
+  parameters?: Array<Parameter>;
+  macros?: Array<Macro>;
+  configurations?: Map<string, string>;
   user: Types.ObjectId;
   last_update?: Date;
 }
@@ -22,19 +24,19 @@ const Source = new Schema<ISource, SourceDocumentType>({
     required: true,
   },
   subjects: {
-    type: Map<string, string>,
+    type: [Map],
     required: true,
   },
   parameters: {
-    type: Map<string, string | number | boolean>,
+    type: [Map],
     required: false,
   },
   macros: {
-    type: Map<string, Func>,
+    type: [Map],
     required: false,
   },
   configurations: {
-    type: Map<string, unknown[]>,
+    type: Map,
     required: false,
   },
   user: {
@@ -55,4 +57,4 @@ Source.static(
   },
 );
 
-export { ISource, SourceDocumentType, Source };
+export { ISource, SourceDocumentType, Source, Subject, Macro, Parameter };

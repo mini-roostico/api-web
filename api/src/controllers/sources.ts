@@ -4,6 +4,9 @@ import {
   ErrorTypes,
   UnauthorizedError,
   BadRequestError,
+  Subject,
+  Macro,
+  Parameter,
 } from "@mini-roostico/api-common";
 import { SourceModel as Source } from "../models/models.js";
 import { StatusCodes } from "http-status-codes";
@@ -55,12 +58,10 @@ export async function saveSource(
   }
 
   const name: string = req.body.name;
-  const subjects: Map<string, string> = req.body.subjects;
-  const parameters: Map<string, string | number | boolean> =
-    req.body.parameters ?? new Map();
-  type Func = (...args: unknown[]) => unknown;
-  const macros: Map<string, Func> = req.body.macros ?? new Map();
-  const configurations: Map<string, unknown[]> =
+  const subjects: Subject[] = req.body.subjects;
+  const parameters: Parameter[] = req.body.parameters ?? [];
+  const macros: Macro[] = req.body.macros ?? [];
+  const configurations: Map<string, string> =
     req.body.configurations ?? new Map();
   const last_update: Date = new Date(Date.now());
 
@@ -97,15 +98,14 @@ export async function submitSource(
       ),
     );
   }
-
-  const parameters: Map<string, string | number | boolean> =
-    req.body.parameters ?? new Map();
-  type Func = (...args: unknown[]) => unknown;
-  const macros: Map<string, Func> = req.body.macros ?? new Map();
-  const configurations: Map<string, unknown[]> =
+  const subjects: Subject[] = req.body.subjects ?? [];
+  const parameters: Parameter[] = req.body.parameters ?? [];
+  const macros: Macro[] = req.body.macros ?? [];
+  const configurations: Map<string, string> =
     req.body.configurations ?? new Map();
 
   const source = new Source({
+    subjects,
     parameters,
     macros,
     configurations,
