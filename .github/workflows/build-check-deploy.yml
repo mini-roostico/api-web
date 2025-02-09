@@ -77,10 +77,10 @@ jobs:
         run: |
           cd ${{ matrix.module }}
           mkdir -p secrets
-          echo ${{ secrets.AT_PRIVATE_KEY }} > secrets/at_private.pem
-          echo ${{ secrets.AT_PUBLIC_KEY }} > secrets/at_public.pem
-          echo ${{ secrets.RT_PRIVATE_KEY }} > secrets/rt_private.pem
-          echo ${{ secrets.RT_PUBLIC_KEY }} > secrets/rt_public.pem
+          echo "${{ secrets.AT_PRIVATE_KEY }}" > secrets/at_private.pem
+          echo "${{ secrets.AT_PUBLIC_KEY }}" > secrets/at_public.pem
+          echo "${{ secrets.RT_PRIVATE_KEY }}" > secrets/rt_private.pem
+          echo "${{ secrets.RT_PUBLIC_KEY }}" > secrets/rt_public.pem
 
       - name: Run checks
         run: cd ${{ matrix.module }} && npm run check
