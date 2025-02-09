@@ -18,6 +18,10 @@ export {
   Parameter,
 } from "./models/source/sources.js";
 
+export {
+  healthCheckRouter,
+} from "./utils/route/healthcheck.js";
+
 /**
  * Exporting errors
  */
