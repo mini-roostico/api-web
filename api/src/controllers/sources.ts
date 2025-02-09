@@ -8,6 +8,8 @@ import {
   Macro,
   Parameter,
 } from "@mini-roostico/api-common";
+import subjektpkg from "@mini-roostico/subjekt";
+import subjekt = subjektpkg.io.github.subjekt.Subjekt;
 import { SourceModel as Source } from "../models/models.js";
 import { StatusCodes } from "http-status-codes";
 import { ObjectId } from "mongodb";
@@ -61,8 +63,8 @@ export async function saveSource(
   const subjects: Subject[] = req.body.subjects;
   const parameters: Parameter[] = req.body.parameters ?? [];
   const macros: Macro[] = req.body.macros ?? [];
-  const configurations: Map<string, string> =
-    req.body.configurations ?? new Map();
+  const configuration: Map<string, string> =
+    req.body.configuration ?? new Map();
   const last_update: Date = new Date(Date.now());
 
   const source = new Source({
@@ -70,7 +72,7 @@ export async function saveSource(
     subjects,
     parameters,
     macros,
-    configurations,
+    configuration,
     user: res.locals.user._id,
     last_update,
   });
@@ -89,7 +91,7 @@ export async function submitSource(
   res: Response,
   next: NextFunction,
 ) {
-  if (!ac.can(res.locals.user.role).createAny("sources").granted) {
+  if (!ac.can(res.locals.user.role).createOwn("sources").granted) {
     next(
       new UnauthorizedError(
         "Can't create the resource",
@@ -98,24 +100,33 @@ export async function submitSource(
       ),
     );
   }
+  const name: string = req.body.name;
   const subjects: Subject[] = req.body.subjects ?? [];
   const parameters: Parameter[] = req.body.parameters ?? [];
   const macros: Macro[] = req.body.macros ?? [];
-  const configurations: Map<string, string> =
-    req.body.configurations ?? new Map();
+  const configuration: Map<string, string> =
+    req.body.configuration ?? new Map();
 
-  const source = new Source({
+  const source = {
+    name,
     subjects,
     parameters,
     macros,
-    configurations,
-    user: res.locals.user._id,
-  });
+    configuration,
+  };
 
   try {
-    // TODO add subjekt call and get results
-    res.locals.code = StatusCodes.CREATED;
-    res.locals.data = source;
+    const subjektInstance = subjekt.fromJson(JSON.stringify(source));
+    const result = JSON.parse(
+      subjektInstance.resolveSubjectsAsJson().asString(),
+    ) as Array<object>;
+    const graph = JSON.parse(subjektInstance.getGenerationGraph().asString());
+    res.locals.code = StatusCodes.OK;
+    res.locals.data = {
+      resolvedSubjects: result,
+      generationGraph: graph,
+    };
+    next();
   } catch (err) {
     next(err);
   }
