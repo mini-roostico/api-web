@@ -3,7 +3,6 @@ import { ErrorTypes } from "../../errors/error.types.js";
 
 export interface DefaultResponse {
   success: boolean;
-  // date: Date,
   code: StatusCodes;
 }
 
