@@ -7,10 +7,11 @@ import {
 } from "@mini-roostico/api-common";
 import { SourceModel as Source } from "../models/models.js";
 import { StatusCodes } from "http-status-codes";
+import { ObjectId } from "mongodb";
 
 async function getSource(userId: string, sourceId: string) {
   const sources = await Source.getSourcesForUser(userId);
-  return sources.find((source) => source._id === sourceId);
+  return sources.find((source) => source._id.equals(new ObjectId(sourceId)));
 }
 
 export async function getSources(
@@ -18,7 +19,7 @@ export async function getSources(
   res: Response,
   next: NextFunction,
 ) {
-  if (!ac.can(res.locals.user.role).readAny("sources").granted) {
+  if (!ac.can(res.locals.user.role).readOwn("sources").granted) {
     next(
       new UnauthorizedError(
         "Can't access the resource",
@@ -43,7 +44,7 @@ export async function saveSource(
   res: Response,
   next: NextFunction,
 ) {
-  if (!ac.can(res.locals.user.role).createAny("sources").granted) {
+  if (!ac.can(res.locals.user.role).createOwn("sources").granted) {
     next(
       new UnauthorizedError(
         "Can't create the resource",
@@ -72,11 +73,11 @@ export async function saveSource(
     user: res.locals.user._id,
     last_update,
   });
-
   try {
     await source.save();
     res.locals.code = StatusCodes.CREATED;
     res.locals.data = source;
+    next();
   } catch (err) {
     next(err);
   }
@@ -131,7 +132,7 @@ export async function editSource(
   res: Response,
   next: NextFunction,
 ) {
-  const isAllowed = ac.can(res.locals.user.role).updateAny("sources").granted;
+  const isAllowed = ac.can(res.locals.user.role).updateOwn("sources").granted;
   if (!isAllowed) {
     next(
       new UnauthorizedError(
@@ -143,7 +144,12 @@ export async function editSource(
   }
 
   const data = req.body.data;
-  if (data === null || data === undefined) {
+  if (
+    data === null ||
+    data === undefined ||
+    data.data === undefined ||
+    data.data === null
+  ) {
     return next(
       new BadRequestError(
         'Request need to have a "data" field',
@@ -154,7 +160,7 @@ export async function editSource(
   }
   try {
     const source = await getSource(res.locals.user._id, data._id);
-    await Source.updateOne({ _id: source._id }, data);
+    await Source.updateOne({ _id: source._id }, data.data);
     res.locals.code = StatusCodes.OK;
     res.locals.data = true;
   } catch (error) {
@@ -174,7 +180,7 @@ export async function deleteSource(
   res: Response,
   next: NextFunction,
 ) {
-  const isAllowed = ac.can(res.locals.user.role).deleteAny("sources").granted;
+  const isAllowed = ac.can(res.locals.user.role).deleteOwn("sources").granted;
   if (!isAllowed) {
     next(
       new UnauthorizedError(
