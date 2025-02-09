@@ -11,9 +11,9 @@ import authRouter from "../routes/auth.route.js";
 import { RedisConfig } from "./redis.config.js";
 
 const ATPrivateKeyPath =
-  (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
+  (process.env.AT_PRIVATE as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
-  (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
+  (process.env.RT_PRIVATE as string) || "./secrets/rt_private.pem";
 
 const ExpressConfig = (externalServices: boolean = true): Application => {
   JwtHandler.config({
