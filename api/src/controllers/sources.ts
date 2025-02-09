@@ -128,7 +128,6 @@ export async function submitSource(
     };
     next();
   } catch (err) {
-    console.log(err);
     next(err);
   }
 }
