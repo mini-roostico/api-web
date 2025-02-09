@@ -1,3 +1,17 @@
+## [1.8.0](https://github.com/mini-roostico/api-web/compare/1.7.2...1.8.0) (2025-02-09)
+
+### Features
+
+* added support for generation through Subjekt ([d1411f4](https://github.com/mini-roostico/api-web/commit/d1411f4f4569b89588506f81b4284982efeb2648))
+
+### Dependency updates
+
+* **deps:** update eslint monorepo to v9.20.0 ([61fba91](https://github.com/mini-roostico/api-web/commit/61fba915dce9385f6e8a31aa7c8ac836cd5c0cd3))
+
+### Refactoring
+
+* removed log ([8c8d34b](https://github.com/mini-roostico/api-web/commit/8c8d34bb32882beadf21ccc695dfc9d2f6b86a56))
+
 ## [1.7.2](https://github.com/mini-roostico/api-web/compare/1.7.1...1.7.2) (2025-02-09)
 
 ### Bug Fixes
