@@ -12,6 +12,7 @@ interface IUser {
   password: string;
   firstName: string;
   secondName: string;
+  role: string;
 }
 
 interface UserDocumentProps extends IUser, Document {
@@ -53,6 +54,15 @@ const User = new Schema<IUser, UserDocumentType>({
     validate: {
       validator: (value: string) => isAlpha(value, "en-US"),
       message: "Second name must contain only letters",
+    },
+  },
+  role: {
+    type: String,
+    required: false,
+    default: "user",
+    validate: {
+      validator: (value: string) => value === "user" || value === "admin",
+      message: "Role must be either 'user' or 'admin'",
     },
   },
 });

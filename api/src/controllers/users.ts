@@ -65,12 +65,13 @@ export async function createUser(
   res: Response,
   next: NextFunction,
 ) {
+  const defaultRole = "user";
   const user = new User({
     email: req.body.email,
     password: req.body.password,
     firstName: req.body.firstName,
     secondName: req.body.secondName,
-    role: req.body.role,
+    role: defaultRole,
   });
   try {
     await user.save();
@@ -79,6 +80,7 @@ export async function createUser(
       email: user.email,
       firstName: user.firstName,
       secondName: user.secondName,
+      role: defaultRole,
     };
   } catch (error) {
     return next(
