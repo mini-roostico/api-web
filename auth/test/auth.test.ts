@@ -9,35 +9,16 @@ import {app} from "./jest.setup";
 let user;
 let userPassword;
 let jwtDefault;
-import { existsSync, readFileSync } from "fs";
 
 const ATPrivateKeyPath =
-    (process.env.AT_PRIVATE_KEY as string) || "./secrets/at_private.pem";
+    (process.env.AT_PRIVATE as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
-    (process.env.RT_PRIVATE_KEY as string) || "./secrets/rt_private.pem";
+    (process.env.RT_PRIVATE as string) || "./secrets/rt_private.pem";
 
 JwtHandler.config({
     ATPrivateKeyPath: resolve(ATPrivateKeyPath),
     RTPrivateKeyPath: resolve(RTPrivateKeyPath)
 });
-
-console.log("Resolved AT key path:", resolve(ATPrivateKeyPath));
-console.log("Resolved RT key path:", resolve(RTPrivateKeyPath));
-
-// Check if files actually exist
-console.log("AT key exists:", existsSync(resolve(ATPrivateKeyPath)));
-console.log("RT key exists:", existsSync(resolve(RTPrivateKeyPath)));
-
-// Read and print first few characters (ensure it's correct)
-console.log(
-    "AT key first 50 chars:",
-    readFileSync(resolve(ATPrivateKeyPath), "utf8").slice(0, 50)
-);
-console.log(
-    "RT key first 50 chars:",
-    readFileSync(resolve(RTPrivateKeyPath), "utf8").slice(0, 50)
-);
-
 
 describe("POST /auth/login", () => {
     beforeAll(async () => {
