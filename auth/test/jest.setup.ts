@@ -9,30 +9,27 @@ let mongoServer: MongoMemoryServer;
 export let app: Application
 let server: Server
 
-beforeAll(async (done) => {
+beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
     const uri = mongoServer.getUri();
     await mongoose.connect(uri);
     app = ExpressConfig(false);
     server = app.listen(8180);
-    done();
 });
 
-afterAll(async (done) => {
+afterAll(async () => {
     await mongoose.disconnect();
     await mongoServer.stop();
     if (server) {
         await new Promise((resolve) => server.close(resolve));
     }
-    mongoose.connection.close()
-    done();
+    await mongoose.connection.close();
 });
 
-afterEach(async (done) => {
+afterEach(async () => {
     const collections = mongoose.connection.collections;
     for (const key in collections) {
         const collection = collections[key];
         await collection.deleteMany({});
     }
-    done();
 });

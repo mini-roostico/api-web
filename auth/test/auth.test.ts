@@ -21,7 +21,7 @@ JwtHandler.config({
 });
 
 describe("POST /auth/login", () => {
-    beforeAll(async (done) => {
+    beforeAll(async () => {
         userPassword = "Password1!";
         user = await new User({
             email: "test.user@email.it",
@@ -29,7 +29,6 @@ describe("POST /auth/login", () => {
             firstName: "Test",
             secondName: "User",
         }).save();
-        done();
     });
     test("Login with user data", async () => {
         const response = await request(app)
@@ -85,7 +84,7 @@ describe("POST /auth/login", () => {
     });
 });
 describe("POST /auth/logout", () => {
-    beforeEach(async (done) => {
+    beforeEach(async () => {
         userPassword = "Password1!";
         user = await new User({
             email: "test.user@email.it",
@@ -94,11 +93,9 @@ describe("POST /auth/logout", () => {
             secondName: "User",
         }).save();
         jwtDefault = await Jwt.createTokenPair(user, {"accessToken": "10m", "refreshToken": "20m"});
-        done();
     });
-    afterEach(async (done) => {
+    afterEach(async () => {
         const tokenDoc = await Jwt.findOneAndDelete({email: user.email});
-        done();
     });
     test("Can logout successfully from the application", async () => {
         const logoutResponse = await request(app)
@@ -113,7 +110,7 @@ describe("POST /auth/logout", () => {
     });
 });
 describe("POST /auth/refresh", () => {
-    beforeEach(async (done) => {
+    beforeEach(async () => {
         userPassword = "Password1!";
         user = await new User({
             email: "test.user@email.it",
@@ -122,11 +119,9 @@ describe("POST /auth/refresh", () => {
             secondName: "User",
         }).save();
         jwtDefault = await Jwt.createTokenPair(user, {"accessToken": "10m", "refreshToken": "20m"});
-        done();
     });
-    afterEach(async (done) => {
+    afterEach(async () => {
         await Jwt.findOneAndDelete({refreshToken: jwtDefault.refreshToken});
-        done();
     });
     test("Refresh token with valid data", async () => {
         const response = await request(app)
