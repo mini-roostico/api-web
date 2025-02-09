@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w",
-    "test": "jest --runInBand --detectOpenHandles",
+    "test": "jest --runInBand --forceExit",
     "start": "node dist/app.js",
     "lint:fix": "eslint src/ --fix",
     "lint:check": "eslint src/",

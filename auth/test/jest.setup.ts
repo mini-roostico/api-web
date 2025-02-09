@@ -18,16 +18,10 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    await mongoose.connection.close();
     await mongoose.disconnect();
     await mongoServer.stop();
     if (server) {
-        await new Promise((resolve, reject) => {
-            server.close((err) => {
-                if (err) reject(err);
-                else resolve("");
-            });
-        });
+        await new Promise((resolve) => server.close(resolve));
     }
 });
 
