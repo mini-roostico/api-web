@@ -112,12 +112,10 @@ export class JwtHandler {
 
     if (tokenType === "AT") {
       keyPath =
-        this.internalConfiguration.ATPrivateKeyPath ||
-        process.env.AT_PRIVATE_KEY_PATH;
+        this.internalConfiguration.ATPrivateKeyPath || process.env.AT_PRIVATE;
     } else {
       keyPath =
-        this.internalConfiguration.RTPrivateKeyPath ||
-        process.env.RT_PRIVATE_KEY_PATH;
+        this.internalConfiguration.RTPrivateKeyPath || process.env.RT_PRIVATE;
     }
 
     if (keyPath === undefined) {
