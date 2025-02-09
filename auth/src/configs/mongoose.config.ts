@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
+const mongoHost = process.env.MONGO_HOST || "localhost";
+const mongoPort = process.env.MONGO_PORT || 27017;
 const connectionString =
   (process.env.MONGODB_CONNECTION_STRING as string) ||
-  "mongodb://localhost:27017/";
+  `mongodb://${mongoHost}:${mongoPort}/`;
 
 async function MongooseConfig() {
   try {
