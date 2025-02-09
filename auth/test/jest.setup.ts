@@ -14,7 +14,7 @@ beforeAll(async () => {
     const uri = mongoServer.getUri();
     await mongoose.connect(uri);
     app = ExpressConfig(false);
-    server = app.listen(8081);
+    server = app.listen(8180);
 });
 
 afterAll(async () => {
