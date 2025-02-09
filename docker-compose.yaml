@@ -1,7 +1,9 @@
 services:
   # Rest api service
   api-server:
-    image: api-server
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
     ports:
       - "3000:3000"
     depends_on:
@@ -23,7 +25,9 @@ services:
 
   # Authentication service
   auth-server:
-    image: auth-server
+    build:
+      context: .
+      dockerfile: ./auth/Dockerfile
     ports:
       - "8180:8180"
     environment:
