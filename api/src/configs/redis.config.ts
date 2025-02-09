@@ -19,7 +19,6 @@ export async function RedisConfig() {
 export default class RedisLimiterStorage implements ApiLimiterStorage {
   async exists(clientId: string): Promise<boolean> {
     if (!redisClient) {
-      console.log("Redis client not initialized");
       return false;
     }
     const exists = await redisClient.exists(clientId);
@@ -28,7 +27,6 @@ export default class RedisLimiterStorage implements ApiLimiterStorage {
 
   async increaseEntry(clientId: string): Promise<number> {
     if (!redisClient) {
-      console.log("Redis client not initialized");
       return 0;
     }
     return await redisClient.incr(clientId);
@@ -36,7 +34,6 @@ export default class RedisLimiterStorage implements ApiLimiterStorage {
 
   async setExpiration(clientId: string, seconds: number): Promise<boolean> {
     if (!redisClient) {
-      console.log("Redis client not initialized");
       return false;
     }
     return redisClient.expire(clientId, seconds);
