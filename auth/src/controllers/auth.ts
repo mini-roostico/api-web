@@ -25,6 +25,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       undefined,
       ErrorTypes.LOGIN_ERROR,
     );
+
     if (user === null || user === undefined) {
       return next(responseError);
     }
