@@ -17,14 +17,13 @@ beforeAll(async () => {
     server = app.listen(8180);
 });
 
-afterAll(done => {
-    mongoose.disconnect();
-    mongoServer.stop();
+afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoServer.stop();
     if (server) {
-        new Promise((resolve) => server.close(resolve));
+        await new Promise((resolve) => server.close(resolve));
     }
-    mongoose.connection.close();
-    done();
+    await mongoose.connection.close();
 });
 
 afterEach(async () => {
