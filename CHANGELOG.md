@@ -1,3 +1,29 @@
+## [1.8.1](https://github.com/mini-roostico/api-web/compare/1.8.0...1.8.1) (2025-02-09)
+
+### Bug Fixes
+
+* updated all keys' env variables to new name ([b6ff58c](https://github.com/mini-roostico/api-web/commit/b6ff58c3482acef4836f9534e6fa442a283c9272))
+
+### Tests
+
+* add auth routes tests ([bea6fec](https://github.com/mini-roostico/api-web/commit/bea6fec6a1411e5b3e0551241fa26896741158fe))
+* add flag in test command ([c396df7](https://github.com/mini-roostico/api-web/commit/c396df762863089f5f2eb14cc828a32bc6194003))
+* add process termination ([ec9ff60](https://github.com/mini-roostico/api-web/commit/ec9ff6009f26fa37ca4972cbc18872cea44af41e))
+* add test timeout ([6f374c3](https://github.com/mini-roostico/api-web/commit/6f374c3979cf23cf8696db3c2c68b5d1c4bc0feb))
+* attempt to fix process termination ([629755f](https://github.com/mini-roostico/api-web/commit/629755f73dd2ec87c250736d808ac21e8285cf15))
+* close connection properly ([1de36ff](https://github.com/mini-roostico/api-web/commit/1de36ff08c0f9a72315b95dc1128dbd1e726673a))
+* fix keys path ([29990de](https://github.com/mini-roostico/api-web/commit/29990de6ea47b324ec36ffc174ecf475a55dff86))
+* fix process termination ([ab34b07](https://github.com/mini-roostico/api-web/commit/ab34b07a14bab2ff93585626facecad38e239f95))
+* force exit to kill process ([a0076d1](https://github.com/mini-roostico/api-web/commit/a0076d1e0efc003a62342a62b811832c69531c1d))
+* reduced timeout ([cf835ca](https://github.com/mini-roostico/api-web/commit/cf835ca5656d41d99c39a412584c7319ba1982b2))
+* troubleshooting keys issue ([3a7d6e4](https://github.com/mini-roostico/api-web/commit/3a7d6e47cc6b1bef7e1c4af8674aa441c6d55ba0))
+
+### Build and continuous integration
+
+* add env variable for keys ([d659d56](https://github.com/mini-roostico/api-web/commit/d659d56e797525c4340a7211c691b395633aff6f))
+* add print for testing ([4b159f7](https://github.com/mini-roostico/api-web/commit/4b159f730015e8cc6baa7beb55dab684e93d34a9))
+* modified secrets copy ([314d97a](https://github.com/mini-roostico/api-web/commit/314d97aebbb110f9efd9633d5cac5bb309f3d9d8))
+
 ## [1.8.0](https://github.com/mini-roostico/api-web/compare/1.7.2...1.8.0) (2025-02-09)
 
 ### Features
