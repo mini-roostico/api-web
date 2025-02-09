@@ -13,7 +13,7 @@ import {
 } from "@mini-roostico/api-common";
 import { body } from "express-validator";
 import RedisLimiterStorage from "../configs/redis.config.js";
-import { UserModel } from "../models/models.js";
+import { JwtModel, UserModel } from "../models/models.js";
 
 const userRouter = Router();
 
@@ -39,7 +39,10 @@ const API_LIMITER_RULES: ApiLimiterEntry = {
 };
 
 const limitStorage = new RedisLimiterStorage();
-const authenticationHandler = makeAuthenticationHandlerWithModel(UserModel);
+const authenticationHandler = makeAuthenticationHandlerWithModel(
+  UserModel,
+  JwtModel,
+);
 
 userRouter.use(apiLimiter(API_LIMITER_RULES, limitStorage));
 
@@ -55,6 +58,7 @@ userRouter.put(
     body("data.secondName").optional().isAlpha(),
     // Check that the user is not trying to change the email or the password
     body("data.email").not().exists(),
+    body("data.password").not().exists(),
   ]),
   editProfile,
 );
@@ -62,7 +66,7 @@ userRouter.put(
 userRouter.delete(
   "/",
   authenticationHandler,
-  validationHandler([body("email").exists().isEmail()]),
+  validationHandler([body("data.email").exists().isEmail()]),
   deleteProfile,
 );
 

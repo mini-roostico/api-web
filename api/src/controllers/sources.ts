@@ -24,22 +24,32 @@ export async function getSources(
   res: Response,
   next: NextFunction,
 ) {
-  if (!ac.can(res.locals.user.role).readOwn("sources").granted) {
-    next(
-      new UnauthorizedError(
-        "Can't access the resource",
-        undefined,
-        ErrorTypes.AUTHENTICATION_ERROR,
-      ),
-    );
+  let sources;
+  let ownSource = true;
+  if (!ac.can(res.locals.user.role).readAny("sources").granted) {
+    if (!ac.can(res.locals.user.role).readOwn("sources").granted) {
+      next(
+        new UnauthorizedError(
+          "Can't access the resource",
+          undefined,
+          ErrorTypes.AUTHENTICATION_ERROR,
+        ),
+      );
+    }
+  } else {
+    ownSource = false;
   }
   try {
-    const sources: object = await Source.getSourcesForUser(res.locals.user._id);
-    res.locals.code = StatusCodes.OK;
-    res.locals.data = sources;
+    if (ownSource) {
+      sources = await Source.getSourcesForUser(res.locals.user._id);
+    } else {
+      sources = await Source.getAllSources();
+    }
   } catch (err) {
     next(err);
   }
+  res.locals.code = StatusCodes.OK;
+  res.locals.data = sources;
 
   next();
 }

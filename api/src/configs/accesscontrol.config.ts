@@ -9,9 +9,9 @@ const grantsObject = {
     },
     sources: {
       "read:any": ["*"],
-      "create:any": ["*"],
-      "delete:any": ["*"],
-      "update:any": ["*"],
+      "create:own": ["*"],
+      "delete:own": ["*"],
+      "update:own": ["*"],
     },
   },
   user: {

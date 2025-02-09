@@ -25,7 +25,7 @@ async function setWorkData(
   isAllowed: boolean,
 ) {
   let user = res.locals.user;
-  const email = req.body.email;
+  const email = req.body.email || req.body.data?.email;
   if (email && email !== user.email) {
     try {
       if (!isAllowed) {
@@ -169,7 +169,9 @@ export async function deleteProfile(
   next: NextFunction,
 ) {
   let user;
+
   const isAllowed = ac.can(res.locals.user.role).deleteAny("users").granted;
+
   try {
     user = await setWorkData(req, res, next, isAllowed);
     await User.deleteOne({ email: user.email });
