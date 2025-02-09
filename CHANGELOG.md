@@ -1,3 +1,32 @@
+## [1.7.1](https://github.com/mini-roostico/api-web/compare/1.7.0...1.7.1) (2025-02-09)
+
+### Bug Fixes
+
+* added missing field in user ([2db6ab1](https://github.com/mini-roostico/api-web/commit/2db6ab1b49c9830edbf432b8a78842123a295200))
+* added missing parameter to makeAuthenticationHandlerWithModel. Added JwtModel to api ([4baa8a1](https://github.com/mini-roostico/api-web/commit/4baa8a1ff4a53eddf91a4454cf7bdfc39147b2f7))
+* fixed id comparison. fixed permissions of access control. Added missing 'next()' call ([11d6465](https://github.com/mini-roostico/api-web/commit/11d646539fd42afcc699a375e8db9c5b893d844c))
+
+### Tests
+
+* added example tests ([bfb6194](https://github.com/mini-roostico/api-web/commit/bfb61948fa6de5e47fa57628db2e988f25d75c2c))
+* setup tests for api and auth ([27e3113](https://github.com/mini-roostico/api-web/commit/27e311318ef70dbdffcaad33cbdb97d902fa2b49))
+
+### Build and continuous integration
+
+* added babel to build ([2ed7d0c](https://github.com/mini-roostico/api-web/commit/2ed7d0c06f4ba43ae513f0e6184a6b7a0ff4e516))
+* added babel.config.js, modified jest.config.js ([68caa67](https://github.com/mini-roostico/api-web/commit/68caa6741099f02d5fd38580662478d34b471524))
+* added set up keys step in test-and-check job ([eb0d226](https://github.com/mini-roostico/api-web/commit/eb0d2265e28e4d630ab38528cef094c1d23f54b2))
+* added test dependencies ([18f6957](https://github.com/mini-roostico/api-web/commit/18f69570a2b0cbe00da24e987962b31ad133ad91))
+* added types for express ([c25ea34](https://github.com/mini-roostico/api-web/commit/c25ea3433baf6c45be22ccf45cea2bbad66ea44f))
+* fixed docker-compose build local images with correct context ([aa3e6d0](https://github.com/mini-roostico/api-web/commit/aa3e6d04dc857326883729d68376b6107bc99ed0))
+* fixed mongo connection with docker-compose.yaml ([1e04ac6](https://github.com/mini-roostico/api-web/commit/1e04ac607d7e5ebec5739bb3ddb1b7b1b69adc69))
+* setup jest.config.js ([191426b](https://github.com/mini-roostico/api-web/commit/191426b7b7639c174330c2e2cb48f25233ccce3e))
+* switched to ".cjs" extension ([7010a67](https://github.com/mini-roostico/api-web/commit/7010a67eecc6beb2a5c308f1ac40f820ab165a43))
+
+### Refactoring
+
+* made dependency with mongo and redis less strict, potentially disabling external services via flag ([7e81e2f](https://github.com/mini-roostico/api-web/commit/7e81e2fc9c4bce0d36fe2996ce71841a6c765107))
+
 ## [1.7.0](https://github.com/mini-roostico/api-web/compare/1.6.3...1.7.0) (2025-02-08)
 
 ### Features
