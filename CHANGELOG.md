@@ -1,3 +1,13 @@
+## [1.7.2](https://github.com/mini-roostico/api-web/compare/1.7.1...1.7.2) (2025-02-09)
+
+### Bug Fixes
+
+* fixed missing fields in mongoose source ([1ca6d39](https://github.com/mini-roostico/api-web/commit/1ca6d39ba8b8a09606dfdcaf2c613f47fa4ae698))
+
+### General maintenance
+
+* updated comment ([168fa18](https://github.com/mini-roostico/api-web/commit/168fa184ca4d66e9421018c040857dde890f6923))
+
 ## [1.7.1](https://github.com/mini-roostico/api-web/compare/1.7.0...1.7.1) (2025-02-09)
 
 ### Bug Fixes
