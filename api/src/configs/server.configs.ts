@@ -4,6 +4,7 @@ import {
   defaultErrorHandler,
   defaultResponseHandler,
   JwtHandler,
+  healthCheckRouter,
 } from "@mini-roostico/api-common";
 import { resolve } from "path";
 import { createServer, Server } from "node:http";
@@ -52,6 +53,7 @@ const ServerConfig = (externalServices: boolean = true): Server => {
 
   app.use("/users", userRouter);
   app.use("/sources", sourceRoute);
+  app.use("/health", healthCheckRouter);
 
   app.use(defaultResponseHandler);
   app.use(defaultErrorHandler);

@@ -2,6 +2,7 @@ import {
   defaultErrorHandler,
   defaultResponseHandler,
   JwtHandler,
+  healthCheckRouter,
 } from "@mini-roostico/api-common";
 import { resolve } from "path";
 import express, { Application } from "express";
@@ -49,6 +50,7 @@ const ExpressConfig = (externalServices: boolean = true): Application => {
   });
 
   app.use("/auth", authRouter);
+  app.use("/health", healthCheckRouter);
 
   app.use(defaultResponseHandler);
   app.use(defaultErrorHandler);
