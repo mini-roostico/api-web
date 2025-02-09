@@ -113,7 +113,7 @@ export async function submitSource(
   });
 
   try {
-    // TODO add subjekt call and get result
+    // TODO add subjekt call and get results
     res.locals.code = StatusCodes.CREATED;
     res.locals.data = source;
   } catch (err) {
