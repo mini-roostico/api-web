@@ -8,5 +8,5 @@ module.exports = {
         "^(\\..*)\\.js$": "$1", // Only applies to relative imports
     },
     setupFilesAfterEnv: ['./test/jest.setup.ts'],
-    testTimeout: 30000, // 30 seconds
+    testTimeout: 10000, // 10 seconds
 };
