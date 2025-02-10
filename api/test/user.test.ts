@@ -30,13 +30,6 @@ describe("GET /users/", () => {
             secondName: "User"
         }).save();
 
-        otherUser = await new User({
-            email: "other.user@email.it",
-            password: "Password1!",
-            firstName: "Test",
-            secondName: "User"
-        }).save();
-
         admin = await new User({
             email: "admin.email@email.it",
             password: "Password1!",
@@ -95,13 +88,6 @@ describe("POST /users/", () => {
             secondName: "User"
         }).save();
 
-        otherUser = await new User({
-            email: "other.user@email.it",
-            password: "Password1!",
-            firstName: "Test",
-            secondName: "User"
-        }).save();
-
         admin = await new User({
             email: "admin.email@email.it",
             password: "Password1!",
@@ -142,13 +128,6 @@ describe("PUT /users/", () => {
     beforeEach(async () => {
         user = await new User({
             email: "fake.email@email.it",
-            password: "Password1!",
-            firstName: "Test",
-            secondName: "User"
-        }).save();
-
-        otherUser = await new User({
-            email: "other.user@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
@@ -210,13 +189,6 @@ describe("DELETE /users/", () => {
     beforeEach(async () => {
         user = await new User({
             email: "fake.email@email.it",
-            password: "Password1!",
-            firstName: "Test",
-            secondName: "User"
-        }).save();
-
-        otherUser = await new User({
-            email: "other.user@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
