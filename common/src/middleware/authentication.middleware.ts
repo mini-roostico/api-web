@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestError, NotFoundError } from "../errors/errors.js";
 import { ErrorTypes } from "../errors/error.types.js";
-import { UserDocumentType } from "../models/users/users.js";
 import { IJsonWebTokenModel } from "../models/jwt/jwt.js";
+import { UserRepository } from "../models/repository/users.repository.js";
 
 export function makeAuthenticationHandlerWithModel(
-  userModel: UserDocumentType,
+  userRepository: UserRepository,
   jwtModel: IJsonWebTokenModel,
 ) {
   return async function authenticationHandler(
@@ -36,9 +36,7 @@ export function makeAuthenticationHandlerWithModel(
         );
       }
       const validationResponse = await jwtRecord.validateAccessToken();
-      const user = await userModel.findOne({
-        email: validationResponse.sub.email,
-      });
+      const user = await userRepository.getUser(validationResponse.sub.email);
       if (user == null) {
         return next(
           new NotFoundError(

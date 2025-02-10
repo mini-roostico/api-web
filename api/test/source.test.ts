@@ -2,7 +2,7 @@ import {StatusCodes} from "http-status-codes";
 // @ts-ignore
 import request from "supertest";
 import {resolve} from "path";
-import {UserModel as User, JwtModel as Jwt} from "../src/models/models.js";
+import {JwtModel as Jwt, UserRepositoryModel as UserRepository, SourceRepositoryModel as SourceRepository} from "../src/models/models.js";
 import {JwtHandler} from "@mini-roostico/api-common";
 import {app} from "./jest.setup";
 
@@ -49,27 +49,27 @@ describe("GET /sources/", () => {
     let userWithoutSources, jwtUserWithoutSources;
 
     beforeEach(async () => {
-        userWithSources = await new User({
+        userWithSources = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "UserWithSources",
-        }).save();
+        });
 
-        userWithoutSources = await new User({
+        userWithoutSources = await UserRepository.createUser({
             email: "fake.email1@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "UserNoSources"
-        }).save();
+        });
 
-        admin = await new User({
+        admin = await UserRepository.createUser({
             email: "admin.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User",
             role: "admin"
-        }).save();
+        });
 
         jwtUserWithSources = await Jwt.createTokenPair(userWithSources, {accessToken: "10m", refreshToken: "20m"});
         jwtUserWithoutSources = await Jwt.createTokenPair(userWithoutSources, {accessToken: "10m", refreshToken: "20m"});
@@ -138,20 +138,20 @@ describe("GET /sources/", () => {
 describe("POST /sources/submit/", () => {
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
-        }).save();
+        });
 
-        admin = await new User({
+        admin = await UserRepository.createUser({
             email: "admin.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User",
             role: "admin"
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
@@ -178,12 +178,12 @@ describe("POST /sources/submit/", () => {
 describe("POST /sources/", () => {
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "UserWithSources",
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
     });
@@ -217,12 +217,12 @@ describe("PUT /sources/", () => {
     const newName = "NewSourceName";
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "UserWithSources",
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
 
@@ -271,12 +271,12 @@ describe("DELETE /sources/", () => {
     let sourceId;
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "UserWithSources",
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
 

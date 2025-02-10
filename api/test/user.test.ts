@@ -2,7 +2,7 @@ import {StatusCodes} from "http-status-codes";
 // @ts-ignore
 import request from "supertest";
 import {resolve} from "path";
-import {UserModel as User, JwtModel as Jwt} from "../src/models/models.js";
+import {UserRepositoryModel as UserRepository, JwtModel as Jwt} from "../src/models/models.js";
 import {JwtHandler} from "@mini-roostico/api-common";
 import {app} from "./jest.setup";
 
@@ -23,20 +23,20 @@ JwtHandler.config({
 describe("GET /users/", () => {
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
-        }).save();
+        });
 
-        admin = await new User({
+        admin = await UserRepository.createUser({
             email: "admin.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User",
             role: "admin"
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
@@ -81,20 +81,20 @@ describe("GET /users/", () => {
 describe("POST /users/", () => {
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
-        }).save();
+        });
 
-        admin = await new User({
+        admin = await UserRepository.createUser({
             email: "admin.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User",
             role: "admin"
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
@@ -126,20 +126,20 @@ describe("POST /users/", () => {
 describe("PUT /users/", () => {
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
-        }).save();
+        });
 
-        admin = await new User({
+        admin = await UserRepository.createUser({
             email: "admin.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User",
             role: "admin"
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
@@ -187,36 +187,36 @@ describe("DELETE /users/", () => {
     let jwtToDelete;
 
     beforeEach(async () => {
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "fake.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User"
-        }).save();
+        });
 
-        admin = await new User({
+        admin = await UserRepository.createUser({
             email: "admin.email@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "User",
             role: "admin"
-        }).save();
+        });
 
         jwtUser = await Jwt.createTokenPair(user, {accessToken: "10m", refreshToken: "20m"});
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
 
-        userToDelete = await new User({
+        userToDelete = await UserRepository.createUser({
             email: "todelete.user@email.it",
             password: "Password1!",
             firstName: "ToDelete",
             secondName: "User"
-        }).save();
+        });
 
         jwtToDelete = await Jwt.createTokenPair(userToDelete, {accessToken: "10m", refreshToken: "20m"});
     });
 
     afterEach(async () => {
-        await User.deleteMany({firstName: "ToDelete"});
+        await UserRepository.deleteManyUsers({firstName: "ToDelete"});
         await Jwt.deleteMany({email: userToDelete.email});
     });
 

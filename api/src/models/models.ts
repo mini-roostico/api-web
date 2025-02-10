@@ -6,17 +6,20 @@ import {
   ISource,
   SourceDocumentType,
   Source,
+  UserRepository,
+  SourceRepository,
   IJsonWebToken,
   IJsonWebTokenModel,
   createJwtSchema,
 } from "@mini-roostico/api-common";
 
-export const UserModel = mongoose.model<IUser, UserDocumentType>("Users", User);
-
-export const SourceModel = mongoose.model<ISource, SourceDocumentType>(
+const UserModel = mongoose.model<IUser, UserDocumentType>("Users", User);
+const SourceModel = mongoose.model<ISource, SourceDocumentType>(
   "Source",
   Source,
 );
-
 const Jwt = createJwtSchema(UserModel);
+
+export const UserRepositoryModel = new UserRepository(UserModel);
+export const SourceRepositoryModel = new SourceRepository(SourceModel);
 export const JwtModel = model<IJsonWebToken, IJsonWebTokenModel>("Jwt", Jwt);

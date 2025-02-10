@@ -7,7 +7,7 @@ import {
   UnauthorizedError,
 } from "@mini-roostico/api-common";
 import { ac } from "../configs/accesscontrol.config.js";
-import { UserModel as User } from "../models/models.js";
+import { UserRepositoryModel as UserRepository } from "../models/models.js";
 
 /**
  * Set the user identity to work with. This function should be used when, in an API control method, an admin entity
@@ -37,7 +37,7 @@ async function setWorkData(
           ),
         );
       }
-      user = await User.findOne({ email: email });
+      user = await UserRepository.getUser(email);
       if (user == undefined) {
         next(
           new NotFoundError(
@@ -66,15 +66,15 @@ export async function createUser(
   next: NextFunction,
 ) {
   const defaultRole = "user";
-  const user = new User({
+  const user = {
     email: req.body.email,
     password: req.body.password,
     firstName: req.body.firstName,
     secondName: req.body.secondName,
     role: defaultRole,
-  });
+  };
   try {
-    await user.save();
+    await UserRepository.createUser(user);
     res.locals.code = StatusCodes.CREATED;
     res.locals.data = {
       email: user.email,
@@ -148,7 +148,7 @@ export async function editProfile(
     );
   }
   try {
-    await User.updateOne({ email: user.email }, data);
+    await UserRepository.editUser(user.email, data);
     res.locals.code = StatusCodes.OK;
     res.locals.data = true;
   } catch (error) {
@@ -174,7 +174,7 @@ export async function deleteProfile(
 
   try {
     user = await setWorkData(req, res, next, isAllowed);
-    await User.deleteOne({ email: user.email });
+    await UserRepository.deleteUser(user.email);
     res.locals.code = StatusCodes.OK;
     res.locals.data = true;
   } catch (error) {
