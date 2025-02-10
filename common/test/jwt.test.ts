@@ -1,12 +1,13 @@
-import {UserModel as User, JwtModel as Jwt, setupConnection, destroyConnection, dropCollectionsInDb} from "./jest.setup";
-import {ConfigurationObject, JwtHandler} from "../src/utils/jwt/jwt.handler.js";
-import {resolve} from "path";
+import {
+    UserModel as User,
+    JwtModel as Jwt,
+    setupConnection,
+    destroyConnection,
+    dropCollectionsInDb,
+    configuration
+} from "./jest.setup";
+import {JwtHandler} from "../src/utils/jwt/jwt.handler.js";
 import {UnauthorizedError} from "../src";
-
-const configuration: ConfigurationObject = {
-    ATPrivateKeyPath: resolve("./secrets/at_private.pem"),
-    RTPrivateKeyPath: resolve("./secrets/rt_private.pem")
-}
 
 beforeAll(async () => {
     await setupConnection();

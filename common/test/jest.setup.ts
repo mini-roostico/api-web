@@ -5,6 +5,7 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose, { model } from "mongoose";
 import {
+    ConfigurationObject,
     createJwtSchema,
     IJsonWebToken, IJsonWebTokenModel,
     ISource,
@@ -14,6 +15,17 @@ import {
     User,
     UserDocumentType
 } from "../src";
+import {resolve} from "path";
+
+const ATPrivateKeyPath =
+    (process.env.AT_PRIVATE as string) || "./secrets/at_private.pem";
+const RTPrivateKeyPath =
+    (process.env.RT_PRIVATE as string) || "./secrets/rt_private.pem";
+
+export const configuration: ConfigurationObject = {
+    ATPrivateKeyPath: resolve(ATPrivateKeyPath),
+    RTPrivateKeyPath: resolve(RTPrivateKeyPath)
+}
 
 export const UserModel = mongoose.model<IUser, UserDocumentType>("Users", User);
 
