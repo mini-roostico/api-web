@@ -1,0 +1,872 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Subjekt API documentation",
+    "description": "This is the API documentation for the Subjekt API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CommonResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "True if the request was successful",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "description": "The data returned by the request"
+          },
+          "code": {
+            "type": "integer",
+            "description": "The HTTP status code of the request",
+            "example": 200
+          }
+        }
+      },
+      "TooManyRequestError": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "value": false
+          },
+          "error": {
+            "type": "object",
+            "description": "The error returned by the request",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "Too Many Requests"
+              },
+              "description": {
+                "type": "string",
+                "value": "Api limit reached"
+              },
+              "type": {
+                "type": "string",
+                "value": 7
+              },
+              "code": {
+                "type": "integer",
+                "value": 409
+              }
+            }
+          }
+        }
+      },
+      "BadRequestError": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "value": false
+          },
+          "error": {
+            "type": "object",
+            "description": "The error returned by the request",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "Bad Request"
+              },
+              "description": {
+                "type": "string",
+                "example": "Some validation errors occurred on the request."
+              },
+              "type": {
+                "type": "string",
+                "value": 4
+              },
+              "code": {
+                "type": "integer",
+                "value": 400
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "value": false
+          },
+          "error": {
+            "type": "object",
+            "description": "The error returned by the request",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "Internal server error"
+              },
+              "description": {
+                "type": "string",
+                "example": "Error while processing the request"
+              },
+              "type": {
+                "type": "string",
+                "value": 7
+              },
+              "code": {
+                "type": "integer",
+                "value": 500
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/sources": {
+      "get": {
+        "summary": "Return the sources of the user",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a source",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "The data to update the source with.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string,",
+                  "description": "The source name,",
+                  "required": true
+                },
+                "subjects": {
+                  "type": "Subject[],",
+                  "description": "A list of subjects,",
+                  "required": false
+                },
+                "parameters": {
+                  "type": "Parameter[],",
+                  "description": "The source parameters,",
+                  "required": false
+                },
+                "macros": {
+                  "type": "Macro[],",
+                  "description": "The source macros,",
+                  "required": false
+                },
+                "configuration": {
+                  "type": "Map<string, string>,",
+                  "description": "The source configuration,",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific source",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "The data to update the source with.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "The source id to modify",
+                  "required": true
+                },
+                "name": {
+                  "type": "string,",
+                  "description": "The source name,",
+                  "required": false
+                },
+                "subjects": {
+                  "type": "Subject[],",
+                  "description": "A list of subjects,",
+                  "required": false
+                },
+                "parameters": {
+                  "type": "Parameter[],",
+                  "description": "The source parameters,",
+                  "required": false
+                },
+                "macros": {
+                  "type": "Macro[],",
+                  "description": "The source macros,",
+                  "required": false
+                },
+                "configuration": {
+                  "type": "Map<string, string>,",
+                  "description": "The source configuration,",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific source",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "The data to update the source with.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "The source id to modify",
+                  "required": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sources/submit": {
+      "post": {
+        "summary": "Submit a new generation based on the source",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "The data to build the source used in generation",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string,",
+                  "description": "The source name,",
+                  "required": true
+                },
+                "subjects": {
+                  "type": "Subject[],",
+                  "description": "A list of subjects,",
+                  "required": false
+                },
+                "parameters": {
+                  "type": "Parameter[],",
+                  "description": "The source parameters,",
+                  "required": false
+                },
+                "macros": {
+                  "type": "Macro[],",
+                  "description": "The source macros,",
+                  "required": false
+                },
+                "configuration": {
+                  "type": "Map<string, string>,",
+                  "description": "The source configuration,",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    },
+                    {
+                      "type": "object,",
+                      "properties": {
+                        "data": {
+                          "type": "object,",
+                          "properties": {
+                            "resolvedSubjects": {
+                              "type": "array,",
+                              "items": {
+                                "type": "object,",
+                                "properties": {
+                                  "name": {
+                                    "type": "string,",
+                                    "required": false
+                                  },
+                                  "code": {
+                                    "type": "string,",
+                                    "required": false
+                                  }
+                                }
+                              }
+                            },
+                            "generationGraph": {
+                              "type": "object,",
+                              "description": "Graph structure as map of subject index -> list of names or resolved subject generated from the subject,",
+                              "properties": {
+                                "index": {
+                                  "type": "integer"
+                                },
+                                "resolved_subject": {
+                                  "type": "array,",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Delete specified user",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "The email of the user to delete. If not present, the authentication token will be used.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific user",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "The data to update the user with",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string,",
+                  "description": "The first name of the user,",
+                  "required": false
+                },
+                "secondName": {
+                  "type": "string,",
+                  "description": "The second name of the user,",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "The data to create the user with",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string,",
+                  "description": "The email of the user,",
+                  "required": true
+                },
+                "password": {
+                  "type": "string,",
+                  "description": "The password of the user, this will be encrypted,",
+                  "required": true
+                },
+                "firstName": {
+                  "type": "string,",
+                  "description": "The first name of the user,",
+                  "required": true
+                },
+                "secondName": {
+                  "type": "string,",
+                  "description": "The second name of the user,",
+                  "required": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CommonResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BadRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TooManyRequestError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

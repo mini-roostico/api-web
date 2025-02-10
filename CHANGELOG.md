@@ -1,3 +1,13 @@
+## [1.9.1](https://github.com/mini-roostico/api-web/compare/1.9.0...1.9.1) (2025-02-10)
+
+### Documentation
+
+* provided swagger docs for api and auth routes ([16c6c1c](https://github.com/mini-roostico/api-web/commit/16c6c1c8122971b72a101568de1f42f133bf9da2))
+
+### Tests
+
+* provided user tests, fixed ac rules ([bc45e64](https://github.com/mini-roostico/api-web/commit/bc45e6473b8ed96df5d6b9e13cd9ad31dde470fa))
+
 ## [1.9.0](https://github.com/mini-roostico/api-web/compare/1.8.1...1.9.0) (2025-02-09)
 
 ### Features
