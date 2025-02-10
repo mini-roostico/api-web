@@ -43,8 +43,6 @@ describe("User's insertion in database",  () => {
     });
 });
 
-
-
 describe("User's field validation tests", () => {
     test("Can't save a user with an invalid password", async () => {
         const user = new User({

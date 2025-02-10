@@ -1,12 +1,12 @@
-import {UserModel as User, JwtModel as Jwt, setupConnection, destroyConnection, dropCollectionsInDb} from "./jest.setup";
-import {ConfigurationObject, JwtHandler} from "../src/utils/jwt/jwt.handler.js";
-import {resolve} from "path";
+import {
+    UserModel as User,
+    JwtModel as Jwt,
+    setupConnection,
+    destroyConnection,
+    configuration
+} from "./jest.setup";
+import {JwtHandler} from "../src/utils/jwt/jwt.handler.js";
 import {BadRequestError} from "../src";
-
-const configuration: ConfigurationObject = {
-    ATPrivateKeyPath: resolve("./secrets/at_private.pem"),
-    RTPrivateKeyPath: resolve("./secrets/rt_private.pem")
-}
 
 let user;
 
