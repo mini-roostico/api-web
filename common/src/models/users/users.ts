@@ -68,7 +68,6 @@ const User = new Schema<IUser, UserDocumentType>({
 });
 
 User.pre("save", async function (next) {
-  // TODO check if okay
   if (this.isModified("password") || this.isNew) {
     try {
       const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
@@ -80,29 +79,9 @@ User.pre("save", async function (next) {
   } else {
     return next();
   }
-  // const user = this;
-  // if (user.isModified("password") || user.isNew) {
-  //   bcrypt.genSalt(SALT_WORK_FACTOR, function (error, salt) {
-  //     if (error) {
-  //       return next(error);
-  //     } else {
-  //       bcrypt.hash(user.password, salt, function (error, hash) {
-  //         if (error) {
-  //           return next(error);
-  //         }
-  //
-  //         user.password = hash;
-  //         next();
-  //       });
-  //     }
-  //   });
-  // } else {
-  //   return next();
-  // }
 });
 
 User.pre("updateOne", async function (next) {
-  // TODO check if okay
   try {
     const update = this.getUpdate() as Record<string, unknown>;
 
@@ -116,28 +95,6 @@ User.pre("updateOne", async function (next) {
   } catch (error) {
     next(error);
   }
-  // const update: any = {...this.getUpdate()};
-  // const context = this;
-  // if (update.password) {
-  //     bcrypt.genSalt(SALT_WORK_FACTOR, function (error, salt) {
-  //         if (error) {
-  //             return next(error);
-  //         } else {
-  //
-  //             bcrypt.hash(update.password, salt, function(error, hash) {
-  //                 if (error) {
-  //                     return next(error);
-  //                 }
-  //
-  //                 update.password = hash;
-  //                 context.setUpdate(update);
-  //                 next();
-  //             })
-  //         }
-  //     })
-  // } else {
-  //     next();
-  // }
 });
 
 User.post("save", function (error: Error, _doc: Document, next) {
