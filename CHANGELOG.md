@@ -1,3 +1,16 @@
+## [1.9.2](https://github.com/mini-roostico/api-web/compare/1.9.1...1.9.2) (2025-02-10)
+
+### Bug Fixes
+
+* provided keys for jwt test in common ([9b1e846](https://github.com/mini-roostico/api-web/commit/9b1e846f47e35ed0fe82c4bdb71141565e07ec58))
+* provided path for keys based on env ([a412132](https://github.com/mini-roostico/api-web/commit/a412132cd4170ec29798041affb131d064749609))
+
+### Tests
+
+* provided sources tests ([0c04426](https://github.com/mini-roostico/api-web/commit/0c04426c586a89b3a67437ed09a440f50480e548))
+* provided test for common ([4ec27e5](https://github.com/mini-roostico/api-web/commit/4ec27e56bf99fc9049a8d864aec09926d6970f88))
+* provided test for source ([e663070](https://github.com/mini-roostico/api-web/commit/e663070e63bf3b48ecf4d4c5922d69c282ec607f))
+
 ## [1.9.1](https://github.com/mini-roostico/api-web/compare/1.9.0...1.9.1) (2025-02-10)
 
 ### Documentation
