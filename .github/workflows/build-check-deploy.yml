@@ -47,6 +47,11 @@ jobs:
       - name: Run tests on the common project
         run: |
           cd common
+          mkdir -p secrets
+          echo "${{ secrets.AT_PRIVATE }}" > secrets/at_private.pem
+          echo "${{ secrets.AT_PUBLIC }}" > secrets/at_public.pem
+          echo "${{ secrets.RT_PRIVATE }}" > secrets/rt_private.pem
+          echo "${{ secrets.RT_PUBLIC }}" > secrets/rt_public.pem
           npm ci
           npm run check
 
