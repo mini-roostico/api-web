@@ -181,12 +181,47 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
+  deploy-on-pages:
+    runs-on: ubuntu-latest
+    needs:
+      - precompute-next-version
+      - release
+    if: >-
+      !cancelled() &&
+      needs.precompute-next-version.outputs.will-release == 'true'
+    steps:
+      - name: Build projects
+        run: |
+          cd common && npm install && npm run build
+          cd ../api && npm install && npm run build
+          cd ../auth && npm install && npm run build
+
+      - name: Generate swagger.json
+        run: |
+          cd api && npm run generate-docs
+          cd ../auth && npm run generate-docs
+
+      - name: Install Redocly CLI
+        run: npm install -g @redocly/cli
+
+      - name: Generate API documentation
+        run: |
+          redocly build-docs ./api/swagger.json -o docs/swaggerApi.html
+          redocly build-docs ./auth/swagger.json -o docs/swaggerAuth.html
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs
+
   success:
     runs-on: ubuntu-latest
     needs:
       - test-and-check
       - release
       - deploy-to-registry
+      - deploy-on-pages
     if: >-
       always() && (
         contains(join(needs.*.result, ','), 'failure')
