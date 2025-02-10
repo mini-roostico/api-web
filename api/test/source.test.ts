@@ -13,43 +13,24 @@ const source = {
     name: "TestSource",
     subjects: [
         {
-            name: "TestSubject",
-            macros: [
-                {
-                    name: "TestMacro",
-                    parameters: [
-                        {
-                            name: "TestParameter",
-                            type: "string",
-                            value: "TestValue"
-                        }
-                    ]
-                }
-            ]
+            name: "TestSubject"
         }
     ],
     parameters: [
         {
             name: "TestParameter",
-            type: "string",
-            value: "TestValue"
+            values: ["TestValue"]
         }
     ],
     macros: [
         {
-            name: "TestMacro",
-            parameters: [
-                {
-                    name: "TestParameter",
-                    type: "string",
-                    value: "TestValue"
-                }
-            ]
+            name: "TestMacro()",
+            values: ["TestValue"]
         }
     ],
-    configuration: new Map([
-        ["TestKey", "TestValue"]
-    ])
+    configuration: {
+        "TestKey": "TestValue",
+    }
 };
 
 const ATPrivateKeyPath =
@@ -66,7 +47,6 @@ describe("GET /sources/", () => {
 
     let userWithSources, jwtUserWithSources;
     let userWithoutSources, jwtUserWithoutSources;
-    let sourceToUse;
 
     beforeEach(async () => {
         userWithSources = await new User({
@@ -95,7 +75,7 @@ describe("GET /sources/", () => {
         jwtUserWithoutSources = await Jwt.createTokenPair(userWithoutSources, {accessToken: "10m", refreshToken: "20m"});
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
 
-        sourceToUse = await request(app)
+        await request(app)
             .post("/sources/")
             .send(source)
             .set("Authorization", `Bearer ${jwtUserWithSources.accessToken}`)
@@ -177,25 +157,20 @@ describe("POST /sources/submit/", () => {
         jwtAdmin = await Jwt.createTokenPair(admin, {accessToken: "10m", refreshToken: "20m"});
     });
 
-    test("Create a new user", async () => {
+    test("Submit a new generation", async () => {
         const response = await request(app)
-            .post("/users/")
-            .send({
-                email: "new.user@email.it",
-                password: "Password1!",
-                firstName: "New",
-                secondName: "User"
-            }).set("Accept", "application/json")
+            .post("/sources/submit")
+            .send(source)
+            .set("Authorization", `Bearer ${jwtUser.accessToken}`)
+            .set("Accept", "application/json")
             .expect("Content-Type", /json/)
             .expect(StatusCodes.CREATED);
 
-        expect(response.body).toHaveProperty("code");
+        expect(response.body.success).toBe(true);
         expect(response.body).toHaveProperty("data");
+        expect(response.body.data).toHaveProperty("resolvedSubjects");
+        expect(response.body.data).toHaveProperty("generationGraph");
 
-        expect(response.body.code).toBe(StatusCodes.CREATED);
-        expect(response.body.data.email).toBe("new.user@email.it");
-        expect(response.body.data.firstName).toBe("New");
-        expect(response.body.data.secondName).toBe("User");
     }, MAX_TIMEOUT);
 });
 

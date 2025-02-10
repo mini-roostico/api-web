@@ -7,7 +7,7 @@ import {JwtHandler} from "@mini-roostico/api-common";
 import {app} from "./jest.setup";
 
 let jwtUser, jwtAdmin
-let user, otherUser, admin;
+let user, admin;
 const MAX_TIMEOUT = 20_000;
 
 const ATPrivateKeyPath =

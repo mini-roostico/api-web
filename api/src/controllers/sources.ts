@@ -16,7 +16,6 @@ import { ObjectId } from "mongodb";
 
 async function getSource(userId: string, sourceId: string) {
   const sources = await Source.getSourcesForUser(userId);
-  console.log("[getSource] sources: ", sources);
   return sources.find((source) => source._id.equals(new ObjectId(sourceId)));
 }
 
@@ -132,7 +131,7 @@ export async function submitSource(
       subjektInstance.resolveSubjectsAsJson().asString(),
     ) as Array<object>;
     const graph = JSON.parse(subjektInstance.getGenerationGraph().asString());
-    res.locals.code = StatusCodes.OK;
+    res.locals.code = StatusCodes.CREATED;
     res.locals.data = {
       resolvedSubjects: result,
       generationGraph: graph,
@@ -166,11 +165,7 @@ export async function editSource(
   }
 
   const data = req.body.data;
-  console.log("[editSource] data: ", data);
-  if (
-    data === null ||
-    data === undefined
-  ) {
+  if (data === null || data === undefined) {
     return next(
       new BadRequestError(
         'Request need to have a "data" field',
