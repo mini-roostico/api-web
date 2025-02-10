@@ -192,6 +192,8 @@ jobs:
       !cancelled() &&
       needs.precompute-next-version.outputs.will-release == 'true'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Build projects
         run: |
           cd common && npm install && npm run build
