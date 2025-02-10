@@ -15,7 +15,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd common && npm i && npm run build && npm run test && cd ../api && npm i && npm run build && npm run test && cd ../auth && npm i && npm run build && npm run test",
     "fixall": "npm run lint:fix && npm run format:write",
     "checkall": "npm run lint:check && npm run format:check",
     "lint:fix": "cd common && npm run lint:fix && cd ../api && npm run lint:fix && cd ../auth && npm run lint:fix",
