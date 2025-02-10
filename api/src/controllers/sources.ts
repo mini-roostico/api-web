@@ -16,6 +16,7 @@ import { ObjectId } from "mongodb";
 
 async function getSource(userId: string, sourceId: string) {
   const sources = await Source.getSourcesForUser(userId);
+  console.log("[getSource] sources: ", sources);
   return sources.find((source) => source._id.equals(new ObjectId(sourceId)));
 }
 
@@ -43,7 +44,7 @@ export async function getSources(
     if (ownSource) {
       sources = await Source.getSourcesForUser(res.locals.user._id);
     } else {
-      sources = await Source.getAllSources();
+      sources = await Source.find({});
     }
   } catch (err) {
     next(err);
@@ -165,11 +166,10 @@ export async function editSource(
   }
 
   const data = req.body.data;
+  console.log("[editSource] data: ", data);
   if (
     data === null ||
-    data === undefined ||
-    data.data === undefined ||
-    data.data === null
+    data === undefined
   ) {
     return next(
       new BadRequestError(
@@ -181,9 +181,20 @@ export async function editSource(
   }
   try {
     const source = await getSource(res.locals.user._id, data._id);
-    await Source.updateOne({ _id: source._id }, data.data);
+    const updates = {};
+    for (const key in data) {
+      if (data[key] !== source[key]) {
+        updates[key] = data[key];
+      }
+    }
+
+    if (Object.keys(updates).length > 0) {
+      await Source.updateOne({ _id: source._id }, { $set: updates });
+    }
+
+    const newSource = await getSource(res.locals.user._id, data._id);
     res.locals.code = StatusCodes.OK;
-    res.locals.data = true;
+    res.locals.data = newSource;
   } catch (error) {
     return next(error);
   }
