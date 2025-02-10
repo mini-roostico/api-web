@@ -1,3 +1,16 @@
+## [1.10.3](https://github.com/mini-roostico/api-web/compare/1.10.2...1.10.3) (2025-02-10)
+
+### Dependency updates
+
+* **deps:** update dependency prettier to v3.5.0 ([b277e23](https://github.com/mini-roostico/api-web/commit/b277e23dfc50a34a5212e0391799a34d17a01dd4))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.122 ([9430e2e](https://github.com/mini-roostico/api-web/commit/9430e2e9239894c32b9ad082ce6049a3e08b8f25))
+* **deps:** update dependency typescript-eslint to v8.24.0 ([cce6717](https://github.com/mini-roostico/api-web/commit/cce6717813e22d43c60ca0c437b76f84da9859c3))
+* **deps:** update redis docker tag to v7 ([af53390](https://github.com/mini-roostico/api-web/commit/af533900ef634dbbfc83d5e2df2eb59682471e0c))
+
+### Bug Fixes
+
+* **deps:** update dependency @mini-roostico/subjekt to v2.0.5 ([b501185](https://github.com/mini-roostico/api-web/commit/b501185b35b0707aa1f72e833b53cf717cf945af))
+
 ## [1.10.2](https://github.com/mini-roostico/api-web/compare/1.10.1...1.10.2) (2025-02-10)
 
 ### Bug Fixes
