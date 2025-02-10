@@ -88,8 +88,10 @@ jobs:
           echo "${{ secrets.RT_PUBLIC }}" > secrets/rt_public.pem
 
       - name: Run checks
-        run: cd ${{ matrix.module }} && npm run check
-
+        run: |
+          cd ${{ matrix.module }}
+          npm run generate-docs
+          npm run check
 
   release:
     concurrency:
