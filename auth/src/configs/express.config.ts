@@ -10,7 +10,10 @@ import MongooseConfig from "./mongoose.config.js";
 import bodyParser from "body-parser";
 import authRouter from "../routes/auth.route.js";
 import { RedisConfig } from "./redis.config.js";
+import swaggerUi from "swagger-ui-express";
+import * as fs from "fs";
 
+const docPath = (process.env.DOCS as string) || "./swagger.json";
 const ATPrivateKeyPath =
   (process.env.AT_PRIVATE as string) || "./secrets/at_private.pem";
 const RTPrivateKeyPath =
@@ -51,6 +54,10 @@ const ExpressConfig = (externalServices: boolean = true): Application => {
 
   app.use("/auth", authRouter);
   app.use("/health", healthCheckRouter);
+
+  const swaggerDocument = JSON.parse(fs.readFileSync(docPath, "utf8"));
+
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(defaultResponseHandler);
   app.use(defaultErrorHandler);

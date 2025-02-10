@@ -18,7 +18,7 @@ services:
       - PRODUCTION=true
       - AT_PRIVATE=/run/secrets/at_private.pem
       - RT_PRIVATE=/run/secrets/rt_private.pem
-
+      - DOCS=/usr/src/app/api/swagger.json
     volumes:
     - "./secrets:/run/secrets:ro"
     links:
@@ -38,8 +38,9 @@ services:
       - MONGO_HOST=mongodb
       - MONGO_PORT=27017
       - PRODUCTION=true
-      - AT_PRIVATE_KEY=/run/secrets/at_private.pem
-      - RT_PRIVATE_KEY=/run/secrets/rt_private.pem
+      - AT_PRIVATE=/run/secrets/at_private.pem
+      - RT_PRIVATE=/run/secrets/rt_private.pem
+      - DOCS=/usr/src/app/auth/swagger.json
     depends_on:
       - mongodb
       - redis

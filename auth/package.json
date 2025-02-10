@@ -15,7 +15,8 @@
     "lint:check": "eslint src/",
     "format:write": "prettier --write src/",
     "format:check": "prettier --check src/",
-    "check": "npm run lint:check && npm run format:check && npm test && npm run build"
+    "check": "npm run lint:check && npm run format:check && npm test && npm run build",
+    "generate-docs": "tsc && node ./dist/doc/doc-gen.js"
   },
   "engines": {
     "node": "22.13"
@@ -28,7 +29,9 @@
     "http-status-codes": "^2.3.0",
     "mongoose": "^8.9.6",
     "path": "^0.12.7",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.8",
