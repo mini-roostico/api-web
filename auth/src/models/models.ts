@@ -6,9 +6,11 @@ import {
   IJsonWebToken,
   IJsonWebTokenModel,
   createJwtSchema,
+  UserRepository,
 } from "@mini-roostico/api-common";
 
-export const UserModel = model<IUser, UserDocumentType>("Users", User);
+const UserModel = model<IUser, UserDocumentType>("Users", User);
 
 const Jwt = createJwtSchema(UserModel);
+export const UserRepositoryModel = new UserRepository(UserModel);
 export const JwtModel = model<IJsonWebToken, IJsonWebTokenModel>("Jwt", Jwt);

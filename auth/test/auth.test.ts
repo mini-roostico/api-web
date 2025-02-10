@@ -3,7 +3,7 @@ import {StatusCodes} from "http-status-codes";
 // @ts-ignore
 import request from "supertest";
 import {resolve} from "path";
-import { UserModel as User, JwtModel as Jwt } from "../src/models/models.js";
+import { JwtModel as Jwt, UserRepositoryModel as UserRepository } from "../src/models/models.js";
 import {JwtHandler} from "@mini-roostico/api-common";
 import {app} from "./jest.setup";
 let user;
@@ -23,12 +23,12 @@ JwtHandler.config({
 describe("POST /auth/login", () => {
     beforeAll(async () => {
         userPassword = "Password1!";
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "test.user@email.it",
             password: userPassword,
             firstName: "Test",
             secondName: "User",
-        }).save();
+        });
     });
     test("Login with user data", async () => {
         const response = await request(app)
@@ -86,12 +86,12 @@ describe("POST /auth/login", () => {
 describe("POST /auth/logout", () => {
     beforeEach(async () => {
         userPassword = "Password1!";
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "test.user@email.it",
             password: userPassword,
             firstName: "Test",
             secondName: "User",
-        }).save();
+        });
         jwtDefault = await Jwt.createTokenPair(user, {"accessToken": "10m", "refreshToken": "20m"});
     });
     afterEach(async () => {
@@ -112,12 +112,12 @@ describe("POST /auth/logout", () => {
 describe("POST /auth/refresh", () => {
     beforeEach(async () => {
         userPassword = "Password1!";
-        user = await new User({
+        user = await UserRepository.createUser({
             email: "test.user@email.it",
             password: userPassword,
             firstName: "Test",
             secondName: "User",
-        }).save();
+        });
         jwtDefault = await Jwt.createTokenPair(user, {"accessToken": "10m", "refreshToken": "20m"});
     });
     afterEach(async () => {
@@ -165,12 +165,12 @@ describe("POST /auth/refresh", () => {
         expect(response.body.error.message).toBe("Can't find the requested token");
     });
     test("Can't refresh a token if the token doesn't belong to the user", async () => {
-        const user2 = await new User({
+        const user2 = await UserRepository.createUser({
             email: "test.user2@email.it",
             password: "Password1!",
             firstName: "Test",
             secondName: "UserDos",
-        }).save();
+        });
         const jwtDefault2 = await Jwt.createTokenPair(user2,
             {"accessToken": "10m", "refreshToken": "20m"});
         const response = await request(app)
@@ -185,7 +185,7 @@ describe("POST /auth/refresh", () => {
         expect(response.body.code).toBe(StatusCodes.UNAUTHORIZED);
         expect(response.body.error.name).toBe("Unauthorized");
         expect(response.body.error.message).toBe("The submitted token doesn't belong to the specified user");
-        await User.findOneAndDelete({email: user2.email});
+        await UserRepository.deleteUser(user2.email);
         await Jwt.findOneAndDelete({refreshToken: jwtDefault2.refreshToken});
     });
 });

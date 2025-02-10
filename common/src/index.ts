@@ -3,6 +3,10 @@
  */
 export { User, IUser, UserDocumentType } from "./models/users/users.js";
 
+export { UserRepository } from "./models/repository/users.repository.js";
+
+export { SourceRepository } from "./models/repository/sources.repository.js";
+
 export {
   IJsonWebToken,
   IJsonWebTokenModel,

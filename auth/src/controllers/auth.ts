@@ -5,7 +5,10 @@ import {
   ErrorTypes,
 } from "@mini-roostico/api-common";
 import { StatusCodes } from "http-status-codes";
-import { UserModel as User, JwtModel as Jwt } from "../models/models.js";
+import {
+  JwtModel as Jwt,
+  UserRepositoryModel as UserRepository,
+} from "../models/models.js";
 
 /**
  * Login a user and return a token pair
@@ -19,7 +22,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
   const password = req.body.password;
 
   try {
-    const user = await User.findOne({ email: email });
+    const user = await UserRepository.getUser(email);
     const responseError = new UnauthorizedError(
       "Login error",
       undefined,
@@ -92,7 +95,7 @@ export async function refreshToken(
   const email = req.body.email;
   const refreshToken = req.body.refreshToken;
 
-  const user = await User.findOne({ email: email });
+  const user = await UserRepository.getUser(email);
   if (user === null || user === undefined) {
     return next(
       new NotFoundError(

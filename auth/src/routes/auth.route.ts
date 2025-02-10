@@ -8,7 +8,10 @@ import {
 } from "@mini-roostico/api-common";
 import RedisLimiterStorage from "../configs/redis.config.js";
 import { body } from "express-validator";
-import { JwtModel, UserModel } from "../models/models.js";
+import {
+  JwtModel,
+  UserRepositoryModel as UserRepository,
+} from "../models/models.js";
 
 const API_LIMITER_RULES: ApiLimiterEntry = {
   "/login": {
@@ -106,7 +109,7 @@ authRouter.post(
 );
 
 const authenticationHandler = makeAuthenticationHandlerWithModel(
-  UserModel,
+  UserRepository,
   JwtModel,
 );
 

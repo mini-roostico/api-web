@@ -10,14 +10,8 @@ import {
 } from "@mini-roostico/api-common";
 import subjektpkg from "@mini-roostico/subjekt";
 import subjekt = subjektpkg.io.github.subjekt.Subjekt;
-import { SourceModel as Source } from "../models/models.js";
+import { SourceRepositoryModel as SourceRepository } from "../models/models.js";
 import { StatusCodes } from "http-status-codes";
-import { ObjectId } from "mongodb";
-
-async function getSource(userId: string, sourceId: string) {
-  const sources = await Source.getSourcesForUser(userId);
-  return sources.find((source) => source._id.equals(new ObjectId(sourceId)));
-}
 
 export async function getSources(
   _req: Request,
@@ -41,9 +35,9 @@ export async function getSources(
   }
   try {
     if (ownSource) {
-      sources = await Source.getSourcesForUser(res.locals.user._id);
+      sources = await SourceRepository.getSourcesForUser(res.locals.user._id);
     } else {
-      sources = await Source.find({});
+      sources = await SourceRepository.getAllSources();
     }
   } catch (err) {
     next(err);
@@ -77,7 +71,7 @@ export async function saveSource(
     req.body.configuration ?? new Map();
   const last_update: Date = new Date(Date.now());
 
-  const source = new Source({
+  const source = {
     name,
     subjects,
     parameters,
@@ -85,9 +79,9 @@ export async function saveSource(
     configuration,
     user: res.locals.user._id,
     last_update,
-  });
+  };
   try {
-    await source.save();
+    await SourceRepository.createSource(source);
     res.locals.code = StatusCodes.CREATED;
     res.locals.data = source;
     next();
@@ -175,7 +169,10 @@ export async function editSource(
     );
   }
   try {
-    const source = await getSource(res.locals.user._id, data._id);
+    const source = await SourceRepository.getASourceForUser(
+      res.locals.user._id,
+      data._id,
+    );
     const updates = {};
     for (const key in data) {
       if (data[key] !== source[key]) {
@@ -184,10 +181,13 @@ export async function editSource(
     }
 
     if (Object.keys(updates).length > 0) {
-      await Source.updateOne({ _id: source._id }, { $set: updates });
+      await SourceRepository.editSource(source._id, updates);
     }
 
-    const newSource = await getSource(res.locals.user._id, data._id);
+    const newSource = await SourceRepository.getASourceForUser(
+      res.locals.user._id,
+      data._id,
+    );
     res.locals.code = StatusCodes.OK;
     res.locals.data = newSource;
   } catch (error) {
@@ -229,8 +229,11 @@ export async function deleteSource(
     );
   }
   try {
-    const source = await getSource(res.locals.user._id, data._id);
-    await Source.deleteOne({ _id: source._id });
+    const source = await SourceRepository.getASourceForUser(
+      res.locals.user._id,
+      data._id,
+    );
+    await SourceRepository.deleteSource(source._id);
     res.locals.code = StatusCodes.OK;
     res.locals.data = true;
   } catch (error) {
