@@ -1,3 +1,18 @@
+## [1.10.0](https://github.com/mini-roostico/api-web/compare/1.9.2...1.10.0) (2025-02-10)
+
+### Features
+
+* add repositories for users and sources ([1634ddc](https://github.com/mini-roostico/api-web/commit/1634ddcc94147d0280479f1d2c664aa33b754767))
+
+### Build and continuous integration
+
+* added docs generation in test-and-check job ([1e3336f](https://github.com/mini-roostico/api-web/commit/1e3336f8b719c2688519e407fd4b3b918aaeb3e8))
+* added job for deploying swagger documentation on pages ([645f328](https://github.com/mini-roostico/api-web/commit/645f328b2d9b7c4d6b755cb21230d7ca11a46144))
+
+### General maintenance
+
+* removed auto-generated swagger.json ([9b58049](https://github.com/mini-roostico/api-web/commit/9b58049b598d3dfcee419ab7d851c2710ae37eb8))
+
 ## [1.9.2](https://github.com/mini-roostico/api-web/compare/1.9.1...1.9.2) (2025-02-10)
 
 ### Bug Fixes
