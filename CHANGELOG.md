@@ -1,3 +1,9 @@
+## [1.10.1](https://github.com/mini-roostico/api-web/compare/1.10.0...1.10.1) (2025-02-10)
+
+### Bug Fixes
+
+* added missing command ([30d47a4](https://github.com/mini-roostico/api-web/commit/30d47a48fdf6f5ac941d6f83a288f01e6477e7cb))
+
 ## [1.10.0](https://github.com/mini-roostico/api-web/compare/1.9.2...1.10.0) (2025-02-10)
 
 ### Features
