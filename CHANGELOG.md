@@ -1,3 +1,9 @@
+## [1.10.2](https://github.com/mini-roostico/api-web/compare/1.10.1...1.10.2) (2025-02-10)
+
+### Bug Fixes
+
+* removed dev dependencies from builds ([6baa000](https://github.com/mini-roostico/api-web/commit/6baa000295bebfc2778b88f614f8ced94726044f))
+
 ## [1.10.1](https://github.com/mini-roostico/api-web/compare/1.10.0...1.10.1) (2025-02-10)
 
 ### Bug Fixes
