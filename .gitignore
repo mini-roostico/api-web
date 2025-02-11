@@ -120,6 +120,8 @@ fabric.properties
 **/.DS_Store
 **/dist
 
+**/swagger.json
+
 # Verdaccio ignores
 
 **/htpasswd
