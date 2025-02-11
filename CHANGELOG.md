@@ -1,3 +1,9 @@
+## [1.10.5](https://github.com/mini-roostico/api-web/compare/1.10.4...1.10.5) (2025-02-11)
+
+### Bug Fixes
+
+* check and removed all todo ([2b07911](https://github.com/mini-roostico/api-web/commit/2b079114d34731c31b9b8f0eaf19f8fcb7f1056b))
+
 ## [1.10.4](https://github.com/mini-roostico/api-web/compare/1.10.3...1.10.4) (2025-02-11)
 
 ### Bug Fixes
