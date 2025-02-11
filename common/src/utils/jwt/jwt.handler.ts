@@ -28,7 +28,7 @@ export class JwtHandler {
 
   private signOptions: SignOptions = {
     issuer: "Subjekt",
-    audience: "https://www.subjekt.com", // TODO: Change this to the actual audience
+    audience: "https://www.subjekt.com",
     algorithm: "RS256",
   };
 
@@ -75,8 +75,6 @@ export class JwtHandler {
     const privateKey = this.getKey("PR", "RT");
     const verifiedResponse = this.verifyJwt(token, privateKey) as T;
 
-    // @@ts-expect-error Property 'sub' does not exist on type 'T'.
-    // const subscriber = verifiedResponse.sub;
     const subscriber = (verifiedResponse as { sub: string }).sub;
 
     if (!subscriber) {
