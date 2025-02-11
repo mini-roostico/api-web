@@ -1,3 +1,43 @@
+## [1.10.3](https://github.com/mini-roostico/api-web/compare/1.10.2...1.10.3) (2025-02-10)
+
+### Dependency updates
+
+* **deps:** update dependency prettier to v3.5.0 ([b277e23](https://github.com/mini-roostico/api-web/commit/b277e23dfc50a34a5212e0391799a34d17a01dd4))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.122 ([9430e2e](https://github.com/mini-roostico/api-web/commit/9430e2e9239894c32b9ad082ce6049a3e08b8f25))
+* **deps:** update dependency typescript-eslint to v8.24.0 ([cce6717](https://github.com/mini-roostico/api-web/commit/cce6717813e22d43c60ca0c437b76f84da9859c3))
+* **deps:** update redis docker tag to v7 ([af53390](https://github.com/mini-roostico/api-web/commit/af533900ef634dbbfc83d5e2df2eb59682471e0c))
+
+### Bug Fixes
+
+* **deps:** update dependency @mini-roostico/subjekt to v2.0.5 ([b501185](https://github.com/mini-roostico/api-web/commit/b501185b35b0707aa1f72e833b53cf717cf945af))
+
+## [1.10.2](https://github.com/mini-roostico/api-web/compare/1.10.1...1.10.2) (2025-02-10)
+
+### Bug Fixes
+
+* removed dev dependencies from builds ([6baa000](https://github.com/mini-roostico/api-web/commit/6baa000295bebfc2778b88f614f8ced94726044f))
+
+## [1.10.1](https://github.com/mini-roostico/api-web/compare/1.10.0...1.10.1) (2025-02-10)
+
+### Bug Fixes
+
+* added missing command ([30d47a4](https://github.com/mini-roostico/api-web/commit/30d47a48fdf6f5ac941d6f83a288f01e6477e7cb))
+
+## [1.10.0](https://github.com/mini-roostico/api-web/compare/1.9.2...1.10.0) (2025-02-10)
+
+### Features
+
+* add repositories for users and sources ([1634ddc](https://github.com/mini-roostico/api-web/commit/1634ddcc94147d0280479f1d2c664aa33b754767))
+
+### Build and continuous integration
+
+* added docs generation in test-and-check job ([1e3336f](https://github.com/mini-roostico/api-web/commit/1e3336f8b719c2688519e407fd4b3b918aaeb3e8))
+* added job for deploying swagger documentation on pages ([645f328](https://github.com/mini-roostico/api-web/commit/645f328b2d9b7c4d6b755cb21230d7ca11a46144))
+
+### General maintenance
+
+* removed auto-generated swagger.json ([9b58049](https://github.com/mini-roostico/api-web/commit/9b58049b598d3dfcee419ab7d851c2710ae37eb8))
+
 ## [1.9.2](https://github.com/mini-roostico/api-web/compare/1.9.1...1.9.2) (2025-02-10)
 
 ### Bug Fixes
