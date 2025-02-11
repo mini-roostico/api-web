@@ -1,3 +1,13 @@
+## [1.10.4](https://github.com/mini-roostico/api-web/compare/1.10.3...1.10.4) (2025-02-11)
+
+### Bug Fixes
+
+* **deps:** update dependency @mini-roostico/subjekt to v2.0.6 ([28dfda8](https://github.com/mini-roostico/api-web/commit/28dfda8f71c19e8191c3fc944ace24b34d2da2bc))
+
+### Documentation
+
+* add swagger.json in gitignore ([f5c164b](https://github.com/mini-roostico/api-web/commit/f5c164bb67afec04e8493f98c2bd1bd45013a266))
+
 ## [1.10.3](https://github.com/mini-roostico/api-web/compare/1.10.2...1.10.3) (2025-02-10)
 
 ### Dependency updates
